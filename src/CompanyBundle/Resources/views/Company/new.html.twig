@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    {% javascripts '@CompanyBundle/Resources/js/public/company-new.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <h1>Fromularz rejestracji nowej firmy </h1>
+
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <div class="form-group">
+            {{ form_label(form.name) }}
+            {{ form_errors(form.name) }}
+            {{ form_widget(form.name) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.taxId) }}
+            {{ form_errors(form.taxId) }}
+            {{ form_widget(form.taxId) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.email) }}
+            {{ form_errors(form.email) }}
+            {{ form_widget(form.email) }}
+        </div>
+
+        <h3>Adresy</h3>
+        <ul class="addresses" data-prototype="{{ form_widget(form.addresses.vars.prototype)|e }}">
+            {% for address in form.addresses %}
+                <li>{{ form_row(address.city) }}</li>
+                <li>{{ form_row(address.postcode) }}</li>
+                <li>{{ form_row(address.street) }}</li>
+                <li>{{ form_row(address.number) }}</li>
+            {% endfor %}
+        </ul>
+
+    {{ form_end(form) }}
+
+        <ul class="record_actions">
+
+</ul>
+{% endblock %}
+

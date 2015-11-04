@@ -1,29 +1,17 @@
-<p>
-    <div>
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
-            {{ app.user.username }}
-            <a class="btn btn-primary btn-large" href="{{ path('fos_user_profile_show') }}">
-                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-            </a>
-            <a class="btn btn-primary btn-large" href="{{ path('fos_user_profile_edit') }}">
-                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-            </a>
-            <a class="btn btn-primary btn-large" href="{{ path('fos_user_security_logout') }}">
-                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-            </a>
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
+    <li><p class="navbar-text">{{ app.user.username }}</p></li>
+    <li><a class="btn-link" href="{{ path('fos_user_profile_edit') }}">Edit</a></li>
+    <li><a class="btn-link" href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+{% else %}
+    <li><a class="btn-link" href="{{ path('fos_user_security_login') }}">Logowanie</a></li>
+    <li><a class="btn-link" href="{{ path('fos_user_registration_register') }}">Rejestracja</a></li>
+{% endif %}
 
-        {% else %}
-            <a class="btn btn-primary btn-large" href="{{ path('fos_user_security_login') }}">Logowanie</a>
-            <a class="btn btn-primary btn-large" href="{{ path('fos_user_registration_register') }}">Rejestracja</a>
-        {% endif %}
-    </div>
-
-    {% for type, messages in app.session.flashBag.all %}
-        {% for message in messages %}
-            <div class="{{ type }}">
-                {{ message|trans({}, 'FOSUserBundle') }}
-            </div>
-        {% endfor %}
+{% for type, messages in app.session.flashBag.all %}
+    {% for message in messages %}
+        <div class="{{ type }}">
+            {{ message|trans({}, 'FOSUserBundle') }}
+        </div>
     {% endfor %}
-</p>
+{% endfor %}
