@@ -3,6 +3,7 @@
 
 namespace UserBundle\Entity;
 
+use CompanyBundle\Entity\Company;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,9 +20,39 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\OneToOne(targetEntity="CompanyBundle\Entity\Company")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     **/
+    protected $company;
+
     public function __construct()
     {
         parent::__construct();
         // your own logic
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param Company $company
+     */
+    public function setCompany(Company $company)
+    {
+        $this->company = $company;
     }
 }

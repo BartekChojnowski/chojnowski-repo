@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <h1>{{ company.name }}</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>nazwa</th>
+                <td>{{ company.name }}</td>
+            </tr>
+            <tr>
+                <th>NIP</th>
+                <td>{{ company.taxId }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ company.email }}</td>
+            </tr>
+            <tr>
+                <th>Adresy</th>
+            </tr>
+        {%  for address in company.addresses %}
+            <tr>
+                <th></th>
+                <td>{{ address.postcode }} {{ address.city }}, {{ address.street }} {{ address.number }}</td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('company_edit', { 'id': company.id }) }}">
+            Edytuj
+        </a>
+    </li>
+</ul>
+{% endblock %}
