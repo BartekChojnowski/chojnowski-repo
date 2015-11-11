@@ -2,15 +2,21 @@
 
 namespace CompanyBundle\Entity;
 
+use AddressBundle\Entity\UserAddress;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use PhoneBundle\Entity\Phone;
+use PhoneBundle\Entity\UserPhone;
 
 /**
- * employee
+ * Employee
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class employee
+class Employee
 {
     /**
      * @var integer
@@ -43,34 +49,33 @@ class employee
     private $personalId;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="dateOfBirth", type="datetime")
      */
     private $dateOfBirth;
 
-
     /**
-     * @ManyToOne(targetEntity="Position")
-     * @JoinColumn(name="position", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Position")
+     * @ORM\JoinColumn(name="position", referencedColumnName="id")
      */
     private $position;
 
     /**
-     * @ManyToOne(targetEntity="EmployeeStatus")
-     * @JoinColumn(name="status", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="EmployeeStatus")
+     * @ORM\JoinColumn(name="status", referencedColumnName="id")
      */
     private $status;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="employmentStart", type="datetime")
      */
     private $employmentStart;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="employmentEnd", type="datetime")
      */
@@ -105,7 +110,7 @@ class employee
      *
      * @param string $firstName
      *
-     * @return employee
+     * @return Employee
      */
     public function setFirstName($firstName)
     {
@@ -129,7 +134,7 @@ class employee
      *
      * @param string $lastName
      *
-     * @return employee
+     * @return Employee
      */
     public function setLastName($lastName)
     {
@@ -153,7 +158,7 @@ class employee
      *
      * @param string $personalId
      *
-     * @return employee
+     * @return Employee
      */
     public function setPersonalId($personalId)
     {
@@ -173,6 +178,8 @@ class employee
     }
 
     /**
+     * Get dateOfBirth
+     *
      * @return string
      */
     public function getDateOfBirth()
@@ -181,21 +188,27 @@ class employee
     }
 
     /**
+     * Set dateOfBirth
+     *
      * @param string $dateOfBirth
+     *
+     * @return Employee
      */
     public function setDateOfBirth($dateOfBirth)
     {
         $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
     }
 
     /**
      * Set position
      *
-     * @param string $position
+     * @param Position $position
      *
-     * @return employee
+     * @return Employee
      */
-    public function setPosition($position)
+    public function setPosition(Position $position)
     {
         $this->position = $position;
 
@@ -205,7 +218,7 @@ class employee
     /**
      * Get position
      *
-     * @return string
+     * @return Position
      */
     public function getPosition()
     {
@@ -215,11 +228,11 @@ class employee
     /**
      * Set status
      *
-     * @param string $status
+     * @param EmployeeStatus $status
      *
-     * @return employee
+     * @return Employee
      */
-    public function setStatus($status)
+    public function setStatus(EmployeeStatus $status)
     {
         $this->status = $status;
 
@@ -229,7 +242,7 @@ class employee
     /**
      * Get status
      *
-     * @return string
+     * @return EmployeeStatus
      */
     public function getStatus()
     {
@@ -239,11 +252,11 @@ class employee
     /**
      * Set employmentStart
      *
-     * @param string $employmentStart
+     * @param \DateTime $employmentStart
      *
      * @return employee
      */
-    public function setEmploymentStart($employmentStart)
+    public function setEmploymentStart(\DateTime $employmentStart)
     {
         $this->employmentStart = $employmentStart;
 
@@ -253,7 +266,7 @@ class employee
     /**
      * Get employmentStart
      *
-     * @return string
+     * @return \DateTime
      */
     public function getEmploymentStart()
     {
@@ -263,11 +276,11 @@ class employee
     /**
      * Set employmentEnd
      *
-     * @param string $employmentEnd
+     * @param \DateTime $employmentEnd
      *
-     * @return employee
+     * @return Employee
      */
-    public function setEmploymentEnd($employmentEnd)
+    public function setEmploymentEnd(\DateTime $employmentEnd)
     {
         $this->employmentEnd = $employmentEnd;
 
@@ -277,11 +290,113 @@ class employee
     /**
      * Get employmentEnd
      *
-     * @return string
+     * @return \DateTime
      */
     public function getEmploymentEnd()
     {
         return $this->employmentEnd;
+    }
+
+    /**
+     * Get addresses
+     *
+     * @return ArrayCollection
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * Set addresses
+     *
+     * @param ArrayCollection $addresses
+     *
+     * @return Employee
+     */
+    public function setAddresses(ArrayCollection $addresses)
+    {
+        $this->addresses = $addresses;
+        return $this;
+    }
+
+    /**
+     * Add address
+     *
+     * @param UserAddress $address
+     *
+     * @return Employee
+     */
+    public function addAddress(UserAddress $address)
+    {
+        $this->addresses->add($address);
+
+        return $this;
+    }
+
+    /**
+     * Remove address
+     *
+     * @param UserAddress $address
+     *
+     * @return Employee
+     */
+    public function removeAddress(UserAddress $address)
+    {
+        $this->addresses->removeElement($address);
+
+        return $this;
+    }
+
+    /**
+     * Get phones
+     *
+     * @return ArrayCollection
+     */
+    public function getPhones()
+    {
+        return $this->phones;
+    }
+
+    /**
+     * Set phones
+     *
+     * @param ArrayCollection $phones
+     *
+     * @return Employee
+     */
+    public function setPhones(ArrayCollection $phones)
+    {
+        $this->phones = $phones;
+        return $this;
+    }
+
+    /**
+     * Add phone
+     *
+     * @param UserPhone $phone
+     *
+     * @return Employee
+     */
+    public function addPhone(UserPhone $phone)
+    {
+        $this->phones->add($phone);
+
+        return $this;
+    }
+
+    /**
+     * Remove phone
+     *
+     * @param UserPhone $phone
+     *
+     * @return Employee
+     */
+    public function removePhone(UserPhone $phone)
+    {
+        $this->phones->removeElement($phone);
+
+        return $this;
     }
 }
 

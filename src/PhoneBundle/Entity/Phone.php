@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Phone
  *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
+ *
  * @ORM\Entity()
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="subject", type="string")

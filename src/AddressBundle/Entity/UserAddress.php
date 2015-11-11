@@ -35,6 +35,9 @@ class UserAddress extends Address
         $this->user = $user;
     }
 
+    /**
+     * @return User
+     */
     public function getSubject()
     {
         $this->getUser();

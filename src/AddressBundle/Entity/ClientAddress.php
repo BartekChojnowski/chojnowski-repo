@@ -35,6 +35,9 @@ class ClientAddress extends Address
         $this->client = $client;
     }
 
+    /**
+     * @return Client
+     */
     public function getSubject()
     {
         $this->getClient();
