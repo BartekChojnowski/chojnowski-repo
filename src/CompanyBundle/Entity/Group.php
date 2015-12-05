@@ -5,14 +5,14 @@ namespace CompanyBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Position
+ * Group
  *
  * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Position
+class Group
 {
     /**
      * @var integer
@@ -53,7 +53,7 @@ class Position
      *
      * @param string $name
      *
-     * @return Position
+     * @return Group
      */
     public function setName($name)
     {
@@ -77,7 +77,7 @@ class Position
      *
      * @param string $systemName
      *
-     * @return Position
+     * @return Group
      */
     public function setSystemName($systemName)
     {

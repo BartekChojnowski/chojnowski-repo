@@ -1,52 +1,45 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    <h1>Employee</h1>
+    <a href="{{ path('employee') }}" class="btn-primary btn">Powrót do listy</a>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ entity.firstName }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ entity.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Personalid</th>
-                <td>{{ entity.personalId }}</td>
-            </tr>
-            <tr>
-                <th>Dateofbirth</th>
-                <td>{{ entity.dateOfBirth|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Employmentstart</th>
-                <td>{{ entity.employmentStart|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Employmentend</th>
-                <td>{{ entity.employmentEnd|date('Y-m-d H:i:s') }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('employee') }}">
-            Back to the list
+    <h1>Pracownik</h1>
+    <div class="table-responsive">
+        <table class="record_properties table table-striped">
+            <tbody>
+                <tr>
+                    <th>Imię</th>
+                    <td>{{ entity.firstName }}</td>
+                </tr>
+                <tr>
+                    <th>Nazwisko</th>
+                    <td>{{ entity.lastName }}</td>
+                </tr>
+                <tr>
+                    <th>Pesel</th>
+                    <td>{{ entity.personalId }}</td>
+                </tr>
+                <tr>
+                    <th>Data urodzenia</th>
+                    <td>{{ entity.dateOfBirth|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Data zatrudnienia</th>
+                    <td>{{ entity.employmentStart|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Data zakończenia pracy</th>
+                    <td>{{ entity.employmentEnd|date('Y-m-d H:i:s') }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+        <a href="{{ path('employee_edit', { 'id': entity.id }) }}" class="btn btn-primary btn-block">
+            Edytuj
         </a>
-    </li>
-    <li>
-        <a href="{{ path('employee_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
+    </div>
+    {{ form(delete_form) }}
 </ul>
 {% endblock %}

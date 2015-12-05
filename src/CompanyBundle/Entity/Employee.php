@@ -2,11 +2,12 @@
 
 namespace CompanyBundle\Entity;
 
-use AddressBundle\Entity\UserAddress;
+use AddressBundle\Entity\EmployeeAddress;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use PhoneBundle\Entity\Phone;
 use PhoneBundle\Entity\UserPhone;
+use UserBundle\Entity\User;
 
 /**
  * Employee
@@ -56,10 +57,15 @@ class Employee
     private $dateOfBirth;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Position")
-     * @ORM\JoinColumn(name="position", referencedColumnName="id")
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Group")
+     * @ORM\JoinTable(name="employees_groups"),
+     *      joinColumns={@ORM\JoinColumn(name="employee_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     *      )
      */
-    private $position;
+    private $groups;
 
     /**
      * @ORM\ManyToOne(targetEntity="EmployeeStatus")
@@ -82,11 +88,11 @@ class Employee
     private $employmentEnd;
 
     /**
-     * @var ArrayCollection
+     * @var EmployeeAddress
      *
-     * @ORM\OneToMany(targetEntity="AddressBundle\Entity\CompanyAddress", mappedBy="company")
+     * @ORM\OneToOne(targetEntity="AddressBundle\Entity\EmployeeAddress", mappedBy="employee")
      **/
-    private $addresses;
+    private $address;
 
     /**
      * @var ArrayCollection
@@ -94,6 +100,20 @@ class Employee
      * @ORM\OneToMany(targetEntity="AddressBundle\Entity\CompanyAddress", mappedBy="company")
      **/
     private $phones;
+
+    /**
+     * @var User
+     *
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     **/
+    private $user;
+
+    function __construct()
+    {
+        $this->groups = new ArrayCollection();
+    }
+
 
     /**
      * Get id
@@ -202,30 +222,6 @@ class Employee
     }
 
     /**
-     * Set position
-     *
-     * @param Position $position
-     *
-     * @return Employee
-     */
-    public function setPosition(Position $position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return Position
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
      * Set status
      *
      * @param EmployeeStatus $status
@@ -280,7 +276,7 @@ class Employee
      *
      * @return Employee
      */
-    public function setEmploymentEnd(\DateTime $employmentEnd)
+    public function setEmploymentEnd(\DateTime $employmentEnd = null)
     {
         $this->employmentEnd = $employmentEnd;
 
@@ -298,53 +294,24 @@ class Employee
     }
 
     /**
-     * Get addresses
-     *
-     * @return ArrayCollection
+     * Get address     *
+     * @return EmployeeAddress
      */
-    public function getAddresses()
+    public function getAddress()
     {
-        return $this->addresses;
+        return $this->address;
     }
 
     /**
-     * Set addresses
+     * Set address
      *
-     * @param ArrayCollection $addresses
-     *
-     * @return Employee
-     */
-    public function setAddresses(ArrayCollection $addresses)
-    {
-        $this->addresses = $addresses;
-        return $this;
-    }
-
-    /**
-     * Add address
-     *
-     * @param UserAddress $address
+     * @param EmployeeAddress $address
      *
      * @return Employee
      */
-    public function addAddress(UserAddress $address)
+    public function setAddress(EmployeeAddress $address)
     {
-        $this->addresses->add($address);
-
-        return $this;
-    }
-
-    /**
-     * Remove address
-     *
-     * @param UserAddress $address
-     *
-     * @return Employee
-     */
-    public function removeAddress(UserAddress $address)
-    {
-        $this->addresses->removeElement($address);
-
+        $this->address = $address;
         return $this;
     }
 
@@ -398,5 +365,81 @@ class Employee
 
         return $this;
     }
+
+    /**
+     * Get groups
+     *
+     * @return mixed
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * Set groups
+     *
+     * @param mixed $groups
+     *
+     * @return Employee
+     */
+    public function setGroups($groups)
+    {
+        $this->groups = $groups;
+        return $this;
+    }
+
+    /**
+     * Add group
+     *
+     * @param Group $group
+     *
+     * @return Company
+     */
+    public function addGroup(Group $group)
+    {
+        $this->groups->add($group);
+
+        return $this;
+    }
+
+    /**
+     * Remove group
+     *
+     * @param Group $group
+     *
+     * @return Company
+     */
+    public function removeGroup(Group $group)
+    {
+        $this->groups->removeElement($group);
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set user
+     *
+     * @param User $user
+     *
+     * @return Employee
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+
 }
 

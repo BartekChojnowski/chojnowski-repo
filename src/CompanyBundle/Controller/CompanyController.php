@@ -70,7 +70,12 @@ class CompanyController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Zapisz'));
+        $form->add('submit', 'submit', array(
+            'label' => 'Zapisz',
+            'attr' => array(
+                'class' => 'btn-success btn-block'
+            )
+        ));
 
         return $form;
     }
@@ -152,7 +157,12 @@ class CompanyController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Zapisz'));
+        $form->add('submit', 'submit', array(
+            'label' => 'Zapisz',
+            'attr' => array(
+                'class' => 'btn-success btn-block'
+            )
+        ));
 
         return $form;
     }

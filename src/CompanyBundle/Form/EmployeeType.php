@@ -2,7 +2,7 @@
 
 namespace CompanyBundle\Form;
 
-use AddressBundle\Form\UserAddressType;
+use AddressBundle\Form\EmployeeAddressType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -45,6 +45,7 @@ class EmployeeType extends AbstractType
                 'label' => 'data zakończenia pracy',
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
+                'required' => false,
                 'attr' => array(
                     'language' => 'pl',
                     'class' => 'form-control input-inline datepicker',
@@ -52,23 +53,20 @@ class EmployeeType extends AbstractType
                     'data-date-format' => 'dd-mm-yyyy'
                 )
             ))
-            ->add('position','entity', array(
-                'class' => 'CompanyBundle:Position',
-                'choice_label' => 'name',
-                'label' => 'stanowisko'
-
+            ->add('groups', 'entity', array(
+                'multiple' => true,   // Multiple selection allowed
+                'expanded' => true,   // Render as checkboxes
+                'property' => 'name', // Assuming that the entity has a "name" property
+                'class'    => 'CompanyBundle\Entity\Group',
             ))
             ->add('status','entity', array(
                 'class' => 'CompanyBundle:EmployeeStatus',
                 'choice_label' => 'name',
                 'label' => 'status'
             ))
-//            ->add('addresses', 'collection', array(
-//                'by_reference' => false,
-//                'type'   => new UserAddressType(),
-//                'allow_add'    => true,
-//                'allow_delete' => true,
-//            ))
+            ->add('address', new EmployeeAddressType(), array(
+                'label' => 'adres'
+            ));
         ;
     }
     

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserAddressType extends AddressType
+class EmployeeAddressType extends AddressType
 {
     /**
      * @param OptionsResolverInterface $resolver

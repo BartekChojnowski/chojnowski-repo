@@ -1,5 +1,4 @@
 {% extends '::base.html.twig' %}
-{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
 {% block content -%}
     {% javascripts
@@ -8,60 +7,13 @@
             <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
+    <a href="{{ path('employee') }}" class="btn-primary btn">Powrót do listy</a>
+
     <h1>Nowy pracownik</h1>
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
-
-        {{ form_label(form.firstName) }}
-        {{ form_errors(form.firstName) }}
-        {{ form_widget(form.firstName) }}
-
-        {{ form_label(form.lastName) }}
-        {{ form_errors(form.lastName) }}
-        {{ form_widget(form.lastName) }}
-
-        {{ form_label(form.personalId) }}
-        {{ form_errors(form.personalId) }}
-        {{ form_widget(form.personalId) }}
-
-        {{ form_label(form.dateOfBirth) }}
-        {{ form_errors(form.dateOfBirth) }}
-        {{ form_widget(form.dateOfBirth) }}
-
-        {{ form_label(form.employmentStart) }}
-        {{ form_errors(form.employmentStart) }}
-        {{ form_widget(form.employmentStart) }}
-
-        {{ form_label(form.employmentEnd) }}
-        {{ form_errors(form.employmentEnd) }}
-        {{ form_widget(form.employmentEnd) }}
-
-        {{ form_label(form.position) }}
-        {{ form_errors(form.position) }}
-        {{ form_widget(form.position) }}
-
-        {{ form_label(form.status) }}
-        {{ form_errors(form.status) }}
-        {{ form_widget(form.status) }}
-
-    {#<h3>Adresy</h3>#}
-    {#<ul class="addresses" data-prototype="{{ form_widget(form.addresses.vars.prototype)|e }}">#}
-        {#{% for address in form.addresses %}#}
-            {#<li>{{ form_row(address.city) }}</li>#}
-            {#<li>{{ form_row(address.postcode) }}</li>#}
-            {#<li>{{ form_row(address.street) }}</li>#}
-            {#<li>{{ form_row(address.number) }}</li>#}
-        {#{% endfor %}#}
-    {#</ul>#}
-
+    {{ form_start(form, {attr: {class: 'form-horizontal'} }) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form, {'form_type': 'horizontal'}) }}
     {{ form_end(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('employee') }}">
-            Powrót do listy
-        </a>
-    </li>
-</ul>
 {% endblock %}
