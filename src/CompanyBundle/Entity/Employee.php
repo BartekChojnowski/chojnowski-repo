@@ -2,15 +2,22 @@
 
 namespace CompanyBundle\Entity;
 
+use AddressBundle\Entity\EmployeeAddress;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use PhoneBundle\Entity\Phone;
+use PhoneBundle\Entity\UserPhone;
+use UserBundle\Entity\User;
 
 /**
- * employee
+ * Employee
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class employee
+class Employee
 {
     /**
      * @var integer
@@ -43,45 +50,49 @@ class employee
     private $personalId;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="dateOfBirth", type="datetime")
      */
     private $dateOfBirth;
 
-
     /**
-     * @ManyToOne(targetEntity="Position")
-     * @JoinColumn(name="position", referencedColumnName="id")
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Group")
+     * @ORM\JoinTable(name="employees_groups"),
+     *      joinColumns={@ORM\JoinColumn(name="employee_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     *      )
      */
-    private $position;
+    private $groups;
 
     /**
-     * @ManyToOne(targetEntity="EmployeeStatus")
-     * @JoinColumn(name="status", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="EmployeeStatus")
+     * @ORM\JoinColumn(name="status", referencedColumnName="id")
      */
     private $status;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="employmentStart", type="datetime")
      */
     private $employmentStart;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="employmentEnd", type="datetime")
      */
     private $employmentEnd;
 
     /**
-     * @var ArrayCollection
+     * @var EmployeeAddress
      *
-     * @ORM\OneToMany(targetEntity="AddressBundle\Entity\CompanyAddress", mappedBy="company")
+     * @ORM\OneToOne(targetEntity="AddressBundle\Entity\EmployeeAddress", mappedBy="employee")
      **/
-    private $addresses;
+    private $address;
 
     /**
      * @var ArrayCollection
@@ -89,6 +100,20 @@ class employee
      * @ORM\OneToMany(targetEntity="AddressBundle\Entity\CompanyAddress", mappedBy="company")
      **/
     private $phones;
+
+    /**
+     * @var User
+     *
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     **/
+    private $user;
+
+    function __construct()
+    {
+        $this->groups = new ArrayCollection();
+    }
+
 
     /**
      * Get id
@@ -105,7 +130,7 @@ class employee
      *
      * @param string $firstName
      *
-     * @return employee
+     * @return Employee
      */
     public function setFirstName($firstName)
     {
@@ -129,7 +154,7 @@ class employee
      *
      * @param string $lastName
      *
-     * @return employee
+     * @return Employee
      */
     public function setLastName($lastName)
     {
@@ -153,7 +178,7 @@ class employee
      *
      * @param string $personalId
      *
-     * @return employee
+     * @return Employee
      */
     public function setPersonalId($personalId)
     {
@@ -173,6 +198,8 @@ class employee
     }
 
     /**
+     * Get dateOfBirth
+     *
      * @return string
      */
     public function getDateOfBirth()
@@ -181,45 +208,27 @@ class employee
     }
 
     /**
+     * Set dateOfBirth
+     *
      * @param string $dateOfBirth
+     *
+     * @return Employee
      */
     public function setDateOfBirth($dateOfBirth)
     {
         $this->dateOfBirth = $dateOfBirth;
-    }
-
-    /**
-     * Set position
-     *
-     * @param string $position
-     *
-     * @return employee
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
 
         return $this;
     }
 
     /**
-     * Get position
-     *
-     * @return string
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
      * Set status
      *
-     * @param string $status
+     * @param EmployeeStatus $status
      *
-     * @return employee
+     * @return Employee
      */
-    public function setStatus($status)
+    public function setStatus(EmployeeStatus $status)
     {
         $this->status = $status;
 
@@ -229,7 +238,7 @@ class employee
     /**
      * Get status
      *
-     * @return string
+     * @return EmployeeStatus
      */
     public function getStatus()
     {
@@ -239,11 +248,11 @@ class employee
     /**
      * Set employmentStart
      *
-     * @param string $employmentStart
+     * @param \DateTime $employmentStart
      *
      * @return employee
      */
-    public function setEmploymentStart($employmentStart)
+    public function setEmploymentStart(\DateTime $employmentStart)
     {
         $this->employmentStart = $employmentStart;
 
@@ -253,7 +262,7 @@ class employee
     /**
      * Get employmentStart
      *
-     * @return string
+     * @return \DateTime
      */
     public function getEmploymentStart()
     {
@@ -263,11 +272,11 @@ class employee
     /**
      * Set employmentEnd
      *
-     * @param string $employmentEnd
+     * @param \DateTime $employmentEnd
      *
-     * @return employee
+     * @return Employee
      */
-    public function setEmploymentEnd($employmentEnd)
+    public function setEmploymentEnd(\DateTime $employmentEnd = null)
     {
         $this->employmentEnd = $employmentEnd;
 
@@ -277,11 +286,160 @@ class employee
     /**
      * Get employmentEnd
      *
-     * @return string
+     * @return \DateTime
      */
     public function getEmploymentEnd()
     {
         return $this->employmentEnd;
     }
+
+    /**
+     * Get address     *
+     * @return EmployeeAddress
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set address
+     *
+     * @param EmployeeAddress $address
+     *
+     * @return Employee
+     */
+    public function setAddress(EmployeeAddress $address)
+    {
+        $this->address = $address;
+        return $this;
+    }
+
+    /**
+     * Get phones
+     *
+     * @return ArrayCollection
+     */
+    public function getPhones()
+    {
+        return $this->phones;
+    }
+
+    /**
+     * Set phones
+     *
+     * @param ArrayCollection $phones
+     *
+     * @return Employee
+     */
+    public function setPhones(ArrayCollection $phones)
+    {
+        $this->phones = $phones;
+        return $this;
+    }
+
+    /**
+     * Add phone
+     *
+     * @param UserPhone $phone
+     *
+     * @return Employee
+     */
+    public function addPhone(UserPhone $phone)
+    {
+        $this->phones->add($phone);
+
+        return $this;
+    }
+
+    /**
+     * Remove phone
+     *
+     * @param UserPhone $phone
+     *
+     * @return Employee
+     */
+    public function removePhone(UserPhone $phone)
+    {
+        $this->phones->removeElement($phone);
+
+        return $this;
+    }
+
+    /**
+     * Get groups
+     *
+     * @return mixed
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * Set groups
+     *
+     * @param mixed $groups
+     *
+     * @return Employee
+     */
+    public function setGroups($groups)
+    {
+        $this->groups = $groups;
+        return $this;
+    }
+
+    /**
+     * Add group
+     *
+     * @param Group $group
+     *
+     * @return Company
+     */
+    public function addGroup(Group $group)
+    {
+        $this->groups->add($group);
+
+        return $this;
+    }
+
+    /**
+     * Remove group
+     *
+     * @param Group $group
+     *
+     * @return Company
+     */
+    public function removeGroup(Group $group)
+    {
+        $this->groups->removeElement($group);
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set user
+     *
+     * @param User $user
+     *
+     * @return Employee
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+
 }
 

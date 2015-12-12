@@ -1,0 +1,19 @@
+{% extends '::base.html.twig' %}
+
+{% block content -%}
+    {% javascripts
+        '@AddressBundle/Resources/js/public/address-form.js'
+    %}
+            <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <a href="{{ path('employee') }}" class="btn-primary btn">Powrót do listy</a>
+
+    <h1>Nowy pracownik</h1>
+
+    {{ form_start(form, {attr: {class: 'form-horizontal'} }) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form, {'form_type': 'horizontal'}) }}
+    {{ form_end(form) }}
+
+{% endblock %}

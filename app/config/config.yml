@@ -6,7 +6,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: pl
 
 framework:
     #esi:             ~
@@ -35,9 +35,17 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
-#            resources: ['bootstrap_3_layout.html.twig']
-            resources: ['bootstrap_3_horizontal_layout.html.twig']
+#    form:
+#        resources:
+#            - bootstrap_3_horizontal_layout.html.twig
+    form_themes:
+#        # Default:
+#        - form_div_layout.html.twig
+#
+#        # Bootstrap:
+#        - bootstrap_3_layout.html.twig
+        - bootstrap_3_horizontal_layout.html.twig
+
 
 # Assetic Configuration
 assetic:
@@ -47,10 +55,6 @@ assetic:
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
-        #closure:
-        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
-        #yui_css:
-        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
 # Doctrine Configuration
 doctrine:
@@ -86,3 +90,4 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: UserBundle\Entity\User
+

@@ -1,5 +1,16 @@
+
+html,
 body {
-    padding-top: 70px;
+    height: 100%;
+}
+
+body {
+    padding-top: 50px;
+    background-image: url("../../images/background.png");
+}
+
+ul {
+    list-style-type: none;
 }
 
 .spacer {
@@ -10,10 +21,49 @@ body {
     margin-bottom: 30px;
 }
 
+/*table tr:nth-child(odd) td, table tr:nth-child(odd) th { background-color: #00b3ee;}*/
+table tr:nth-child(even) td, table tr:nth-child(even) th { background-color: #EFEFF1;}
+
+.width100 {width: 100%;}
+.padding0 {padding: 0;}
+
+
+/* Home Page Carousel */
+
+header.carousel {
+    height: 50%;
+}
+
+header.carousel .item,
+header.carousel .item.active,
+header.carousel .carousel-inner {
+    height: 100%;
+}
+
+header.carousel .fill {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+
+.period {
+    display: block;
+    font-style: italic;
+}
+
+/* Footer Styles */
+
 footer {
     margin: 50px 0;
 }
 
-ul {
-    list-style-type: none;
+/* Responsive Styles */
+
+@media(max-width:767px) {
+
+    header.carousel .carousel {
+        height: 70%;
+    }
 }

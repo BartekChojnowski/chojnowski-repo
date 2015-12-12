@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="subject", type="string")
- * @ORM\DiscriminatorMap({"user" = "UserAddress", "company" = "CompanyAddress", "client" = "ClientAddress"})
+ * @ORM\DiscriminatorMap({"employee" = "EmployeeAddress", "company" = "CompanyAddress", "client" = "ClientAddress"})
  */
 abstract class Address
 {

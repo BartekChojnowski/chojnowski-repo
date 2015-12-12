@@ -35,6 +35,9 @@ class CompanyAddress extends Address
         $this->company = $company;
     }
 
+    /**
+     * @return Company
+     */
     public function getSubject()
     {
         $this->getCompany();

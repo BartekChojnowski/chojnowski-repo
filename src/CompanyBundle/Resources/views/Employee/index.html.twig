@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <h1>Pracownicy</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Pesel</th>
+                <th>Data urodzenia</th>
+                <th>Data zatrudnienia</th>
+                <th>Data zakończenia pracy</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.firstName }}</td>
+                <td>{{ entity.lastName }}</td>
+                <td>{{ entity.personalId }}</td>
+                <td>{% if entity.dateOfBirth %}{{ entity.dateOfBirth|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.employmentStart %}{{ entity.employmentStart|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.employmentEnd %}{{ entity.employmentEnd|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                    <a href="{{ path('employee_show', { 'id': entity.id }) }}" class="btn btn-primary">szczegóły</a>
+                    <a href="{{ path('employee_edit', { 'id': entity.id }) }}" class="btn btn-primary">edytuj</a>
+                </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('employee_new') }}" class="btn btn-primary btn-block">
+        Dodaj nowego pracownika
+    </a>
+    {% endblock %}

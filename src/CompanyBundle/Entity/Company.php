@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Company
  *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
+ *
  * @ORM\Table()
  * @ORM\Entity
  */
@@ -51,6 +53,9 @@ class Company
      **/
     protected $addresses;
 
+    /**
+     * Contruct
+     */
     public function __construct()
     {
         $this->addresses = new ArrayCollection();
@@ -115,6 +120,8 @@ class Company
     }
 
     /**
+     * Get email
+     *
      * @return string
      */
     public function getEmail()
@@ -123,14 +130,22 @@ class Company
     }
 
     /**
+     * Set email
+     *
      * @param string $email
+     *
+     * @return Company
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     /**
+     * Get addresses
+     *
      * @return ArrayCollection
      */
     public function getAddresses()
@@ -139,21 +154,45 @@ class Company
     }
 
     /**
+     * Set addresses
+     *
      * @param ArrayCollection $addresses
+     *
+     * @return Company
      */
     public function setAddresses(ArrayCollection $addresses)
     {
         $this->$addresses = $addresses;
+
+        return $this;
     }
 
+    /**
+     * Add address
+     *
+     * @param CompanyAddress $address
+     *
+     * @return Company
+     */
     public function addAddress(CompanyAddress $address)
     {
         $this->addresses->add($address);
+
+        return $this;
     }
 
+    /**
+     * Remove address
+     *
+     * @param CompanyAddress $address
+     *
+     * @return Company
+     */
     public function removeAddress(CompanyAddress $address)
     {
         $this->addresses->removeElement($address);
+
+        return $this;
     }
 
 }

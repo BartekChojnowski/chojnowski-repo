@@ -5,12 +5,14 @@ namespace CompanyBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Position
+ * EmployeeStatus
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Position
+class EmployeeStatus
 {
     /**
      * @var integer
@@ -24,14 +26,14 @@ class Position
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100)
+     * @ORM\Column(name="name", type="string", length=80)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="systemName", type="string", length=100)
+     * @ORM\Column(name="systemName", type="string", length=80)
      */
     private $systemName;
 
@@ -51,7 +53,7 @@ class Position
      *
      * @param string $name
      *
-     * @return Position
+     * @return EmployeeStatus
      */
     public function setName($name)
     {
@@ -75,7 +77,7 @@ class Position
      *
      * @param string $systemName
      *
-     * @return Position
+     * @return EmployeeStatus
      */
     public function setSystemName($systemName)
     {

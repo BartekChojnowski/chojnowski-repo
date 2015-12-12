@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PhoneType
  *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
+ *
  * @ORM\Table()
  * @ORM\Entity
  */

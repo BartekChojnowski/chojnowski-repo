@@ -3,7 +3,7 @@
 {% block content %}
     <h1>{{ company.name }}</h1>
 
-    <table class="record_properties">
+    <table class="record_properties table table-striped">
         <tbody>
             <tr>
                 <th>nazwa</th>
@@ -14,11 +14,11 @@
                 <td>{{ company.taxId }}</td>
             </tr>
             <tr>
-                <th>Email</th>
+                <th>email</th>
                 <td>{{ company.email }}</td>
             </tr>
             <tr>
-                <th>Adresy</th>
+                <th>adresy</th><td></td>
             </tr>
         {%  for address in company.addresses %}
             <tr>
@@ -30,11 +30,11 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('company_edit', { 'id': company.id }) }}">
-            Edytuj
-        </a>
-    </li>
-</ul>
+    <ul class="record_actions padding0">
+        <li>
+            <a href="{{ path('company_edit', { 'id': company.id }) }}" class="btn btn-primary btn-block">
+                Edytuj
+            </a>
+        </li>
+    </ul>
 {% endblock %}

@@ -3,74 +3,27 @@
 {% block header %}
     <!-- Jumbotron Header -->
     <header class="jumbotron spacer">
-        <h1>Nazwa strony</h1>
+        <h1>Transport Manager</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
     </header>
 {% endblock %}
 
 {% block content %}
-    <!-- Title -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h3>Latest Features</h3>
-        </div>
-    </div>
-    <!-- /.row -->
+    {#<!-- Title -->#}
+    {#<div class="row">#}
+        {#<div class="col-lg-12">#}
+            {#<h3>Latest Features</h3>#}
+        {#</div>#}
+    {#</div>#}
+    {#<!-- /.row -->#}
 
     <!-- Page Features -->
     <div class="row text-center">
 
-        <div class="col-md-3 col-sm-6 feature">
-            <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
-                <div class="caption">
-                    <h3>Moje trasy</h3>
-                    <p>Lorsadasem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p>
-                        <a href="" class="btn btn-primary">Pokaż</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-6 feature">
-            <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
-                <div class="caption">
-                    <h3>Feature Label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p>
-                        <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-6 feature">
-            <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
-                <div class="caption">
-                    <h3>Feature Label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p>
-                        <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-6 feature">
-            <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
-                <div class="caption">
-                    <h3>Feature Label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p>
-                        <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                    </p>
-                </div>
-            </div>
-        </div>
+        {% include '::feature.html.twig' with {'title': 'Pusty feature', 'image': 'http://placehold.it/800x500', 'info': 'Lorem ipsum', 'path': 'homepage'} %}
+        {% include '::feature.html.twig' with {'title': 'Pusty feature', 'image': 'http://placehold.it/800x500', 'info': 'Lorem ipsum', 'path': 'homepage'} %}
+        {% include '::feature.html.twig' with {'title': 'Pusty feature', 'image': 'http://placehold.it/800x500', 'info': 'Lorem ipsum', 'path': 'homepage'} %}
+        {% include '::feature.html.twig' with {'title': 'Pusty feature', 'image': 'http://placehold.it/800x500', 'info': 'Lorem ipsum', 'path': 'homepage'} %}
 
     </div>
 {% endblock %}

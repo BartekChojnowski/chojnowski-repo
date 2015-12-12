@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new AddressBundle\AddressBundle(),
             new PhoneBundle\PhoneBundle(),
             new ClientBundle\ClientBundle(),
+            new FleetBundle\FleetBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
