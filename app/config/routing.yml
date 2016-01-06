@@ -18,10 +18,10 @@ company:
     type:     annotation
     prefix:   /
 
-user:
-    resource: "@UserBundle/Controller/"
-    type:     annotation
-    prefix:   /
+#user:
+#    resource: "@UserBundle/Controller/"
+#    type:     annotation
+#    prefix:   /
 
 app:
     resource: "@AppBundle/Controller/"

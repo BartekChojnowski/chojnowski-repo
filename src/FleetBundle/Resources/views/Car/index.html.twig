@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+{% block content -%}
+    <h1>Samochody</h1>
+    {% if cars |length %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>numer rej.</th>
+                    <th>marka</th>
+                    <th>model</th>
+                    <th>rok produkcji</th>
+                    <th>VIN</th>
+                    <th>silnik</th>
+                    <th>przebieg</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for car in cars %}
+                <tr>
+                    <td>{{ car.registrationNumber }}</td>
+                    <td>{{ car.make }}</td>
+                    <td>{{ car.model }}</td>
+                    <td>{% if car.year %}{{ car.year|date('Y-m-d') }}{% endif %}</td>
+                    <td>{{ car.vin }}</td>
+                    <td>{{ car.engine }}</td>
+                    <td>{{ car.mileage }}</td>
+                    <td>
+                        <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                            <a href="{{ path('car_show', { 'id': car.id }) }}" class="btn btn-primary">szczegóły</a>
+                            <a href="{{ path('car_edit', { 'id': car.id }) }}" class="btn btn-primary">edytuj</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <a href="{{ path('car_new') }}" class="btn btn-primary btn-block">
+        Dodaj nowy samochód
+    </a>
+    {% endblock %}

@@ -1,0 +1,86 @@
+{# widok dolnego paska stronicownia  #}
+
+<div class="pagination-sliding-bar btn-toolbar" role="toolbar" aria-label="...">
+
+{% if pageCount > 1 %}
+
+    {#Przycisk do pierwszej strony nie jest obecnie wykorzystywany#}
+    {#{% if first is defined and current != first %}#}
+        {#<span class="first">#}
+            {#<button class="sss_przycisk ok" onclick="location.href='{{ path(route, query|merge({(pageParameterName): first})) }}'">&lt;&lt;</button>#}
+            {#&#123;&#35;<a href="{{ path(route, query|merge({(pageParameterName): first})) }}">&lt;&lt;</a>&#35;&#125;#}
+        {#</span>#}
+    {#{% endif %}#}
+    <div class="btn-group" role="group" aria-label="...">
+        {% if previous is defined %}
+            <button class="pagination-arrow btn btn-primary btn-sm glyphicon glyphicon-triangle-left" onclick='{{ identifier }}.pageChange({{ previous }}, {{ query|merge(postData)|json_encode|raw }})'></button>
+        {% endif %}
+    </div>
+
+    <div class="btn-group" role="group" aria-label="...">
+        {% for page in pagesInRange %}
+            {% if page != current %}
+                <button class="btn btn-primary btn-sm" onclick='{{ identifier }}.pageChange({{ page }}, {{ query|merge(postData)|json_encode|raw }})'>{{ page }}</button>
+            {% else %}
+                <button class="btn btn-primary btn-sm" disabled="disabled">{{ page }}</button>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="btn-group" role="group" aria-label="...">
+        {% if next is defined %}
+            <button class="btn btn-primary btn-sm glyphicon glyphicon glyphicon-triangle-right" onclick='{{ identifier }}.pageChange({{ next }}, {{ query|merge(postData)|json_encode|raw }})'></button>
+        {% endif %}
+    </div>
+{% endif %}
+
+    {#Ostatnia strona nie  jest obecnie wykorzystywana#}
+
+    {#{% if last is defined and current != last %}#}
+        {#<span class="last">#}
+            {#<a href="{{ path(route, query|merge({(pageParameterName): last})) }}">&gt;&gt;</a>#}
+        {#</span>#}
+    {#{% endif %}#}
+
+    <div class="btn-group pagination-refresh" role="group" aria-label="...">
+        {#Przycisk odświeżenia strony#}
+        <button class="btn btn-primary btn-sm glyphicon glyphicon-refresh" onclick='{{ identifier }}.refresh()'></button>
+    </div>
+
+    <div class="btn-group results-on-page-element" role="group" aria-label="...">
+        {# Ilość wyników na stronie #}
+        <select name="results-on-page" id="results-on-page" onchange='{{ identifier }}.changeResultsOnPage(this.value)'>
+            <option {% if numItemsPerPage == 25 %} selected="selected"{% endif %}>25</option>
+            <option {% if numItemsPerPage == 50 %} selected="selected"{% endif %}>50</option>
+            <option {% if numItemsPerPage == 100 %} selected="selected"{% endif %}>100</option>
+            <option {% if numItemsPerPage == 200 %} selected="selected"{% endif %}>200</option>
+        </select>
+    </div>
+
+</div>
+
+{% javascripts '@PaginationBundle/Resources/js/*' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script type="text/javascript">
+    if (typeof({{ identifier }}) == "undefined") {
+        var {{ identifier }} = new PaginationTable();
+
+        $(document).ready(function () {
+            {{ identifier }}.url = "{{ path(route) }}";
+            {{ identifier }}.dataToSend = {{ query|merge(postData)|json_encode|raw }};
+            {{ identifier }}.container = $('#pagination-container');
+
+            {{ identifier }}.addEvents();
+        });
+    }
+</script>
+
+<style>
+    /*.pagination-sliding-bar {min-height: 20px;}*/
+
+    .pagination-sliding-bar .pagination-refresh {float: right;}
+    .pagination-sliding-bar .results-on-page-element {float: right;}
+    .pagination-sliding-bar .results-on-page-element select {min-height: 30px;}
+</style>

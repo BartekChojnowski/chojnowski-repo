@@ -18,11 +18,12 @@ class EmployeeType extends AbstractType
         $builder
             ->add('firstName', 'text', array('label' => 'imię'))
             ->add('lastName', 'text', array('label' => 'nazwisko'))
-            ->add('personalId', 'text', array('label' => 'pesel'))
+            ->add('personalId', 'text', array('label' => 'pesel', 'required' => false,))
             ->add('dateOfBirth', 'datetime', array(
                 'label' => 'data urodzenia',
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
+                'required' => false,
                 'attr' => array(
                     'language' => 'pl',
                     'class' => 'form-control input-inline datepicker',
@@ -32,6 +33,7 @@ class EmployeeType extends AbstractType
             ))
             ->add('employmentStart', 'date', array(
                 'label' => 'data rozpoczęcia pracy',
+                'required' => false,
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
                 'attr' => array(
@@ -43,9 +45,9 @@ class EmployeeType extends AbstractType
             ))
             ->add('employmentEnd', 'date', array(
                 'label' => 'data zakończenia pracy',
+                'required' => false,
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
-                'required' => false,
                 'attr' => array(
                     'language' => 'pl',
                     'class' => 'form-control input-inline datepicker',
@@ -58,11 +60,13 @@ class EmployeeType extends AbstractType
                 'expanded' => true,   // Render as checkboxes
                 'property' => 'name', // Assuming that the entity has a "name" property
                 'class'    => 'CompanyBundle\Entity\Group',
+                'label' => 'grupa'
             ))
             ->add('status','entity', array(
                 'class' => 'CompanyBundle:EmployeeStatus',
                 'choice_label' => 'name',
                 'label' => 'status'
+
             ))
             ->add('address', new EmployeeAddressType(), array(
                 'label' => 'adres'

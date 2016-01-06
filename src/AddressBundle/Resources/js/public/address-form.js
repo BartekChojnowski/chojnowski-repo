@@ -1,7 +1,14 @@
 var $collectionHolder;
 
-var $addAddressLink = $('<a href="#" class="add_address_link">dodaj adres</a>');
-var $newLinkLi = $('<li></li>').append($addAddressLink);
+var $addAddressButton = $('<button href="#" class="add_address_link btn btn-primary">dodaj adres</button>');
+
+var $newLinkLi = $('<li></li>').append(
+    $('<div class="form-group"></div>')
+        .append($('<div class="col-sm-2"></div>'))
+        .append(
+        $('<div class="col-sm-10"></div>').append($addAddressButton)
+    )
+);
 
 jQuery(document).ready(function() {
     $collectionHolder = $('ul.addresses');
@@ -10,7 +17,7 @@ jQuery(document).ready(function() {
 
     $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-    $addAddressLink.on('click', function(e) {
+    $addAddressButton.on('click', function(e) {
         e.preventDefault();
 
         addAddressForm($collectionHolder, $newLinkLi);
@@ -33,8 +40,15 @@ function addAddressForm($collectionHolder, $newLinkLi) {
 }
 
 function addAddressFormDeleteLink($addressFormLi) {
-    var $removeFormA = $('<a href="#">usuń adres</a>');
-    $addressFormLi.append($removeFormA);
+    var $removeFormA = $('<button href="#" class="btn btn-danger">usun adres</button>');
+
+    $addressFormLi.append(
+        $('<div class="form-group"></div>')
+            .append($('<div class="col-sm-2"></div>'))
+            .append(
+            $('<div class="col-sm-10"></div>').append($removeFormA)
+        )
+    );
 
     $removeFormA.on('click', function(e) {
         e.preventDefault();

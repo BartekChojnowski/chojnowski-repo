@@ -1,0 +1,10 @@
+{% extends "PaginationBundle::header-row.html.twig" %}
+
+{% block cells %}
+    {% for cell in row.cells %}
+        {% include cell.template with { 'cell' : cell } %}
+    {% endfor %}
+    <th class="pagination-check pagination-check-all">
+        <input type="checkbox" />
+    </th>
+{% endblock %}

@@ -1,12 +1,6 @@
 {% extends '::base.html.twig' %}
 
 {% block content -%}
-    {% javascripts
-        '@AddressBundle/Resources/js/public/address-form.js'
-    %}
-            <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
     <a href="{{ path('employee') }}" class="btn-primary btn">Powrót do listy</a>
 
     <h1>Nowy pracownik</h1>

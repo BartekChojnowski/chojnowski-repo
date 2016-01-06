@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <a href="{{ path('client') }}" class="btn-primary btn">Powrót do listy</a>
+
+    <h1>{{ client.name }}</h1>
+
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <th>nazwa</th>
+            <td>{{ client.name }}</td>
+        </tr>
+        <tr>
+            <th>NIP</th>
+            <td>{{ client.taxId }}</td>
+        </tr>
+        <tr>
+            <th>email</th>
+            <td>{{ client.email }}</td>
+        </tr>
+        <tr>
+            <th>adresy</th><td></td>
+        </tr>
+        {%  for address in client.addresses %}
+            <tr>
+                <th></th>
+                <td>{{ address.postcode }} {{ address.city }}, {{ address.street }} {{ address.number }}</td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul class="padding0">
+        <li>
+            <a href="{{ path('client_edit', { 'id': client.id }) }}" class="btn btn-primary btn-block">
+                Edytuj
+            </a>
+        </li>
+    </ul>
+{% endblock %}

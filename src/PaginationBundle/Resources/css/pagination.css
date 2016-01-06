@@ -1,0 +1,28 @@
+#pagination-container {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.pagination-sort-icon {
+    cursor: pointer;
+}
+
+.pagination-fade {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1002;
+    background: #000;
+    opacity: 0.1;
+}
+
+.pagination-loader {
+    display: none;
+    z-index: 1001;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}

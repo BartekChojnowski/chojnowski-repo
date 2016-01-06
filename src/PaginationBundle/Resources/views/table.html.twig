@@ -1,0 +1,15 @@
+{% extends "PaginationBundle::pagination.html.twig" %}
+
+{% block title %}{{ paginatedTable.title }}{% endblock %}
+
+{% block body %}
+    <tbody class="paginated-table">
+    {% if paginatedTable.rows.count %}
+        {% for row in paginatedTable.rows %}
+            {% block row %}
+                {% include row.template with {'row' : row, 'paginatedTable' : paginatedTable}%}
+            {% endblock %}
+        {% endfor %}
+    {% endif %}
+    </tbody>
+{% endblock %}

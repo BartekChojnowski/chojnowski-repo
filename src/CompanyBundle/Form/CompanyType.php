@@ -17,8 +17,8 @@ class CompanyType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('label' => 'nazwa'))
-            ->add('taxId', 'text', array('label' => 'NIP'))
-            ->add('email', 'text', array('label' => 'email'))
+            ->add('taxId', 'text', array('label' => 'NIP', 'required' => false,))
+            ->add('email', 'text', array('label' => 'email', 'required' => false,))
             ->add('addresses', 'collection', array(
                 'by_reference' => false,
                 'type'   => new CompanyAddressType(),

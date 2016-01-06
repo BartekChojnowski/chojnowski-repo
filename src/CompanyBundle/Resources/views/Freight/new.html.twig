@@ -1,0 +1,13 @@
+{% extends '::base.html.twig' %}
+
+{% block content -%}
+    <a href="{{ path('freight') }}" class="btn-primary btn">Powrót do listy</a>
+
+    <h1>Nowe zlecenie</h1>
+
+    {{ form_start(form, {attr: {class: 'form-horizontal'} }) }}
+    {{ form_errors(form) }}
+    {{ form_widget(form, {'form_type': 'horizontal'}) }}
+    {{ form_end(form) }}
+
+{% endblock %}

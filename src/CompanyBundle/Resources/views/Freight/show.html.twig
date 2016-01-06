@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <a href="{{ path('freight') }}" class="btn-primary btn">Powrót do listy</a>
+
+    <h1>{{ freight.number }}</h1>
+    <div class="table-responsive">
+        <table class="record_properties table table-striped">
+            <tbody>
+            <tr>
+                <th class="col-md-3">data</th>
+                <td class="col-md-9">
+                    {{ freight.start|date('Y-m-d') }}
+                    {% if freight.end is not null %}
+                        - {{ freight.end|date('Y-m-d') }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-3">skąd</th>
+                <td class="col-md-9">{{ freight.origin }}</td>
+            </tr>
+            <tr>
+                <th class="col-md-3">dokąd</th>
+                <td class="col-md-9">{{ freight.destination }}</td>
+            </tr>
+            <tr>
+                <th class="col-md-3">odległość</th>
+                <td class="col-md-9">{{ freight.distance }} km</td>
+            </tr>
+            <tr>
+                <th class="col-md-3">odległość do zlecenia</th>
+                <td class="col-md-9">{{ freight.distanceToOrigin }}</td>
+            </tr>
+            <tr>
+                <th class="col-md-3">stawka</th>
+                <td class="col-md-9">{{ freight.price }}</td>
+            </tr>
+            <tr>
+                <th class="col-md-3">kierowca</th>
+                <td class="col-md-9"><a class="link" href="{{ path('employee_show', { 'id': freight.driver.id }) }}"> {{ freight.driver.lastName }} {{ freight.driver.firstName }} </a></td>
+            </tr>
+            <tr>
+                <th class="col-md-3">samochód</th>
+                <td class="col-md-9"><a class="link" href="{{ path('car_show', { 'id': freight.car.id }) }}">{{ freight.car.registrationNumber }} {{ freight.car.make }} {{ freight.car.model }}</a></td>
+            </tr>
+            <tr>
+                <th class="col-md-3">klient</th>
+                <td class="col-md-9"><a class="link" href="{{ path('client_show', { 'id': freight.client.id }) }}">{{ freight.client.name }}</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+        <a href="{{ path('freight_edit', { 'id': freight.id }) }}" class="btn btn-primary btn-block">
+            Edytuj
+        </a>
+    </div>
+    <div class="col-sm-12 top-buffer">
+        {{ form(delete_form) }}
+    </div>
+{% endblock %}

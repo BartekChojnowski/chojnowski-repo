@@ -13,9 +13,18 @@ ul {
     list-style-type: none;
 }
 
-.spacer {
-    margin-top: 50px;
+.link {
+    color: #000 !important;
 }
+
+.link:hover {
+    color: #000 !important;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.top-buffer { margin-top: 10px; }
+.left-buffer { margin-left: 10px; }
 
 .feature {
     margin-bottom: 30px;

@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  *
- * @ORM\Table()
+ * @ORM\Table(name="groups")
  * @ORM\Entity
  */
 class Group

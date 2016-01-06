@@ -3,7 +3,7 @@
 {% block content %}
     <h1>{{ company.name }}</h1>
 
-    <table class="record_properties table table-striped">
+    <table class="table table-striped">
         <tbody>
             <tr>
                 <th>nazwa</th>
@@ -30,7 +30,7 @@
         </tbody>
     </table>
 
-    <ul class="record_actions padding0">
+    <ul class="padding0">
         <li>
             <a href="{{ path('company_edit', { 'id': company.id }) }}" class="btn btn-primary btn-block">
                 Edytuj

@@ -31,10 +31,10 @@ class EmployeeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CompanyBundle:Employee')->findAll();
+        $employees = $em->getRepository('CompanyBundle:Employee')->findAll();
 
         return array(
-            'entities' => $entities,
+            'employees' => $employees,
         );
     }
     /**
@@ -55,7 +55,7 @@ class EmployeeController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             if ($employee->getAddress() instanceof EmployeeAddress) {
-                $employee->getAddress()->setUser($employee);
+                $employee->getAddress()->setEmployee($employee);
                 $em->persist($employee->getAddress());
             }
 
@@ -66,7 +66,7 @@ class EmployeeController extends Controller
         }
 
         return array(
-            'entity' => $employee,
+            'employee' => $employee,
             'form'   => $form->createView(),
         );
     }
@@ -106,7 +106,7 @@ class EmployeeController extends Controller
         $form   = $this->createCreateForm($employee);
 
         return array(
-            'entity' => $employee,
+            'employee' => $employee,
             'form'   => $form->createView(),
         );
     }
@@ -131,7 +131,7 @@ class EmployeeController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $employee,
+            'employee'      => $employee,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -157,7 +157,7 @@ class EmployeeController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $employee,
+            'employee'      => $employee,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -214,7 +214,7 @@ class EmployeeController extends Controller
         }
 
         return array(
-            'entity'      => $employee,
+            'employee'      => $employee,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );

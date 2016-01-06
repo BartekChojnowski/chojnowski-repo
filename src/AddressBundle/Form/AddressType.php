@@ -16,9 +16,9 @@ abstract class AddressType extends AbstractType
     {
         $builder
             ->add('city', 'text', array('label' => 'miasto'))
-            ->add('postcode', 'text', array('label' => 'kod pocztowy'))
-            ->add('street', 'text', array('label' => 'ulica'))
-            ->add('number', 'text', array('label' => 'numer'))
+            ->add('postcode', 'text', array('label' => 'kod pocztowy', 'required' => false,))
+            ->add('street', 'text', array('label' => 'ulica', 'required' => false,))
+            ->add('number', 'text', array('label' => 'numer', 'required' => false,))
         ;
     }
 

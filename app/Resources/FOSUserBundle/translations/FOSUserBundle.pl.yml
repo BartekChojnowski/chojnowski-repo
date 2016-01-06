@@ -16,15 +16,15 @@ group:
 
 security:
     login:
-        username: "Nazwa:"
-        password: "Hasło:"
+        username: Użytkownik
+        password: Hasło
         remember_me: Zapamiętaj mnie
         submit: Zaloguj
 
 # Profile
 profile:
     show:
-        username: Nazwa
+        username: Użytkownik
         email: E-mail
     edit:
         submit: Edytuj użytkownika
@@ -86,11 +86,11 @@ layout:
 
 # Form field labels
 form:
-    group_name: "Nazwa grupy:"
-    username: "Nazwa:"
-    email: "E-mail:"
-    current_password: "Obecne hasło:"
-    password: "Hasło:"
-    password_confirmation: "Powtórz hasło:"
-    new_password: "Nowe hasło:"
-    new_password_confirmation: "Powtórz hasło:"
+    group_name: "Nazwa grupy"
+    username: "Użytkownik"
+    email: "E-mail"
+    current_password: "Obecne hasło"
+    password: "Hasło"
+    password_confirmation: "Powtórz hasło"
+    new_password: "Nowe hasło"
+    new_password_confirmation: "Powtórz hasło"

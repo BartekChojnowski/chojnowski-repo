@@ -4,22 +4,8 @@
     <a href="{{ path('employee') }}" class="btn-primary btn">Powrót do listy</a>
     <h1>Edycja danych pracownika</h1>
 
-    {#{{ form(edit_form) }}#}
-
-        {#<ul class="record_actions">#}
-    {#<li>#}
-        {#<a href="{{ path('employee') }}">#}
-            {#Powrót do listy#}
-        {#</a>#}
-    {#</li>#}
-    {#<li>{{ form(delete_form) }}</li>#}
-
-    {#{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}#}
-
-        {#{{ form(edit_form, {'form_type': 'horizontal', 'attr': {'class': 'form-horizontal'}})#}
-        {{ form_start(edit_form, {attr: {class: 'form-horizontal'}}) }}
-        {{ form_widget(edit_form, {'form_type': 'horizontal'}) }}
-        {{ form_end(edit_form) }}
-        {{ form(delete_form, {'form_type': 'horizontal', 'attr': {'class': 'form-horizontal'}}) }}
-</ul>
+    {{ form_start(edit_form, {attr: {class: 'form-horizontal'}}) }}
+    {{ form_widget(edit_form, {'form_type': 'horizontal'}) }}
+    {{ form_end(edit_form) }}
+    {{ form(delete_form, {'form_type': 'horizontal', 'attr': {'class': 'form-horizontal'}}) }}
 {% endblock %}

@@ -1,11 +1,11 @@
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
-    <li><p class="navbar-text">{{ app.user.username }}</p></li>
-    <li><a class="btn-link" href="{{ path('fos_user_profile_edit') }}">Edit</a></li>
-    <li><a class="btn-link" href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+    <li><p class="navbar-text left-buffer"><span class="glyphicon glyphicon-user"> {{ app.user.username }}</span></p></li>
+    <li><a class="btn-link" href="{{ path('fos_user_profile_edit') }}"><span class="glyphicon glyphicon-edit"> Edytuj</span></a></li>
+    <li><a class="btn-link" href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-log-out"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</span></a></li>
 {% else %}
-    <li><a class="btn-link" href="{{ path('fos_user_security_login') }}">Logowanie</a></li>
-    <li><a class="btn-link" href="{{ path('fos_user_registration_register') }}">Rejestracja</a></li>
+    <li><a class="btn-link" href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-log-in"> Logowanie</span></a></li>
+    <li><a class="btn-link" href="{{ path('fos_user_registration_register') }}"><span class="glyphicon glyphicon-registration-mark"> Rejestracja</span></a></li>
 {% endif %}
 
 {% for type, messages in app.session.flashBag.all %}

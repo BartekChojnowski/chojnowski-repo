@@ -1,0 +1,10 @@
+<th
+        id="{{ cell.id }}"
+        class="pagination-cell {{ cell.class }}"
+        style="{{ cell.style }}"
+        {% for attrKey,attrValue in cell.data %} data-{{ attrKey }}="attrValue" {% endfor %}
+        colspan="{{ cell.colspan }}"
+        {% if paginatedTable.pagination.isSorted(cell.sort) %} class="sorted"{% endif %}
+>
+{{ knp_pagination_sortable(paginatedTable.pagination, cell.value, cell.sort )|raw }}
+</th>

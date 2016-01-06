@@ -1,0 +1,65 @@
+<tr>
+    <td colspan="99" id="pagination-group-action-container">
+        {% block actionBarSelect %}
+            <label for="pagination-group-action-selector">
+                Wybierz akcję:
+            </label>
+
+            <select id="pagination-group-action-selector">
+                <option>-- wybierz --</option>
+                {% if row.groupActions is iterable %}
+                    {% for key, value in row.groupActions %}
+                        {% if value is iterable %}
+                            <optgroup label="{{ key }}">
+                                {% for key, value in value %}
+                                    <option value="{{ key }}">{{ value }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        {% else %}
+                            <option value="{{ key }}">{{ value }}</option>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </select>
+        {% endblock %}
+        {% block actionBarButton %}
+            <input id="pagination-group-action-trigger" type="submit" value="Wykonaj" class="ok" />
+        {% endblock %}
+    </td>
+</tr>
+
+{% block style %}
+    <style type="text/css">
+        #pagination-group-action-container {text-align: right; font-weight: normal}
+        .pagination-check {width: 20px; text-align: center;}
+    </style>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $(function(){
+
+            /* zaznaczenie checkboxa powoduje kolorowanie wiersza tabeli */
+            $('.pagination-check-row input[type=checkbox]').click(function(){
+                $(this).closest('tr').toggleClass('w55').toggleClass('w33');
+            });
+
+            /* zaznaczenie checkboxa w nagłówku powoduje zaznaczenie wszystkich checkboxów w kolumnie */
+            $('.pagination-check-all input[type=checkbox]').click(function(){
+                if ($(this).is(':checked')) {
+                    /* zaznaczenie */
+                    $(this).closest('table').find('.pagination-check-row input[type=checkbox]').each(function(){
+                        $(this).prop('checked', true);
+                        $(this).closest('tr').removeClass('w55').addClass('w33');
+                    });
+                } else {
+                    /* odznaczenie */
+                    $(this).closest('table').find('.pagination-check-row input[type=checkbox]').each(function(){
+                        $(this).prop('checked', false);
+                        $(this).closest('tr').removeClass('w33').addClass('w55');
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block content -%}
+    <a href="{{ path('car') }}" class="btn-primary btn">Powrót do listy</a>
+
+    <h1>{{ car.make }} {{ car.model }}</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th class="col-md-3">numer rej.</th>
+                    <td class="col-md-9">{{ car.registrationNumber }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-3">rok produkcji</th>
+                    <td class="col-md-9">{{ car.year|date('Y-m-d') }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-3">vin</th>
+                    <td class="col-md-9">{{ car.vin }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-3">silnik</th>
+                    <td class="col-md-9">{{ car.engine }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-3">przebieg</th>
+                    <td class="col-md-9">{{ car.mileage }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-3">paliwo</th>
+                    <td class="col-md-9">{{ car.fuelType.name|default("") }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-3">skrzynia biegów</th>
+                    <td class="col-md-9">{{ car.transmissionType.name|default("") }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-3">opis</th>
+                    <td class="col-md-9">{{ car.description }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+        <a href="{{ path('car_edit', { 'id': car.id }) }}" class="btn btn-primary btn-block">
+            Edytuj
+        </a>
+    </div>
+    <div class="col-sm-12 top-buffer">
+        {{ form(delete_form) }}
+    </div>
+{% endblock %}

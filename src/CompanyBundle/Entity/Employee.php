@@ -83,7 +83,7 @@ class Employee
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="employmentEnd", type="datetime")
+     * @ORM\Column(name="employmentEnd", type="datetime", nullable=true)
      */
     private $employmentEnd;
 
@@ -438,6 +438,14 @@ class Employee
     {
         $this->user = $user;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->getLastName().' '.$this->getFirstName();
     }
 
 

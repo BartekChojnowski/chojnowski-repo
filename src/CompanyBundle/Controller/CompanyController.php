@@ -90,10 +90,11 @@ class CompanyController extends Controller
     public function newAction()
     {
         $company = new Company();
+        $company->addAddress(new CompanyAddress());
         $form   = $this->createCreateForm($company);
 
         return array(
-            'entity' => $company,
+            'company' => $company,
             'form'   => $form->createView(),
         );
     }

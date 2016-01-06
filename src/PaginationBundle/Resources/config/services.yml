@@ -1,0 +1,12 @@
+services:
+    pagination.twig.extension.paginated_table:
+        class: PaginationBundle\Twig\Extension\PaginatedTableExtension
+        tags:
+            - { name: twig.extension }
+
+    pagination.view.paginated_table_factory:
+        class: PaginationBundle\View\PaginatedTableFactory
+
+    pagination.paginated_table:
+        class: PaginationBundle\View\PaginatedTable
+        arguments: ["@knp_paginator", "@pagination.view.paginated_table_factory"]

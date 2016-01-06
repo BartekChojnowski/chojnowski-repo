@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block content -%}
+    <a href="{{ path('car') }}" class="btn-primary btn">Powrót do listy</a>
+    <h1>Edycja danych samochodu</h1>
+
+    {{ form_start(edit_form, {attr: {class: 'form-horizontal'}}) }}
+    {{ form_widget(edit_form, {'form_type': 'horizontal'}) }}
+    {{ form_end(edit_form) }}
+    {{ form(delete_form, {'form_type': 'horizontal', 'attr': {'class': 'form-horizontal'}}) }}
+{% endblock %}
