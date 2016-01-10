@@ -33,7 +33,8 @@
         "friendsofsymfony/user-bundle": "^1.3",
         "sebastian/money": "1.6.1",
         "egeloen/google-map-bundle": "^2.2",
-        "knplabs/knp-paginator-bundle": "^2.5"
+        "knplabs/knp-paginator-bundle": "^2.5",
+        "khill/lavacharts" : "2.5.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

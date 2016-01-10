@@ -57,6 +57,14 @@ class Employee
     private $dateOfBirth;
 
     /**
+     * @var Company
+     *
+     * @ORM\ManyToOne(targetEntity="Company")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     */
+    private $company;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Group")
@@ -448,6 +456,28 @@ class Employee
         return $this->getLastName().' '.$this->getFirstName();
     }
 
+    /**
+     * Get company
+     *
+     * @return Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set company
+     *
+     * @param Company $company
+     *
+     * @return CompanyFreight
+     */
+    public function setCompany(Company $company)
+    {
+        $this->company = $company;
+        return $this;
+    }
 
 }
 

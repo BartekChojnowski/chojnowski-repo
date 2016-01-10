@@ -112,6 +112,13 @@ class Freight
      */
     private $description;
 
+    /**
+     * @var Company
+     *
+     * @ORM\ManyToOne(targetEntity="Company")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     */
+    private $company;
 
     /**
      * Get id
@@ -409,5 +416,29 @@ class Freight
     {
         return $this->description;
     }
+
+    /**
+     * Get company
+     *
+     * @return Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set company
+     *
+     * @param Company $company
+     *
+     * @return CompanyFreight
+     */
+    public function setCompany(Company $company)
+    {
+        $this->company = $company;
+        return $this;
+    }
+
 }
 

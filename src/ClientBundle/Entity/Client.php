@@ -3,6 +3,7 @@
 namespace ClientBundle\Entity;
 
 use AddressBundle\Entity\ClientAddress;
+use CompanyBundle\Entity\Company;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -57,6 +58,14 @@ class Client
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @var Company
+     *
+     * @ORM\ManyToOne(targetEntity="CompanyBundle\Entity\Company")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     */
+    private $company;
 
     /**
      * Contruct
@@ -220,5 +229,29 @@ class Client
         $this->email = $email;
         return $this;
     }
+
+    /**
+     * Get company
+     *
+     * @return Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set company
+     *
+     * @param Company $company
+     *
+     * @return CompanyFreight
+     */
+    public function setCompany(Company $company)
+    {
+        $this->company = $company;
+        return $this;
+    }
+
 }
 

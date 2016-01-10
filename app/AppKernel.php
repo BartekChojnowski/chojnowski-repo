@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new ClientBundle\ClientBundle(),
             new FleetBundle\FleetBundle(),
             new PaginationBundle\PaginationBundle(),
+            new ReportBundle\ReportBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
