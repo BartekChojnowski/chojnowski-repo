@@ -5,6 +5,11 @@ namespace CompanyBundle\Controller;
 use CompanyBundle\Entity\Currency;
 use Doctrine\ORM\EntityManager;
 use CompanyBundle\Utils\FreightListTableScheme;
+use Ivory\GoogleMap\Helper\Places\AutocompleteHelper;
+use Ivory\GoogleMap\Places\Autocomplete;
+use Ivory\GoogleMap\Places\AutocompleteComponentRestriction;
+use Ivory\GoogleMap\Places\AutocompleteType;
+use Ivory\GoogleMapBundle\Entity\Map;
 use PaginationBundle\View\PaginatedTable;
 use PaginationBundle\View\PaginatedTableFactory;
 use Symfony\Component\HttpFoundation\Request;
@@ -127,11 +132,57 @@ class FreightController extends Controller
     public function newAction()
     {
         $freight = new Freight();
+        /** @var Map */
+        $map = $this->get('ivory_google_map.map');
+
+        $geocoder = $this->get('ivory_google_map.geocoder');
+
+        // Geocode a location
+        $response = $geocoder->geocode('Bielsko-Biała');
+
+        // Request the google map service
+        $map = $this->get('ivory_google_map.map');
+
+        foreach($response->getResults() as $result)
+        {
+            // Request the google map merker service
+            $marker = $this->get('ivory_google_map.marker');
+
+            // Position the marker
+            $marker->setPosition($result->getGeometry()->getLocation());
+
+            // Add the marker to the map
+            $map->addMarker($marker);
+        }
+
+        $autocomplete = new Autocomplete();
+
+        $autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
+        $autocomplete->setInputId('place_input');
+
+        $autocomplete->setInputAttributes(array('class' => 'my-class'));
+        $autocomplete->setInputAttribute('class', 'my-class');
+
+        $autocomplete->setValue('foo');
+
+        $autocomplete->setTypes(array(AutocompleteType::CITIES));
+        $autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
+        $autocomplete->setBound(-2.1, -3.9, 2.6, 1.4, true, true);
+
+        $autocomplete->setAsync(false);
+        $autocomplete->setLanguage('pl');
+
+        $autocompleteHelper = new AutocompleteHelper();
+
+
         $form   = $this->createCreateForm($freight);
 
         return array(
             'freight' => $freight,
+            'map' => $map,
             'form'   => $form->createView(),
+//            'ent' => $autocompleteHelper->renderHtmlContainer($autocomplete),
+//            'entJS' => $autocompleteHelper->renderJavascripts($autocomplete)
         );
     }
 

@@ -18,11 +18,15 @@
             </tr>
             <tr>
                 <th class="col-md-3">skąd</th>
-                <td class="col-md-9">{{ freight.origin }}</td>
+                <td class="col-md-9">{{ freight.startingPosition.address }}</td>
+            </tr>
+            <tr>
+                <th class="col-md-3">skąd</th>
+                <td class="col-md-9">{{ freight.origin.address }}</td>
             </tr>
             <tr>
                 <th class="col-md-3">dokąd</th>
-                <td class="col-md-9">{{ freight.destination }}</td>
+                <td class="col-md-9">{{ freight.destination.address }}</td>
             </tr>
             <tr>
                 <th class="col-md-3">odległość</th>
@@ -34,7 +38,7 @@
             </tr>
             <tr>
                 <th class="col-md-3">stawka</th>
-                <td class="col-md-9">{{ freight.price }}</td>
+                <td class="col-md-9">{{ freight.price/100 |number_format(2, '.', ' ') }} zł</td>
             </tr>
             <tr>
                 <th class="col-md-3">kierowca</th>

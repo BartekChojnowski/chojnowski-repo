@@ -34,7 +34,9 @@
         "sebastian/money": "1.6.1",
         "egeloen/google-map-bundle": "^2.2",
         "knplabs/knp-paginator-bundle": "^2.5",
-        "khill/lavacharts" : "2.5.*"
+        "khill/lavacharts" : "2.5.*",
+        "willdurand/geocoder": "2.8.1",
+        "widop/http-adapter-bundle": "^1.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

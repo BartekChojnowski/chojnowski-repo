@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Transmission
  *
- * @ORM\Table(name="__trasmission_type")
+ * @ORM\Table(name="transmission_type")
  * @ORM\Entity
  */
 class TransmissionType

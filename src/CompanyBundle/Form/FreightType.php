@@ -18,7 +18,7 @@ class FreightType extends AbstractType
         $builder
             ->add('number', 'text', array('label' => 'numer'))
             ->add('start', 'datetime', array(
-                'label' => 'data od',
+                'label' => 'data',
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
                 'required' => false,
@@ -41,10 +41,20 @@ class FreightType extends AbstractType
                     'data-date-format' => 'dd-mm-yyyy'
                 )
             ))
-            ->add('origin', 'text', array('label' => 'skąd'))
-            ->add('destination', 'text', array('label' => 'dokąd'))
+            ->add('startingPosition', new PointType(), array(
+                'label' => 'dojazd z',
+                'attr' => array('id' => 'origin')
+            ))
+            ->add('origin', new PointType(), array(
+                'label' => 'skąd',
+                'attr' => array('id' => 'origin')
+            ))
+            ->add('destination', new PointType(), array(
+                'label' => 'dokąd',
+                'attr' => array('id' => 'destination')
+            ))
             ->add('distance', 'text', array('label' => 'odległość'))
-            ->add('distanceToOrigin', 'text', array('label' => 'odległość do zlecenia'))
+            ->add('distanceToOrigin', 'text', array('label' => 'dojazd'))
             ->add('price', 'money', array(
                 'divisor' => 100,
                 'label' => 'stawka',

@@ -47,16 +47,20 @@ class Freight
     private $end;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="origin", type="text")
+     * @ORM\ManyToOne(targetEntity="Point", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="startingPosition", referencedColumnName="id")
+     */
+    private $startingPosition;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Point", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="origin", referencedColumnName="id")
      */
     private $origin;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="destination", type="text")
+     * @ORM\ManyToOne(targetEntity="Point", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="destination", referencedColumnName="id")
      */
     private $destination;
 
@@ -203,23 +207,32 @@ class Freight
     }
 
     /**
-     * Set origin
+     * Get destination
      *
-     * @param string $origin
+     * @return Point
+     */
+    public function getDestination()
+    {
+        return $this->destination;
+    }
+
+    /**
+     * Set destination
+     *
+     * @param Point $destination
      *
      * @return Freight
      */
-    public function setOrigin($origin)
+    public function setDestination(Point $destination)
     {
-        $this->origin = $origin;
-
+        $this->destination = $destination;
         return $this;
     }
 
     /**
      * Get origin
      *
-     * @return string
+     * @return Point
      */
     public function getOrigin()
     {
@@ -227,27 +240,39 @@ class Freight
     }
 
     /**
-     * Set destination
+     * Set origin
      *
-     * @param string $destination
+     * @param Point $origin
      *
      * @return Freight
      */
-    public function setDestination($destination)
+    public function setOrigin(Point $origin)
     {
-        $this->destination = $destination;
-
+        $this->origin = $origin;
         return $this;
     }
 
     /**
-     * Get destination
+     * Get startingPosition
      *
-     * @return string
+     * @return Point
      */
-    public function getDestination()
+    public function getStartingPosition()
     {
-        return $this->destination;
+        return $this->startingPosition;
+    }
+
+    /**
+     * Set startingPosition
+     *
+     * @param Point $startingPosition
+     *
+     * @return Freight
+     */
+    public function setStartingPosition(Point $startingPosition)
+    {
+        $this->startingPosition = $startingPosition;
+        return $this;
     }
 
     /**
