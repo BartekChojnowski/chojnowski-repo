@@ -29,7 +29,7 @@ class CarController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $cars = $em->getRepository('FleetBundle:Car')->findAll();
+        $cars = $em->getRepository('FleetBundle:Car')->findByCompany($this->getUser()->getCompany());
 
         return array(
             'cars' => $cars
@@ -45,6 +45,8 @@ class CarController extends Controller
     public function createAction(Request $request)
     {
         $car = new Car();
+        $car->setCompany($this->getUser()->getCompany());
+
         $form = $this->createCreateForm($car);
         $form->handleRequest($request);
 
@@ -113,7 +115,8 @@ class CarController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $car = $em->getRepository('FleetBundle:Car')->find($id);
+        $car = $em->getRepository('FleetBundle:Car')
+            ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$car) {
             throw $this->createNotFoundException('Unable to find Car entity.');
@@ -138,7 +141,8 @@ class CarController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $car = $em->getRepository('FleetBundle:Car')->find($id);
+        $car = $em->getRepository('FleetBundle:Car')
+            ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$car) {
             throw $this->createNotFoundException('Unable to find Car entity.');

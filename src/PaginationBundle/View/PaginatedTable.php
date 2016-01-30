@@ -63,7 +63,7 @@ class PaginatedTable
     /**
      * @var int Ilość wyników na stronie
      */
-    protected $resultsOnPage = 50;
+    protected $resultsOnPage = 25;
 
     /**
      * @var SlidingPagination Stronicowanie

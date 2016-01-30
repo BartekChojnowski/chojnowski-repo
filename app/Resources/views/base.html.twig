@@ -11,13 +11,6 @@
 
     <title>Transport Manager</title>
 
-
-
-    {% stylesheets '../app/Resources/public/css/base.css' output='css/compiled/app.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
-
-
     {% stylesheets '../app/Resources/public/css/bootstrap.min.css' output='css/compiled/bootstrap.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
@@ -25,6 +18,12 @@
     {% stylesheets '../app/Resources/public/css/bootstrap-datepicker3.min.css' filter='cssrewrite' %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
+
+    {% stylesheets '../app/Resources/public/css/base.css' output='css/compiled/app.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=2" />
 
 </head>
 
@@ -45,7 +44,6 @@ output='js/compiled/datepicker.js' %}
 {% endjavascripts %}
 
 
-<!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -57,20 +55,30 @@ output='js/compiled/datepicker.js' %}
             </button>
             <a class="navbar-brand" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span> Transport Manager</a>
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Przydatne linki<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a href="http://etransport.pl/zakaz_ruchu" target="_blank">zakazy ruchu</a>
-                        </li>
-                        <li>
-                            <a href="http://doladunek.pl/" target="_blank">doładunek</a>
-                        </li>
+                        <li><a href="{{ path('company_show') }}">Dane</a></li>
+                        <li><a href="{{ path('employee') }}">Pracownicy</a></li>
+                        <li><a href="{{ path('car') }}">Flota</a></li>
+                        <li><a href="{{ path('freight') }}">Zlecenia</a></li>
+                        <li><a href="{{ path('client') }}">Klienci</a></li>
+                        <li><a href="{{ path('report') }}">Zestawienia</a></li>
                     </ul>
                 </li>
+                {#<li class="dropdown">#}
+                    {#<a href="#" class="dropdown-toggle" data-toggle="dropdown">Przydatne linki<b class="caret"></b></a>#}
+                    {#<ul class="dropdown-menu">#}
+                        {#<li>#}
+                            {#<a href="http://etransport.pl/zakaz_ruchu" target="_blank">zakazy ruchu</a>#}
+                        {#</li>#}
+                        {#<li>#}
+                            {#<a href="http://doladunek.pl/" target="_blank">doładunek</a>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#</li>#}
                 <li>
                     <a href="#">O nas</a>
                 </li>
@@ -82,31 +90,30 @@ output='js/compiled/datepicker.js' %}
                 </li>
             </ul>
         </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container -->
 </nav>
 
 {% block header %}{% endblock %}
 
-<!-- Page Content -->
-<div class="container">
-    <hr>
-    {% block content %}
-    {% endblock %}
-    <hr>
+{#<div id="wrap">#}
 
-    <!-- Footer -->
-    <footer>
-        <div class="row navbar-fixed-bottom">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Transport Manager 2015</p>
+    <div class="container">
+        <hr>
+            {% block content %}s{% endblock %}
+        <hr>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Copyright &copy; Transport Manager 2015</p>
+                </div>
             </div>
         </div>
     </footer>
 
-</div>
-<!-- /.container -->
+{#</div>#}
 
 <script>
     $('.carousel').carousel({ interval: 5000 })

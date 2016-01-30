@@ -1,5 +1,7 @@
 {% form_theme form "bootstrap_3_horizontal_layout.html.twig" %}
-
+<h3 class="page-header">
+    Rejestracja nowego użytkownika
+</h3>
 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register form-horizontal">
     {{ form_widget(form) }}
     <div class="form-group">

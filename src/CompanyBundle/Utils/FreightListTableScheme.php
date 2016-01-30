@@ -18,28 +18,6 @@ use PaginationBundle\View\TableFactoryInterface;
 class FreightListTableScheme extends AbstractPaginatedTableScheme
 {
     /**
-     * @var PaginatedTableFactory Fabryka elementów tabeli
-     */
-    protected $tableFactory;
-
-    /**
-     * @var EntityManager
-     */
-    protected $entityManager;
-
-    /**
-     * Konstruktor
-     *
-     * @param TableFactoryInterface $tableFactory
-     * @param EntityManager $entityManager
-     */
-    public function __construct(TableFactoryInterface $tableFactory, EntityManager $entityManager)
-    {
-        $this->tableFactory = $tableFactory;
-        $this->entityManager = $entityManager;
-    }
-
-    /**
      * Główna metoda zajmująca się budowaniem tabeli
      *
      * @param ArrayCollection $rows
@@ -199,7 +177,7 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
     {
         return $this->tableFactory
             ->getHeaderCellInstance()
-            ->setValue('odległość do zlecenia')
+            ->setValue('do zlecenia')
             ->setClass('col-md-1')
             ;
     }
@@ -288,7 +266,7 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
     {
         return $this
             ->tableFactory->getCellInstance()
-            ->setValue($freight->getOrigin())
+            ->setValue($freight->getOrigin()->getAddress())
         ;
     }
 
@@ -303,7 +281,7 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
     {
         return $this
             ->tableFactory->getCellInstance()
-            ->setValue($freight->getDestination())
+            ->setValue($freight->getDestination()->getAddress())
         ;
     }
 

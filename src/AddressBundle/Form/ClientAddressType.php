@@ -14,7 +14,8 @@ class ClientAddressType extends AddressType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AddressBundle\Entity\ClientAddress'
+            'data_class' => 'AddressBundle\Entity\ClientAddress',
+            'label' => false
         ));
     }
 

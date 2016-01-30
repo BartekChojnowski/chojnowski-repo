@@ -20,45 +20,78 @@ class FreightType extends AbstractType
             ->add('start', 'datetime', array(
                 'label' => 'data',
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
+                'format' => 'yyyy-MM-dd',
                 'required' => false,
                 'attr' => array(
                     'language' => 'pl',
                     'class' => 'form-control input-inline datepicker',
                     'data-provide' => 'datepicker',
-                    'data-date-format' => 'dd-mm-yyyy'
+                    'data-date-format' => 'yyyy-mm-dd',
+                    'data-date-autoclose' => true,
+                    'maxlength' => 9
                 )
             ))
             ->add('end', 'datetime', array(
                 'label' => 'data do',
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
+                'format' => 'yyyy-MM-dd',
                 'required' => false,
                 'attr' => array(
                     'language' => 'pl',
                     'class' => 'form-control input-inline datepicker',
                     'data-provide' => 'datepicker',
-                    'data-date-format' => 'dd-mm-yyyy'
+                    'data-date-format' => 'yyyy-mm-dd',
+                    'data-date-autoclose' => true,
+                    'maxlength' => 9
                 )
             ))
             ->add('startingPosition', new PointType(), array(
                 'label' => 'dojazd z',
-                'attr' => array('id' => 'origin')
+                'required' => false,
+                'attr' => array(
+                    'id' => 'origin',
+                    'maxlength' => 255
+                )
             ))
             ->add('origin', new PointType(), array(
                 'label' => 'skąd',
-                'attr' => array('id' => 'origin')
+                'attr' => array(
+                    'id' => 'origin',
+                    'maxlength' => 255
+                )
             ))
             ->add('destination', new PointType(), array(
                 'label' => 'dokąd',
-                'attr' => array('id' => 'destination')
+                'attr' => array(
+                    'id' => 'destination',
+                    'maxlength' => 255
+                )
             ))
-            ->add('distance', 'text', array('label' => 'odległość'))
-            ->add('distanceToOrigin', 'text', array('label' => 'dojazd'))
+            ->add('distance', 'number', array(
+                'label' => 'odległość',
+                'attr' => array(
+                    'class' => 'input-group-lg reg_name',
+                    'placeholder' => 'odległość',
+                    'maxlength' => 11
+
+                )
+            ))
+            ->add('distanceToOrigin', 'number', array(
+                'label' => 'dojazd',
+                'required' => false,
+                'attr' => array(
+                    'class' => 'input-group-lg reg_name',
+                    'placeholder' => 'dojazd',
+                    'maxlength' => 11
+                )
+            ))
             ->add('price', 'money', array(
                 'divisor' => 100,
                 'label' => 'stawka',
-                'currency' => 'PLN'
+                'currency' => 'PLN',
+                'attr' => array(
+                    'maxlength' => 11
+                )
             ))
             ->add('driver','entity', array(
                 'class' => 'CompanyBundle:Employee',

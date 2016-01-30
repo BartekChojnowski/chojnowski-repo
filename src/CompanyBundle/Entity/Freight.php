@@ -85,12 +85,6 @@ class Freight
      */
     private $price;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="Currency")
-//     * @ORM\JoinColumn(name="currency", referencedColumnName="id")
-//     */
-//    private $currency;
-
     /**
      * @ORM\ManyToOne(targetEntity="Employee")
      * @ORM\JoinColumn(name="driver", referencedColumnName="id")

@@ -35,17 +35,17 @@
             </table>
         </div>
         <div class="col-md-12">
-            <div class="chart" id="freight-count-chart"></div>
-            <div class="chart" id="distance-chart"></div>
-            <div class="chart" id="price-chart"></div>
+            <div class="chart" id="freight-count-chart-{{ year }}"></div>
+            <div class="chart" id="distance-chart-{{ year }}"></div>
+            <div class="chart" id="price-chart-{{ year }}"></div>
         </div>
 
-        {{ freightCountChartLavaScript | raw}}
-        {{ freightCountChartScript | raw }}
-        {{ distanceChartLavaScript | raw}}
-        {{ distanceChartScript | raw }}
-        {{ priceChartLavaScript | raw}}
-        {{ priceChartScript | raw }}
+        {{ charts[year].freightCountChartLavaScript | raw}}
+        {{ charts[year].freightCountChartScript | raw }}
+        {{ charts[year].distanceChartLavaScript | raw}}
+        {{ charts[year].distanceChartScript | raw }}
+        {{ charts[year].priceChartLavaScript | raw}}
+        {{ charts[year].priceChartScript | raw }}
 
     {% endfor %}
 

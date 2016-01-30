@@ -16,49 +16,70 @@ class EmployeeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', 'text', array('label' => 'imię'))
-            ->add('lastName', 'text', array('label' => 'nazwisko'))
-            ->add('personalId', 'text', array('label' => 'pesel', 'required' => false,))
+            ->add('firstName', 'text', array(
+                'label' => 'imię',
+                'attr' => array(
+                    'maxlength' => 60
+                )
+            ))
+            ->add('lastName', 'text', array(
+                'label' => 'nazwisko',
+                'attr' => array(
+                    'maxlength' => 60
+                )
+            ))
+            ->add('personalId', 'text', array(
+                'label' => 'pesel',
+                'required' => false,
+                'attr' => array(
+                    'maxlength' => 11
+                )
+            ))
             ->add('dateOfBirth', 'datetime', array(
                 'label' => 'data urodzenia',
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
+                'format' => 'yyyy-MM-dd',
                 'required' => false,
                 'attr' => array(
                     'language' => 'pl',
                     'class' => 'form-control input-inline datepicker',
                     'data-provide' => 'datepicker',
-                    'data-date-format' => 'dd-mm-yyyy'
+                    'data-date-format' => 'yyyy-mm-dd',
+                    'data-date-autoclose' => true,
+                    'maxlength' => 9
                 )
             ))
             ->add('employmentStart', 'date', array(
                 'label' => 'data rozpoczęcia pracy',
                 'required' => false,
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
+                'format' => 'yyyy-MM-dd',
                 'attr' => array(
                     'language' => 'pl',
                     'class' => 'form-control input-inline datepicker',
                     'data-provide' => 'datepicker',
-                    'data-date-format' => 'dd-mm-yyyy'
+                    'data-date-format' => 'yyyy-mm-dd',
+                    'data-date-autoclose' => true,
+                    'maxlength' => 9
                 )
             ))
             ->add('employmentEnd', 'date', array(
                 'label' => 'data zakończenia pracy',
                 'required' => false,
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
+                'format' => 'yyyy-MM-dd',
                 'attr' => array(
                     'language' => 'pl',
                     'class' => 'form-control input-inline datepicker',
                     'data-provide' => 'datepicker',
-                    'data-date-format' => 'dd-mm-yyyy'
+                    'data-date-format' => 'yyyy-MM-dd',
+                    'maxlength' => 9
                 )
             ))
             ->add('groups', 'entity', array(
-                'multiple' => true,   // Multiple selection allowed
-                'expanded' => true,   // Render as checkboxes
-                'property' => 'name', // Assuming that the entity has a "name" property
+                'multiple' => true,
+                'expanded' => true,
+                'property' => 'name',
                 'class'    => 'CompanyBundle\Entity\Group',
                 'label' => 'grupa'
             ))

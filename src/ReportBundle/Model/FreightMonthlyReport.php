@@ -72,8 +72,4 @@ class FreightMonthlyReport extends Report
 
         return $results;
     }
-
-
-
-
-} 
+}

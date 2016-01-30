@@ -45,7 +45,7 @@ class EmployeeMainReport extends Report
                 JOIN freight F ON E.id = F.driver
 
             WHERE
-                E.company_id = 3 -- '.$this->company->getId().'
+                E.company_id = '.$this->company->getId().'
             GROUP BY
                 E.id
             ORDER BY E.lastName, E.firstName
@@ -55,7 +55,7 @@ class EmployeeMainReport extends Report
     /**
      * Returns report query
      *
-     * @return Query
+     * @return array
      */
     public function getResults()
     {
@@ -65,8 +65,4 @@ class EmployeeMainReport extends Report
 
         return $stmt->fetchAll();
     }
-
-
-
-
-} 
+}

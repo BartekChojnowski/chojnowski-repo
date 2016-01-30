@@ -2,6 +2,8 @@
 
 namespace CompanyBundle\Controller;
 
+use AddressBundle\Entity\ClientAddress;
+use ClientBundle\Entity\Client;
 use CompanyBundle\Entity\Currency;
 use Doctrine\ORM\EntityManager;
 use CompanyBundle\Utils\FreightListTableScheme;
@@ -37,11 +39,12 @@ class FreightController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $request = $this->getRequest();
+//        $request = $this->getRequest();
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $freights = $em->getRepository('CompanyBundle:Freight')->findAll();
+        $freights = $em->getRepository('CompanyBundle:Freight')->findByCompany($this->getUser()->getCompany());
+
         /** @var PaginatedTable $paginatedTable */
         $paginatedTable = $this->get('pagination.paginated_table');
         $paginatedTable
@@ -66,9 +69,6 @@ class FreightController extends Controller
                 'paginatedTable' => $paginatedTable,
             );
         }
-        return array(
-            'freights' => $freights,
-        );
     }
 
     /**
@@ -81,6 +81,10 @@ class FreightController extends Controller
     public function createAction(Request $request)
     {
         $freight = new Freight();
+        $freight->setCompany($this->getUser()->getCompany());
+        $client = new Client();
+        $client->addAddress(new ClientAddress());
+        $freight->setClient($client);
         $form = $this->createCreateForm($freight);
         $form->handleRequest($request);
 
@@ -132,16 +136,16 @@ class FreightController extends Controller
     public function newAction()
     {
         $freight = new Freight();
+        $client = new Client();
+        $client->addAddress(new ClientAddress());
+        $freight->setClient($client);
+
         /** @var Map */
         $map = $this->get('ivory_google_map.map');
 
         $geocoder = $this->get('ivory_google_map.geocoder');
 
-        // Geocode a location
         $response = $geocoder->geocode('Bielsko-Biała');
-
-        // Request the google map service
-        $map = $this->get('ivory_google_map.map');
 
         foreach($response->getResults() as $result)
         {
@@ -155,34 +159,12 @@ class FreightController extends Controller
             $map->addMarker($marker);
         }
 
-        $autocomplete = new Autocomplete();
-
-        $autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
-        $autocomplete->setInputId('place_input');
-
-        $autocomplete->setInputAttributes(array('class' => 'my-class'));
-        $autocomplete->setInputAttribute('class', 'my-class');
-
-        $autocomplete->setValue('foo');
-
-        $autocomplete->setTypes(array(AutocompleteType::CITIES));
-        $autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
-        $autocomplete->setBound(-2.1, -3.9, 2.6, 1.4, true, true);
-
-        $autocomplete->setAsync(false);
-        $autocomplete->setLanguage('pl');
-
-        $autocompleteHelper = new AutocompleteHelper();
-
-
         $form   = $this->createCreateForm($freight);
 
         return array(
             'freight' => $freight,
             'map' => $map,
             'form'   => $form->createView(),
-//            'ent' => $autocompleteHelper->renderHtmlContainer($autocomplete),
-//            'entJS' => $autocompleteHelper->renderJavascripts($autocomplete)
         );
     }
 
@@ -197,7 +179,8 @@ class FreightController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $freight = $em->getRepository('CompanyBundle:Freight')->find($id);
+        $freight = $em->getRepository('CompanyBundle:Freight')
+            ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$freight) {
             throw $this->createNotFoundException('Unable to find Freight entity.');
@@ -222,7 +205,8 @@ class FreightController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $freight = $em->getRepository('CompanyBundle:Freight')->find($id);
+        $freight = $em->getRepository('CompanyBundle:Freight')
+            ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$freight) {
             throw $this->createNotFoundException('Unable to find Freight entity.');
@@ -233,7 +217,7 @@ class FreightController extends Controller
 
         return array(
             'freight'      => $freight,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -290,7 +274,7 @@ class FreightController extends Controller
 
         return array(
             'freight'      => $freight,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }

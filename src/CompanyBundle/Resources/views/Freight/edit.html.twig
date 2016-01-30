@@ -1,38 +1,295 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
+    <a href="{{ path('freight') }}" class="btn-primary btn">Powrót do listy</a>
     <h1>Edycja danych firmy</h1>
 
-    {{ form_start(edit_form) }}
-    {{ form_errors(edit_form) }}
 
-    <div class="form-group">
-        {{ form_row(edit_form.name) }}
-        {{ form_errors(edit_form.name) }}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_row(form.number) }}
+                {{ form_errors(form.number) }}
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">{{ form_label(form.start) }}</div>
+                    <div class="col-md-3">{{ form_widget(form.start) }}</div>
+                    <div class="col-md-3">{{ form_widget(form.end) }}</div>
+                </div>
+                {{ form_errors(form.start) }}
+                {{ form_errors(form.end) }}
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">{{ form_widget(form.startingPosition) }}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">{{ form_widget(form.origin) }}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">{{ form_widget(form.destination) }}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <label class="sr-only" required="required" for="companybundle_freight_distance">zlecenie</label>
+                        <div class="input-group">
+                            {{ form_widget(form.distance) }}
+                            <span class="input-group-addon">km</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="sr-only" required="required" for="companybundle_freight_distanceToOrigin">dojazd</label>
+                        <div class="input-group">
+                            {{ form_widget(form.distanceToOrigin) }}
+                            <span class="input-group-addon">km</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="sr-only" for="companybundle_freight_distanceSum">suma</label>
+                        {#<div class="input-group">#}
+                        <input type="text" id="companybundle_freight_distanceSum" class="form-control" placeholder="suma" disabled="disabled">
+                        {#<span class="input-group-addon">km</span>#}
+                        {#</div>#}
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button type="button" id="map-serach-btn" class="btn btn-default" aria-label="Pokaż na mapie"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    {{ form_label(form.price) }}
+                    <div class="col-md-4">{{ form_widget(form.price) }}</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.driver) }}
+                {{ form_errors(form.driver) }}
+                {{ form_row(form.car) }}
+                {{ form_errors(form.car) }}
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div style="height:440px; width:570px;">
+                <div id="map-canvas"  style="height:100%; width:100%;"></div>
+            </div>
+        </div>
     </div>
 
+    <div class="">
+        <label class="control-label">klient</label>
+    </div>
     <div class="form-group">
-        {{ form_row(edit_form.taxId) }}
-        {{ form_errors(edit_form.taxId) }}
+        {{ form_widget(form.client) }}
+        {{ form_errors(form.client) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form.description) }}
+        {{ form_errors(form.description) }}
     </div>
 
-    <div class="form-group">
-        {{ form_row(edit_form.email) }}
-        {{ form_errors(edit_form.email) }}
+    {{ form_end(form) }}
+
+    <script>
+        var startingPosition = $('#companybundle_freight_startingPosition_address');
+        var startingPositionLatitide = $('#companybundle_freight_startingPosition_latitude');
+        var startingPositionLogitude = $('#companybundle_freight_startingPosition_longitude');
+        var origin = $('#companybundle_freight_origin_address');
+        var originLatitide = $('#companybundle_freight_origin_latitude');
+        var originLogitude = $('#companybundle_freight_origin_longitude');
+        var destination = $('#companybundle_freight_destination_address');
+        var destinationLatitide = $('#companybundle_freight_destination_latitude');
+        var destinationLogitude = $('#companybundle_freight_destination_longitude');
+        freightDistanceElement = $('#companybundle_freight_distance');
+        toOriginDistanceElement = $('#companybundle_freight_distanceToOrigin');
+        distanceSumElement = $('#companybundle_freight_distanceSum');
+
+        $(document).ready(function() {
+            distanceSumElement.val(parseInt(freightDistanceElement.val()) + parseInt(toOriginDistanceElement.val() || 0));
+        });
+
+        function initMap() {
+
+            var myLatlng = new google.maps.LatLng(52.069327, 19.480279);
+            var map = new google.maps.Map(document.getElementById('map-canvas'), {
+                zoom: 6,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                streetViewControl: false,
+                disableDefaultUI: true
+            });
+            var geocoder = new google.maps.Geocoder();
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+            var startingPositionMarker = new google.maps.Marker();
+            var originMarker = new google.maps.Marker();
+            var destinationMarker = new google.maps.Marker();
+
+            $('#map-serach-btn').click(function() {
+                originMarker.setMap(null);
+                destinationMarker.setMap(null);
+                startingPositionMarker.setMap(null);
+
+
+                var dfd1 = $.Deferred();
+                var dfd2 = $.Deferred();
+                var dfd3 = $.Deferred();
+
+                var originLocation = null;
+                var destinationLocation = null;
+                var startingPositionLocation = null;
+
+                geocodeAddress(geocoder, origin.val(), dfd1).then(function(location) {
+                    if (location) {
+                        return location;
+                    } else {
+                        return false;
+                    }
+                }).done(function(location) {
+                    setLatlng(location, originLatitide, originLogitude);
+                });
+
+                geocodeAddress(geocoder, destination.val(), dfd2).then(function(location) {
+                    if (location) {
+                        return location;
+                    } else {
+                        return false;
+                    }
+                }).done(function(location) {
+                    setLatlng(location, destinationLatitide, destinationLogitude);
+                });
+
+                geocodeAddress(geocoder, startingPosition.val(), dfd3).then(function(location) {
+                    if (location) {
+                        return location;
+                    } else {
+                        return false;
+                    }
+                }).done(function(location) {
+                    setLatlng(location, startingPositionLatitide, startingPositionLogitude);
+                });
+
+                $.when( dfd1, dfd2, dfd3 ).done(function(originLocation, destinationLocation, startingPositionLocation) {
+                    freightDistanceElement.val('');
+                    toOriginDistanceElement.val('');
+                    distanceSumElement.val('');
+                    if (originLocation && destinationLocation) {
+                        directionsDisplay.setMap(map);
+                        calculateAndDisplayRoute(directionsService, directionsDisplay, startingPosition.val(), origin.val(), destination.val());
+                    } else {
+                        directionsDisplay.setMap(null);
+                        setmMarker(map, originMarker, originLocation);
+                        setmMarker(map, destinationMarker, destinationLocation);
+                        setmMarker(map, startingPositionMarker, startingPositionLocation);
+                    }
+                });
+            });
+
+            $('#map-serach-btn').click();
+        }
+
+
+
+        function geocodeAddress(geocoder, address, dfd) {
+            geocoder.geocode({'address': address}, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    dfd.resolve(results[0].geometry.location);
+                } else {
+                    dfd.resolve(false);
+                }
+            });
+            return dfd.promise();
+        }
+
+        function setmMarker(map, marker, location) {
+            if (location) {
+                map.setCenter(location);
+                marker.setMap(map);
+                marker.setPosition(location);
+            }
+        }
+
+        function setLatlng(location, lat, lng) {
+            if (location) {
+                lng.val(location.lng);
+                lat.val(location.lat);
+            } else {
+                lng.val('');
+                lat.val('');
+            }
+        }
+
+        function calculateAndDisplayRoute(directionsService, directionsDisplay, startingPositionAddress, originAddress, destinationAddress) {
+            var waypts = [];
+
+            if (startingPositionAddress != '') {
+                waypts.push({
+                    location: originAddress,
+                    stopover: true
+                });
+
+                originAddress = startingPositionAddress;
+                var isDistanceToOrigin = true;
+            }
+
+            directionsService.route({
+                origin: originAddress,
+                destination: destinationAddress,
+                travelMode: google.maps.TravelMode.DRIVING,
+                unitSystem: google.maps.UnitSystem.METRIC,
+                waypoints: waypts,
+                optimizeWaypoints: true
+            }, function(response, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                    var route = response.routes[0];
+                    var distance = 0;
+                    for (var i = 0; i < route.legs.length; i++) {
+                        if (isDistanceToOrigin) {
+                            toOriginDistanceElement.val(Math.round(route.legs[i].distance.value/1000));
+                            isDistanceToOrigin = false;
+                        } else {
+                            distance += route.legs[i].distance.value;
+                        }
+                    }
+
+                    freightDistanceElement.val(Math.round(distance/1000));
+
+                    distanceSumElement.val(parseInt(freightDistanceElement.val()) + parseInt(toOriginDistanceElement.val() || 0));
+                }
+            });
+        }
+
+        function calculateDistance() {
+            var totalDistance = 0;
+            var totalDuration = 0;
+            var legs = directionsResult.routes[0].legs;
+            for(var i=0; i<legs.length; ++i) {
+                totalDistance += legs[i].distance.value;
+                totalDuration += legs[i].duration.value;
+            }
+        }
+        //        $(document).ready(function(){
+        //
+        //        });
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDZtW0AjODCeKfQKFC3YBN9O6DjQIuQOI&signed_in=false&callback=initMap" async defer></script>
     </div>
-
-    <h3>Adresy</h3>
-    <ul class="addresses" data-prototype="{{ form_widget(edit_form.addresses.vars.prototype)|e }}">
-        {% for address in edit_form.addresses %}
-            <li>{{ form_row(address.city) }}</li>
-            <li>{{ form_row(address.postcode) }}</li>
-            <li>{{ form_row(address.street) }}</li>
-            <li>{{ form_row(address.number) }}</li>
-        {% endfor %}
-    </ul>
-
-    {{ form_end(edit_form) }}
-
-    <ul class="record_actions">
-    </ul>
 {% endblock %}

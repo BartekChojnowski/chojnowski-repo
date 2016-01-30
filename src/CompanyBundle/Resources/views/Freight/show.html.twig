@@ -18,15 +18,28 @@
             </tr>
             <tr>
                 <th class="col-md-3">skąd</th>
-                <td class="col-md-9">{{ freight.startingPosition.address }}</td>
+                <td class="col-md-9">
+                    {% if freight.startingPosition is not null %}
+
+                        {{ freight.startingPosition.address }}
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th class="col-md-3">skąd</th>
-                <td class="col-md-9">{{ freight.origin.address }}</td>
+                <td class="col-md-9">
+                    {% if freight.startingPosition is not null %}
+                        {{ freight.origin.address }}
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th class="col-md-3">dokąd</th>
-                <td class="col-md-9">{{ freight.destination.address }}</td>
+                <td class="col-md-9">
+                    {% if freight.startingPosition is not null %}
+                        {{ freight.destination.address }}
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th class="col-md-3">odległość</th>

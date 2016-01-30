@@ -7,8 +7,10 @@
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
+
+
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
             <div class="form-group">
                 {{ form_row(form.number) }}
                 {{ form_errors(form.number) }}
@@ -16,8 +18,8 @@
 
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-2 text-right">{{ form_label(form.start) }}</div>
-                    <div class="col-md-3">{{ form_widget(form.start) }}</div> -
+                    <div class="col-md-2">{{ form_label(form.start) }}</div>
+                    <div class="col-md-3">{{ form_widget(form.start) }}</div>
                     <div class="col-md-3">{{ form_widget(form.end) }}</div>
                 </div>
                 {{ form_errors(form.start) }}
@@ -26,53 +28,52 @@
 
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-10">{{ form_widget(form.startingPosition) }}</div>
-                    <div class="col-md-2 text-right">
-                        <button type="button" id="startingPosition-serach-btn" class="btn btn-default" aria-label="Szukaj"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                        {#<button type="button" id="origin-pin-btn" class="btn btn-default" aria-label="Zaznacz"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>#}
-                    </div>
+                    <div class="col-md-12">{{ form_widget(form.startingPosition) }}</div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-10">{{ form_widget(form.origin) }}</div>
-                    <div class="col-md-2 text-right">
-                        <button type="button" id="origin-serach-btn" class="btn btn-default" aria-label="Szukaj"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                        {#<button type="button" id="origin-pin-btn" class="btn btn-default" aria-label="Zaznacz"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>#}
-                    </div>
+                    <div class="col-md-12">{{ form_widget(form.origin) }}</div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-10">{{ form_widget(form.destination) }}</div>
-                    <div class="col-md-2 text-right">
-                        <button type="button" id="destination-serach-btn" class="btn btn-default" aria-label="Szukaj"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                        {#<button type="button" id="destination-pin-btn" class="btn btn-default" aria-label="Zaznacz"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>#}
-                    </div>
+                    <div class="col-md-12">{{ form_widget(form.destination) }}</div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-2 nopadding text-right">
-                        <label class="control-label" required="required" for="companybundle_freight_distance">zlecenie</label>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <label class="sr-only" required="required" for="companybundle_freight_distance">zlecenie</label>
+                        <div class="input-group">
+                            {{ form_widget(form.distance) }}
+                            <span class="input-group-addon">km</span>
+                        </div>
                     </div>
-                    <div class="col-md-2 nopadding">{{ form_widget(form.distance) }}</div>
-                    <div class="col-md-2 nopadding text-right">
-                        <label class="control-label" required="required" for="companybundle_freight_distanceToOrigin">dojazd</label>
+                    <div class="col-md-3">
+                        <label class="sr-only" required="required" for="companybundle_freight_distanceToOrigin">dojazd</label>
+                        <div class="input-group">
+                            {{ form_widget(form.distanceToOrigin) }}
+                            <span class="input-group-addon">km</span>
+                        </div>
                     </div>
-                    <div class="col-md-2 nopadding">{{ form_widget(form.distanceToOrigin) }}</div>
-                    <div class="col-md-2 nopadding text-right">
-                        <label class="control-label" for="companybundle_freight_distanceToOrigin">suma</label>
+                    <div class="col-md-2">
+                        <label class="sr-only" for="companybundle_freight_distanceSum">suma</label>
+                        {#<div class="input-group">#}
+                            <input type="text" id="companybundle_freight_distanceSum" class="form-control" placeholder="suma" disabled="disabled">
+                            {#<span class="input-group-addon">km</span>#}
+                        {#</div>#}
                     </div>
-                    <div class="col-md-2 nopadding">
-                        <input type="text" id="companybundle_freight_distanceSum" class="form-control">
+                    <div class="form-group col-md-1">
+                        <button type="button" id="map-serach-btn" class="btn btn-default" aria-label="Pokaż na mapie"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-2 text-right"> {{ form_label(form.price) }}</div>
+                    {{ form_label(form.price) }}
                     <div class="col-md-4">{{ form_widget(form.price) }}</div>
                 </div>
             </div>
@@ -85,15 +86,18 @@
             </div>
 
         </div>
-        <div class="col-md-7">
-            <div style="height:480px; width:600px;">
+        <div class="col-md-6">
+            <div style="height:440px; width:570px;">
                 <div id="map-canvas"  style="height:100%; width:100%;"></div>
             </div>
         </div>
     </div>
 
+    <div class="">
+        <label class="control-label">klient</label>
+    </div>
     <div class="form-group">
-        {{ form_row(form.client) }}
+        {{ form_widget(form.client) }}
         {{ form_errors(form.client) }}
     </div>
     <div class="form-group">
@@ -130,50 +134,103 @@
             var destination = $('#companybundle_freight_destination_address');
             var destinationLatitide = $('#companybundle_freight_destination_latitude');
             var destinationLogitude = $('#companybundle_freight_destination_longitude');
+           freightDistanceElement = $('#companybundle_freight_distance');
+           toOriginDistanceElement = $('#companybundle_freight_distanceToOrigin');
+           distanceSumElement = $('#companybundle_freight_distanceSum');
 
-            $('#startingPosition-serach-btn').click(function() {
-                startingPositionMarker.setMap(null);
-                geocodeAddress(geocoder, map, startingPositionMarker, startingPosition.val(), startingPositionLatitide, startingPositionLogitude);
-                calculateAndDisplayRoute(directionsService, directionsDisplay, startingPosition.val(), origin.val(), destination.val());
-            });
-
-            $('#origin-serach-btn').click(function() {
+            $('#map-serach-btn').click(function() {
                 originMarker.setMap(null);
-                geocodeAddress(geocoder, map, originMarker, origin.val(), originLatitide, originLogitude);
-                calculateAndDisplayRoute(directionsService, directionsDisplay, startingPosition.val(), origin.val(), destination.val());
-            });
-
-            $('#destination-serach-btn').click(function() {
                 destinationMarker.setMap(null);
-                geocodeAddress(geocoder, map, destinationMarker, destination.val(), destinationLatitide, destinationLogitude);
-                calculateAndDisplayRoute(directionsService, directionsDisplay, startingPosition.val(), origin.val(), destination.val());
+                startingPositionMarker.setMap(null);
+
+
+                var dfd1 = $.Deferred();
+                var dfd2 = $.Deferred();
+                var dfd3 = $.Deferred();
+
+                var originLocation = null;
+                var destinationLocation = null;
+                var startingPositionLocation = null;
+
+                geocodeAddress(geocoder, origin.val(), dfd1).then(function(location) {
+                    if (location) {
+                        return location;
+                    } else {
+                        return false;
+                    }
+                }).done(function(location) {
+                    setLatlng(location, originLatitide, originLogitude);
+                });
+
+                geocodeAddress(geocoder, destination.val(), dfd2).then(function(location) {
+                    if (location) {
+                        return location;
+                    } else {
+                        return false;
+                    }
+                }).done(function(location) {
+                    setLatlng(location, destinationLatitide, destinationLogitude);
+                });
+
+                geocodeAddress(geocoder, startingPosition.val(), dfd3).then(function(location) {
+                    if (location) {
+                        return location;
+                    } else {
+                        return false;
+                    }
+                }).done(function(location) {
+                    setLatlng(location, startingPositionLatitide, startingPositionLogitude);
+                });
+
+                $.when( dfd1, dfd2, dfd3 ).done(function(originLocation, destinationLocation, startingPositionLocation) {
+                    freightDistanceElement.val('');
+                    toOriginDistanceElement.val('');
+                    distanceSumElement.val('');
+                    if (originLocation && destinationLocation) {
+                        directionsDisplay.setMap(map);
+                        calculateAndDisplayRoute(directionsService, directionsDisplay, startingPosition.val(), origin.val(), destination.val());
+                    } else {
+                        directionsDisplay.setMap(null);
+                        setmMarker(map, originMarker, originLocation);
+                        setmMarker(map, destinationMarker, destinationLocation);
+                        setmMarker(map, startingPositionMarker, startingPositionLocation);
+                    }
+                });
+
             });
         }
 
-        function geocodeAddress(geocoder, resultsMap, marker, address, lat, lng) {
+        function geocodeAddress(geocoder, address, dfd) {
             geocoder.geocode({'address': address}, function(results, status) {
                 if (status === google.maps.GeocoderStatus.OK) {
-                    resultsMap.setCenter(results[0].geometry.location);
-                    marker = new google.maps.Marker({
-                        map: resultsMap,
-                        position: results[0].geometry.location
-                    });
-
-                    lat.val(results[0].geometry.location.lat);
-                    lng.val(results[0].geometry.location.lng);
+                    dfd.resolve(results[0].geometry.location);
+                } else {
+                    dfd.resolve(false);
                 }
             });
+            return dfd.promise();
+        }
+
+        function setmMarker(map, marker, location) {
+            if (location) {
+                map.setCenter(location);
+                marker.setMap(map);
+                marker.setPosition(location);
+            }
+        }
+
+        function setLatlng(location, lat, lng) {
+            if (location) {
+                lng.val(location.lng);
+                lat.val(location.lat);
+            } else {
+                lng.val('');
+                lat.val('');
+            }
         }
 
         function calculateAndDisplayRoute(directionsService, directionsDisplay, startingPositionAddress, originAddress, destinationAddress) {
             var waypts = [];
-            var freightDistanceElement = $('#companybundle_freight_distance');
-            var toOriginDistanceElement = $('#companybundle_freight_distanceToOrigin');
-            var distanceSumElement = $('#companybundle_freight_distanceSum');
-
-            freightDistanceElement.val('');
-            toOriginDistanceElement.val('');
-            distanceSumElement.val('');
 
             if (startingPositionAddress != '') {
                 waypts.push({
@@ -208,7 +265,7 @@
 
                     freightDistanceElement.val(Math.round(distance/1000));
 
-                    distanceSumElement.val(parseInt(freightDistanceElement.val()) + parseInt(toOriginDistanceElement.val()));
+                    distanceSumElement.val(parseInt(freightDistanceElement.val()) + parseInt(toOriginDistanceElement.val() || 0));
                 }
             });
         }

@@ -3,8 +3,6 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
 
-# Put parameters here that don't need to change on each machine where the app is deployed
-# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: pl
 
@@ -98,12 +96,6 @@ pagination:
 
 ivory_google_map:
     map:
-#        # You own map class
-#        class: "My\Fucking\Map"
-#
-#        # Your own map helper class
-#        helper_class: "My\Fucking\MapHelper"
-
         # Prefix used for the generation of the map javascript variable
         prefix_javascript_variable: "map_"
 

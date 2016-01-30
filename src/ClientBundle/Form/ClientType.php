@@ -16,10 +16,28 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array('label' => 'nazwa'))
-            ->add('taxId', 'text', array('label' => 'NIP', 'required' => false,))
-            ->add('email', 'text', array('label' => 'email', 'required' => false,))
+            ->add('name', 'text', array(
+                'label' => 'nazwa',
+                'attr' => array(
+                    'maxlength' => 255
+                )
+            ))
+            ->add('taxId', 'text', array(
+                'label' => 'NIP',
+                'required' => false,
+                'attr' => array(
+                    'maxlength' => 16
+                )
+            ))
+            ->add('email', 'text', array(
+                'label' => 'email',
+                'required' => false,
+                'attr' => array(
+                    'maxlength' => 80
+                )
+            ))
             ->add('addresses', 'collection', array(
+                'label' => 'adres',
                 'by_reference' => false,
                 'type'   => new ClientAddressType(),
                 'allow_add'    => true,

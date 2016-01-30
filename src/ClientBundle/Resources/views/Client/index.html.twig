@@ -3,36 +3,9 @@
 {% block content -%}
     <h1>Klienci</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>nazwa</th>
-                <th>NIP</th>
-                <th>email</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for client in clients %}
-            <tr>
-                <td>{{ client.name }}</td>
-                <td>{{ client.taxId }}</td>
-                <td>{{ client.email }}</td>
-                <td>
-                    <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                        <a href="{{ path('client_show', { 'id': client.id }) }}" class="btn btn-primary">szczegóły</a>
-                        <a href="{{ path('client_edit', { 'id': client.id }) }}" class="btn btn-primary">edytuj</a>
-                    </div>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% include 'ClientBundle:Client:client-list.html.twig' with {'paginatedTable' : paginatedTable} %}
 
-        <ul>
-        <li>
-            <a href="{{ path('client_new') }}" class="btn btn-primary btn-block">
-                Dodaj nowego klienta
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+    <a href="{{ path('client_new') }}" class="btn btn-primary btn-block">
+        Dodaj nowego klienta
+    </a>
+{% endblock %}

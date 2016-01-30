@@ -89,6 +89,13 @@ class Car
      */
     private $description;
 
+    /**
+     * @var Company
+     *
+     * @ORM\ManyToOne(targetEntity="CompanyBundle\Entity\Company")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     */
+    private $company;
 
     /**
      * Get id
@@ -338,5 +345,29 @@ class Car
     {
         return $this->description;
     }
+
+    /**
+     * Get company
+     *
+     * @return Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set company
+     *
+     * @param Company $company
+     *
+     * @return Car
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+        return $this;
+    }
+
 }
 

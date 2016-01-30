@@ -26,28 +26,28 @@ abstract class Address
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=120)
+     * @ORM\Column(name="city", type="string", length=120, nullable=true)
      */
     protected $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="postcode", type="string", length=20)
+     * @ORM\Column(name="postcode", type="string", length=20, nullable=true)
      */
     protected $postcode;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="street", type="string", length=120)
+     * @ORM\Column(name="street", type="string", length=120, nullable=true)
      */
     protected $street;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="number", type="string", length=15)
+     * @ORM\Column(name="number", type="string", length=15, nullable=true)
      */
     protected $number;
 

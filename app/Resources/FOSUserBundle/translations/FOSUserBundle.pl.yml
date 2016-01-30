@@ -40,7 +40,7 @@ change_password:
 # Registration
 registration:
     check_email: Na adres %email% wysłano wiadomość e-mail. Zawiera ona link w którego należy kliknąć aby aktywować konto.
-    confirmed: Gratulacje %username%, potwierdziłeś konto.
+    confirmed: Gratulacje %username%, konto w systemie zostało zarejestrowane.
     back: Powrót do poprzedniej strony.
     submit: Zapisz
     flash:

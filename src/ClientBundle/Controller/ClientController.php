@@ -3,6 +3,10 @@
 namespace ClientBundle\Controller;
 
 use AddressBundle\Entity\ClientAddress;
+use ClientBundle\Utils\ClientListTableScheme;
+use Doctrine\ORM\EntityManager;
+use PaginationBundle\View\PaginatedTable;
+use PaginationBundle\View\PaginatedTableFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -23,18 +27,39 @@ class ClientController extends Controller
      * Lists all Client entities.
      *
      * @Route("/", name="client")
-     * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $clients = $em->getRepository('ClientBundle:Client')->findAll();
+        $clients = $em->getRepository('ClientBundle:Client')->findByCompany($this->getUser()->getCompany());
 
-        return array(
-            'clients' => $clients,
-        );
+        /** @var PaginatedTable $paginatedTable */
+        $paginatedTable = $this->get('pagination.paginated_table');
+        $paginatedTable
+            ->setTitle('')
+            ->setScheme(new ClientListTableScheme(new PaginatedTableFactory(), $em))
+            ->setTarget($clients)
+            ->setRequest($request)
+            ->setRoute('client')
+            ->setIdentifier('clientListTable')
+        ;
+
+        # W zależności od tego czy żądanie było AJAX-owe czy nie zwracam odpowiedni widok
+        if ($request->isXmlHttpRequest()) {
+            # dla żadania AJAX-owego zwracam tylko tabele z wynikam
+            return $this->render('ClientBundle:Client:client-list.html.twig', array(
+                'paginatedTable' => $paginatedTable,
+            ));
+        } else {
+            # widok całej strony
+            return array(
+                'clients' => $clients,
+                'paginatedTable' => $paginatedTable,
+            );
+        }
     }
     /**
      * Creates a new Client entity.
@@ -46,6 +71,7 @@ class ClientController extends Controller
     public function createAction(Request $request)
     {
         $client = new Client();
+        $client->setCompany($this->getUser()->getCompany());
         $form = $this->createCreateForm($client);
         $form->handleRequest($request);
 
@@ -124,7 +150,8 @@ class ClientController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $client = $em->getRepository('ClientBundle:Client')->find($id);
+        $client = $em->getRepository('ClientBundle:Client')
+            ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$client) {
             throw $this->createNotFoundException('Unable to find Client entity.');
@@ -149,7 +176,8 @@ class ClientController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $client = $em->getRepository('ClientBundle:Client')->find($id);
+        $client = $em->getRepository('ClientBundle:Client')
+            ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$client) {
             throw $this->createNotFoundException('Unable to find Client entity.');

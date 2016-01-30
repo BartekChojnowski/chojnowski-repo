@@ -31,7 +31,9 @@ class EmployeeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $employees = $em->getRepository('CompanyBundle:Employee')->findAll();
+        $company = $this->getUser()->getCompany();
+
+        $employees = $em->getRepository('CompanyBundle:Employee')->findByCompany($company);
 
         return array(
             'employees' => $employees,
@@ -58,6 +60,8 @@ class EmployeeController extends Controller
                 $employee->getAddress()->setEmployee($employee);
                 $em->persist($employee->getAddress());
             }
+
+            $employee->setCompany($this->getUser()->getCompany());
 
             $em->persist($employee);
             $em->flush();
@@ -122,7 +126,8 @@ class EmployeeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $employee = $em->getRepository('CompanyBundle:Employee')->find($id);
+        $employee = $em->getRepository('CompanyBundle:Employee')
+            ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$employee) {
             throw $this->createNotFoundException('Unable to find Employee entity.');
@@ -147,7 +152,8 @@ class EmployeeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $employee = $em->getRepository('CompanyBundle:Employee')->find($id);
+        $employee = $em->getRepository('CompanyBundle:Employee')
+            ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$employee) {
             throw $this->createNotFoundException('Unable to find Employee entity.');

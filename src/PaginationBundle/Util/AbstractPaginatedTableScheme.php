@@ -2,24 +2,35 @@
 
 namespace PaginationBundle\Util;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManager;
+use PaginationBundle\View\TableFactoryInterface;
 
 /**
  * Abstrakcyjna klasa schematu tabeli postronicowanej
  *
  * @author CB <b.chojnowski@kredyty-chwilowki.pl>
  */
-abstract class AbstractPaginatedTableScheme
+abstract class AbstractPaginatedTableScheme implements PaginatedTableSchemeInterface
 {
     /**
-     * Główna metoda zajmująca się budowaniem tabeli
-     *
-     * @param ArrayCollection $rows
-     * @param array $objects
-     * @param array $additionalData
-     *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
-     * @return mixed
+     * @var PaginatedTableFactory Fabryka elementów tabeli
      */
-    abstract public function buildTable(ArrayCollection $rows, $objects, $additionalData = null);
+    protected $tableFactory;
+
+    /**
+     * @var EntityManager
+     */
+    protected $entityManager;
+
+    /**
+     * Konstruktor
+     *
+     * @param TableFactoryInterface $tableFactory
+     * @param EntityManager $entityManager
+     */
+    public function __construct(TableFactoryInterface $tableFactory, EntityManager $entityManager)
+    {
+        $this->tableFactory = $tableFactory;
+        $this->entityManager = $entityManager;
+    }
 }

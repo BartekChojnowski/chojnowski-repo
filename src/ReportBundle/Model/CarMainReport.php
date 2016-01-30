@@ -45,7 +45,7 @@ class CarMainReport extends Report
                 JOIN freight F ON C.id = F.car
 
             WHERE
-                1 -- C.company_id = '.$this->company->getId().'
+                C.company_id = '.$this->company->getId().'
             GROUP BY
                 C.id
             ORDER BY C.id
