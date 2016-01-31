@@ -4,13 +4,8 @@ namespace CompanyBundle\Controller;
 
 use AddressBundle\Entity\ClientAddress;
 use ClientBundle\Entity\Client;
-use CompanyBundle\Entity\Currency;
 use Doctrine\ORM\EntityManager;
 use CompanyBundle\Utils\FreightListTableScheme;
-use Ivory\GoogleMap\Helper\Places\AutocompleteHelper;
-use Ivory\GoogleMap\Places\Autocomplete;
-use Ivory\GoogleMap\Places\AutocompleteComponentRestriction;
-use Ivory\GoogleMap\Places\AutocompleteType;
 use Ivory\GoogleMapBundle\Entity\Map;
 use PaginationBundle\View\PaginatedTable;
 use PaginationBundle\View\PaginatedTableFactory;
@@ -24,27 +19,30 @@ use CompanyBundle\Form\FreightType;
 use CompanyBundle\Dictionary;
 
 /**
- * Freight controller.
+ * Kontroler odpowiedzialny za akcje związane z zleceniami
  *
  * @Route("/freight")
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class FreightController extends Controller
 {
 
     /**
-     * Lists all Freight entities.
+     * Domyślna akcja. Wyświetlenie wszystkich zleceń
      *
      * @Route("/", name="freight")
      * @Template()
      */
     public function indexAction(Request $request)
     {
-//        $request = $this->getRequest();
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie wszystkich zleceń firmy
         $freights = $em->getRepository('CompanyBundle:Freight')->findByCompany($this->getUser()->getCompany());
 
+        # przygotowanie stronicowania wyników
         /** @var PaginatedTable $paginatedTable */
         $paginatedTable = $this->get('pagination.paginated_table');
         $paginatedTable
@@ -53,8 +51,7 @@ class FreightController extends Controller
             ->setTarget($freights)
             ->setRequest($request)
             ->setRoute('freight')
-            ->setIdentifier('freightListTable')
-        ;
+            ->setIdentifier('freightListTable');
 
         # W zależności od tego czy żądanie było AJAX-owe czy nie zwracam odpowiedni widok
         if ($request->isXmlHttpRequest()) {
@@ -72,7 +69,7 @@ class FreightController extends Controller
     }
 
     /**
-     * Creates a new Freight entity.
+     * Zapisanie nowego zlecenia
      *
      * @Route("/create", name="freight_create")
      * @Method("POST")
@@ -80,14 +77,17 @@ class FreightController extends Controller
      */
     public function createAction(Request $request)
     {
+        # utworzenie nowego obiektu zlecenia
         $freight = new Freight();
         $freight->setCompany($this->getUser()->getCompany());
         $client = new Client();
         $client->addAddress(new ClientAddress());
         $freight->setClient($client);
+        # przetworzenie formularza
         $form = $this->createCreateForm($freight);
         $form->handleRequest($request);
 
+        # walidacja formularza
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($freight);
@@ -95,29 +95,32 @@ class FreightController extends Controller
             $em->persist($freight->getClient());
             $em->flush();
 
+            # wyświetlenie danych nowego zlecenia
             return $this->redirect($this->generateUrl('freight_show', array('id' => $freight->getId())));
         }
 
         return array(
             'freight' => $freight,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-     * Creates a form to create a Freight entity.
+     * Metoda zwraca formularz nowego zlecenia
      *
-     * @param Freight $freight
+     * @param Freight $freight Zlecenie
      *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Freight $freight)
     {
+        # utworzenie formularza
         $form = $this->createForm(new FreightType(), $freight, array(
             'action' => $this->generateUrl('freight_create'),
             'method' => 'POST',
         ));
 
+        # ustawienie przycisku "Zapisz"
         $form->add('submit', 'submit', array(
             'label' => 'Dodaj',
             'attr' => array('class' => 'btn btn-success btn-block')
@@ -127,7 +130,7 @@ class FreightController extends Controller
     }
 
     /**
-     * Displays a form to create a new Freight entity.
+     * Wyświetlenie formularza nowego zlecenia
      *
      * @Route("/new", name="freight_new")
      * @Method("GET")
@@ -135,41 +138,43 @@ class FreightController extends Controller
      */
     public function newAction()
     {
+        # utworzenie nowego obiektu
         $freight = new Freight();
         $client = new Client();
         $client->addAddress(new ClientAddress());
         $freight->setClient($client);
 
+        # przygotowanie obiektów google maps
         /** @var Map */
         $map = $this->get('ivory_google_map.map');
+//        $geocoder = $this->get('ivory_google_map.geocoder');
+//
+//        $response = $geocoder->geocode('Bielsko-Biała');
+//
+//        foreach($response->getResults() as $result)
+//        {
+//            // Request the google map merker service
+//            $marker = $this->get('ivory_google_map.marker');
+//
+//            // Position the marker
+//            $marker->setPosition($result->getGeometry()->getLocation());
+//
+//            // Add the marker to the map
+//            $map->addMarker($marker);
+//        }
 
-        $geocoder = $this->get('ivory_google_map.geocoder');
-
-        $response = $geocoder->geocode('Bielsko-Biała');
-
-        foreach($response->getResults() as $result)
-        {
-            // Request the google map merker service
-            $marker = $this->get('ivory_google_map.marker');
-
-            // Position the marker
-            $marker->setPosition($result->getGeometry()->getLocation());
-
-            // Add the marker to the map
-            $map->addMarker($marker);
-        }
-
-        $form   = $this->createCreateForm($freight);
+        #przygotowanie formularza
+        $form = $this->createCreateForm($freight);
 
         return array(
             'freight' => $freight,
             'map' => $map,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-     * Finds and displays a Freight entity.
+     * Wyświetlenie informacji konkretnego zlecenia
      *
      * @Route("/{id}", name="freight_show")
      * @Method("GET")
@@ -177,25 +182,27 @@ class FreightController extends Controller
      */
     public function showAction($id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie zlecenia
         $freight = $em->getRepository('CompanyBundle:Freight')
             ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$freight) {
-            throw $this->createNotFoundException('Unable to find Freight entity.');
+            throw $this->createNotFoundException('Nie udało się znaleźć zlecenia.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'freight'      => $freight,
+            'freight' => $freight,
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-     * Displays a form to edit an existing Freight entity.
+     * Wyświetlenie formularza edycji istniejącego zlecenia
      *
      * @Route("/{id}/edit", name="freight_edit")
      * @Method("GET")
@@ -203,39 +210,44 @@ class FreightController extends Controller
      */
     public function editAction($id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie zlecenia
         $freight = $em->getRepository('CompanyBundle:Freight')
             ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$freight) {
-            throw $this->createNotFoundException('Unable to find Freight entity.');
+            throw $this->createNotFoundException('Nie udało się znaleźć zlecenia.');
         }
 
+        # przygotowanie formularzy
         $editForm = $this->createEditForm($freight);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'freight'      => $freight,
-            'form'   => $editForm->createView(),
+            'freight' => $freight,
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Freight entity.
-    *
-    * @param Freight $freight
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Metoda zwraca formularz edycji istniejącego zlecenia
+     *
+     * @param Freight $freight Zlecenie
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Freight $freight)
     {
+        # utworzenie formularza
         $form = $this->createForm(new FreightType(), $freight, array(
             'action' => $this->generateUrl('freight_update', array('id' => $freight->getId())),
             'method' => 'PUT',
         ));
 
+        # ustawienie przycisku "Zapisz"
         $form->add('submit', 'submit', array(
             'label' => 'Zapisz',
             'attr' => array(
@@ -245,8 +257,9 @@ class FreightController extends Controller
 
         return $form;
     }
+
     /**
-     * Edits an existing Freight entity.
+     * Zapisanie zmian w istniejącym zleceniu
      *
      * @Route("/{id}", name="freight_update")
      * @Method("PUT")
@@ -254,18 +267,22 @@ class FreightController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie zlecenia
         $freight = $em->getRepository('CompanyBundle:Freight')->find($id);
 
         if (!$freight) {
-            throw $this->createNotFoundException('Unable to find Freight entity.');
+            throw $this->createNotFoundException('Nie udało się znaleźć zlecenia.');
         }
 
+        # utworzenie formularzy
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($freight);
         $editForm->handleRequest($request);
 
+        # walidacja formularza
         if ($editForm->isValid()) {
             $em->flush();
 
@@ -273,13 +290,14 @@ class FreightController extends Controller
         }
 
         return array(
-            'freight'      => $freight,
-            'form'   => $editForm->createView(),
+            'freight' => $freight,
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
-     * Deletes a Freight entity.
+     * Usunięcie zlecenia
      *
      * @Route("/{id}", name="freight_delete")
      * @Method("DELETE")
@@ -290,11 +308,12 @@ class FreightController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             $freight = $em->getRepository('CompanyBundle:Freight')->find($id);
 
             if (!$freight) {
-                throw $this->createNotFoundException('Unable to find Freight entity.');
+                throw $this->createNotFoundException('Nie udało się znaleźć zlecenia.');
             }
 
             $em->remove($freight);
@@ -305,7 +324,7 @@ class FreightController extends Controller
     }
 
     /**
-     * Creates a form to delete a Freight entity by id.
+     * Metoda zwraca formularz służacy do usuwania zlecenia
      *
      * @param mixed $id The freight id
      *
@@ -322,7 +341,6 @@ class FreightController extends Controller
                     'class' => 'btn-danger btn-block'
                 )
             ))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

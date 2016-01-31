@@ -5,14 +5,13 @@ namespace PaginationBundle\View;
 /**
  * Interfejs dla komórek tablicy stronicowania.  Wymusza wymagane metody.
  *
- * @author CB
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 interface TableCellInterface
 {
     /**
      * Pobierz wartość elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getValue();
@@ -22,7 +21,6 @@ interface TableCellInterface
      *
      * @param string $value
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return TableCellInterface
      */
     public function setValue($value);

@@ -6,9 +6,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Formularz adresu pracownika
+ *
+ * @package AddressBundle\Form
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
+ */
 class EmployeeAddressType extends AddressType
 {
     /**
+     * Metoda ustawia domyślne opcje formularza
+     *
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -19,6 +28,8 @@ class EmployeeAddressType extends AddressType
     }
 
     /**
+     * Metoda zwraca nazwę formularza
+     *
      * @return string
      */
     public function getName()

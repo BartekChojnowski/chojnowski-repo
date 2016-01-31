@@ -8,15 +8,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Client
+ * Klasa reprezentująca klienta
  *
  * @ORM\Table()
  * @ORM\Entity
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class Client
 {
     /**
-     * @var integer
+     * @var integer Identyfikator
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -25,42 +27,42 @@ class Client
     private $id;
 
     /**
-     * @var string
+     * @var string Nazwa
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string
+     * @var string NIP
      *
      * @ORM\Column(name="taxId", type="string", length=16, nullable=true)
      */
     private $taxId;
 
     /**
-     * @var string
+     * @var string Email
      *
      * @ORM\Column(name="email", type="string", length=80, nullable=true)
      */
     private $email;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection Adresy
      *
      * @ORM\OneToMany(targetEntity="AddressBundle\Entity\ClientAddress", mappedBy="client")
      **/
     private $addresses;
 
     /**
-     * @var string
+     * @var string Opis
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @var Company
+     * @var Company Firma, której dotyczy klient
      *
      * @ORM\ManyToOne(targetEntity="CompanyBundle\Entity\Company")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
@@ -68,7 +70,7 @@ class Client
     private $company;
 
     /**
-     * Contruct
+     * Konstruktor
      */
     public function __construct()
     {
@@ -76,7 +78,7 @@ class Client
     }
 
     /**
-     * Get id
+     * Metoda zwraca identyfikator
      *
      * @return integer
      */
@@ -86,9 +88,9 @@ class Client
     }
 
     /**
-     * Set name
+     * Metoda ustawia nazwę
      *
-     * @param string $name
+     * @param string $name Nazwa
      *
      * @return Client
      */
@@ -100,7 +102,7 @@ class Client
     }
 
     /**
-     * Get name
+     * Metoda zwraca nazwę
      *
      * @return string
      */
@@ -110,9 +112,9 @@ class Client
     }
 
     /**
-     * Set taxId
+     * Metoda ustawia NIP
      *
-     * @param string $taxId
+     * @param string $taxId NIP
      *
      * @return Client
      */
@@ -124,7 +126,7 @@ class Client
     }
 
     /**
-     * Get taxId
+     * Metoda zwraca NIP
      *
      * @return string
      */
@@ -134,7 +136,7 @@ class Client
     }
 
     /**
-     * Get addresses
+     * Metoda zwraca adresy
      *
      * @return ArrayCollection
      */
@@ -144,9 +146,9 @@ class Client
     }
 
     /**
-     * Set addresses
+     * Metoda ustawia adresy
      *
-     * @param ArrayCollection $addresses
+     * @param ArrayCollection $addresses Kolekcja adresów
      *
      * @return Client
      */
@@ -157,9 +159,9 @@ class Client
     }
 
     /**
-     * Add address
+     * Metoda dodaje adres do kolekcji
      *
-     * @param ClientAddress $address
+     * @param ClientAddress $address Adres
      *
      * @return Client
      */
@@ -171,9 +173,9 @@ class Client
     }
 
     /**
-     * Remove address
+     * Metoda usuwa adres z kolekcji
      *
-     * @param ClientAddress $address
+     * @param ClientAddress $address Adres
      *
      * @return Client
      */
@@ -185,7 +187,7 @@ class Client
     }
 
     /**
-     * Get description
+     * Metoda zwraca opis
      *
      * @return string
      */
@@ -195,9 +197,9 @@ class Client
     }
 
     /**
-     * Set description
+     * Metoda ustawia opis
      *
-     * @param string $description
+     * @param string $description Opis
      *
      * @return Client
      */
@@ -208,7 +210,7 @@ class Client
     }
 
     /**
-     * Get email
+     * Metoda zwraca email
      *
      * @return string
      */
@@ -218,9 +220,9 @@ class Client
     }
 
     /**
-     * Set email
+     * Metoda ustawia email
      *
-     * @param string $email
+     * @param string $email Email
      *
      * @return Client
      */
@@ -231,7 +233,7 @@ class Client
     }
 
     /**
-     * Get company
+     * Metoda zwraca firmę, której dotyczy klient
      *
      * @return Company
      */
@@ -241,9 +243,9 @@ class Client
     }
 
     /**
-     * Set company
+     * Metoda ustawia firmę, której dotyczy klient
      *
-     * @param Company $company
+     * @param Company $company Firma
      *
      * @return CompanyFreight
      */

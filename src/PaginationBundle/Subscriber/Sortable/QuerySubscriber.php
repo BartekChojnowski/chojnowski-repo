@@ -15,6 +15,8 @@ use Knp\Component\Pager\Event\Subscriber\Paginate\Doctrine\ORM\Query\Helper as Q
  *
  *
  * @package PaginationBundle\Subscriber
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class QuerySubscriber implements EventSubscriberInterface
 {
@@ -22,8 +24,6 @@ class QuerySubscriber implements EventSubscriberInterface
      * Metoda wykonuje operacje związane z sortowaniem wyników w stronicowaniu
      *
      * @param ItemsEvent $event
-     *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      */
     public function items(ItemsEvent $event)
     {
@@ -53,7 +53,6 @@ class QuerySubscriber implements EventSubscriberInterface
     /**
      * Lista obsługiwanych eventów
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return array
      */
     public static function getSubscribedEvents()

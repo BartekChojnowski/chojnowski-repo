@@ -7,17 +7,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Company
- *
- * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
+ * Klasa reprezentująca firmę
  *
  * @ORM\Table()
  * @ORM\Entity
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class Company
 {
     /**
-     * @var integer
+     * @var integer Identyfikator
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -26,35 +26,35 @@ class Company
     protected $id;
 
     /**
-     * @var string
+     * @var string Nazwa
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     protected $name;
 
     /**
-     * @var string
+     * @var string NIP
      *
      * @ORM\Column(name="taxId", type="string", length=16)
      */
     protected $taxId;
 
     /**
-     * @var string
+     * @var string Email
      *
      * @ORM\Column(name="email", type="string", length=80)
      */
     protected $email;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection Adresy
      *
      * @ORM\OneToMany(targetEntity="AddressBundle\Entity\CompanyAddress", mappedBy="company")
      **/
     protected $addresses;
 
     /**
-     * Contruct
+     * Konstruktor
      */
     public function __construct()
     {
@@ -62,7 +62,7 @@ class Company
     }
 
     /**
-     * Get id
+     * Metoda zwraca identyfikator
      *
      * @return integer
      */
@@ -72,9 +72,9 @@ class Company
     }
 
     /**
-     * Set name
+     * Metoda ustawia nazwę
      *
-     * @param string $name
+     * @param string $name Nazwa
      *
      * @return Company
      */
@@ -86,7 +86,7 @@ class Company
     }
 
     /**
-     * Get name
+     * Metoda zwraca nazwę
      *
      * @return string
      */
@@ -96,9 +96,9 @@ class Company
     }
 
     /**
-     * Set taxId
+     * Metoda ustawia NIP
      *
-     * @param string $taxId
+     * @param string $taxId NIP
      *
      * @return Company
      */
@@ -110,7 +110,7 @@ class Company
     }
 
     /**
-     * Get taxId
+     * Metoda zwraca NIP
      *
      * @return string
      */
@@ -120,7 +120,7 @@ class Company
     }
 
     /**
-     * Get email
+     * Metoda zwraca email
      *
      * @return string
      */
@@ -130,9 +130,9 @@ class Company
     }
 
     /**
-     * Set email
+     * Metoda ustawia email
      *
-     * @param string $email
+     * @param string $email Email
      *
      * @return Company
      */
@@ -144,7 +144,7 @@ class Company
     }
 
     /**
-     * Get addresses
+     * Metoda zwraca adresy
      *
      * @return ArrayCollection
      */
@@ -154,9 +154,9 @@ class Company
     }
 
     /**
-     * Set addresses
+     * Metoda ustawia adresy
      *
-     * @param ArrayCollection $addresses
+     * @param ArrayCollection $addresses Kolekcja adresów
      *
      * @return Company
      */
@@ -168,9 +168,9 @@ class Company
     }
 
     /**
-     * Add address
+     * Metoda dodaje adres do kolekcji
      *
-     * @param CompanyAddress $address
+     * @param CompanyAddress $address Adres
      *
      * @return Company
      */
@@ -182,9 +182,9 @@ class Company
     }
 
     /**
-     * Remove address
+     * Metoda usuwa adres z kolekcji
      *
-     * @param CompanyAddress $address
+     * @param CompanyAddress $address Adres
      *
      * @return Company
      */

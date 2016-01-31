@@ -7,14 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Interfejs dla wierszy tablicy stronicowania.  Wymusza wymagane metody.
  *
- * @author CB
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 interface TableRowInterface
 {
     /**
      * Pobierz Cells
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return ArrayCollection
      */
     public function getCells();
@@ -24,7 +23,6 @@ interface TableRowInterface
      *
      * @param ArrayCollection $cells
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return TableRowInterface
      */
     public function setCells(ArrayCollection $cells);

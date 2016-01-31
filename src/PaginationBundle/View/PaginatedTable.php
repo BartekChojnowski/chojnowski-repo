@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
  * Tabela postronicowana
  *
  * @package PaginationBundle\View
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class PaginatedTable
 {
@@ -99,7 +101,6 @@ class PaginatedTable
     /**
      * Pobierz obiekt, który będzie stronicowany
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return mixed
      */
     public function getTarget()
@@ -112,7 +113,6 @@ class PaginatedTable
      *
      * @param mixed $target
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTable
      */
     public function setTarget($target)
@@ -124,7 +124,6 @@ class PaginatedTable
     /**
      * Pobierz kolekcję wierszy w tabeli
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return ArrayCollection
      */
     public function getRows()
@@ -137,7 +136,6 @@ class PaginatedTable
      *
      * @param mixed $rows
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTable
      */
     public function setRows(ArrayCollection $rows)
@@ -150,7 +148,6 @@ class PaginatedTable
     /**
      * Pobierz nagłówek tabeli
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getTitle()
@@ -163,7 +160,6 @@ class PaginatedTable
      *
      * @param mixed $title
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTable
      */
     public function setTitle($title)
@@ -176,7 +172,6 @@ class PaginatedTable
     /**
      * Pobierz aktualną stronę
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return int
      */
     public function getPage()
@@ -189,7 +184,6 @@ class PaginatedTable
      *
      * @param int $page
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTable
      */
     public function setPage($page)
@@ -201,7 +195,6 @@ class PaginatedTable
     /**
      * Pobierz dane przekazywane przy operacjach stronicowania
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return array
      */
     public function getPostData()
@@ -214,7 +207,6 @@ class PaginatedTable
      *
      * @param array $postData
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTable
      */
     public function setPostData($postData)
@@ -226,7 +218,6 @@ class PaginatedTable
     /**
      * Pobierz Route, jaki jest wykorzystywany przy operacjach stronicowania
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getRoute()
@@ -239,7 +230,6 @@ class PaginatedTable
      *
      * @param mixed $route
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTable
      */
     public function setRoute($route)
@@ -251,7 +241,6 @@ class PaginatedTable
     /**
      * Pobierz identyfikator
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getIdentifier()
@@ -264,7 +253,6 @@ class PaginatedTable
      *
      * @param string $identifier
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTable
      */
     public function setIdentifier($identifier)
@@ -277,7 +265,6 @@ class PaginatedTable
     /**
      * Pobierz Request
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return mixed
      */
     public function getRequest()
@@ -290,7 +277,6 @@ class PaginatedTable
      *
      * @param mixed $request
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTable
      */
     public function setRequest($request)
@@ -303,7 +289,6 @@ class PaginatedTable
     /**
      * Pobierz ilość wyników na stronie
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return int
      */
     public function getResultsOnPage()
@@ -314,7 +299,6 @@ class PaginatedTable
     /**
      * Pobierz szablon tabeli
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getTemplate()
@@ -327,7 +311,6 @@ class PaginatedTable
      *
      * @param string $template
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTable
      */
     public function setTemplate($template)
@@ -340,7 +323,6 @@ class PaginatedTable
     /**
      * Pobierz stronicowanie
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return mixed
      */
     public function getPagination()
@@ -351,7 +333,6 @@ class PaginatedTable
     /**
      * Pobierz Paginator
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return mixed
      */
     public function getPaginator()
@@ -364,7 +345,6 @@ class PaginatedTable
      *
      * @param mixed $paginator
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTable
      */
     public function setPaginator($paginator)
@@ -377,7 +357,6 @@ class PaginatedTable
     /**
      * Pobierz Scheme
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return mixed
      */
     public function getScheme()
@@ -390,7 +369,6 @@ class PaginatedTable
      *
      * @param AbstractPaginatedTableScheme $scheme
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTable
      */
     public function setScheme(AbstractPaginatedTableScheme $scheme)
@@ -405,7 +383,6 @@ class PaginatedTable
      *
      * @param int $resultsOnPage
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTable
      */
     public function setResultsOnPage($resultsOnPage)
@@ -418,7 +395,6 @@ class PaginatedTable
     /**
      * Metoda zajmuje się przygotowaniem stronicowania
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return \Knp\Component\Pager\Pagination\PaginationInterface|SlidingPagination
      */
     public function paginate()
@@ -445,7 +421,6 @@ class PaginatedTable
     /**
      * Pobierz dodatkowe dane, jakie można przekazać do postronicowanej tabeli
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return mixed
      */
     public function getAdditionalData()
@@ -458,7 +433,6 @@ class PaginatedTable
      *
      * @param mixed $additionalData
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTable
      */
     public function setAdditionalData($additionalData)

@@ -10,10 +10,17 @@ use Symfony\Component\Config\Definition\Processor;
 use Knp\Bundle\PaginatorBundle\DependencyInjection\KnpPaginatorExtension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
+/**
+ * Class PaginationExtension
+ *
+ * @package PaginationBundle\DependencyInjection
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
+ */
 class PaginationExtension extends KnpPaginatorExtension
 {
     /**
-     * Metoda
+     * Metoda zajmuje się ustawieniem parametrów dla bundla Pagination
      *
      * @param array $configs
      * @param ContainerBuilder $container

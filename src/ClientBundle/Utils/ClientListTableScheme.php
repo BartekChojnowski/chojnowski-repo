@@ -9,7 +9,7 @@ use PaginationBundle\View\PaginatedTableCell;
 use PaginationBundle\View\PaginatedTableHeaderCell;
 
 /**
- *
+ * Schemat postronicowanej tablicy klientów
  *
  * @author CB <b.chojnowski@kredyty-chwilowki.pl>
  */
@@ -18,19 +18,18 @@ class ClientListTableScheme extends AbstractPaginatedTableScheme
     /**
      * Główna metoda zajmująca się budowaniem tabeli
      *
-     * @param ArrayCollection $rows
-     * @param array $objects
-     * @param array $additionalData
-     *
-     * @return mixed
+     * @param ArrayCollection $rows Modyfikowane wiersze tabeli
+     * @param array $objects Obiekty do wyświetlenia
+     * @param array $additionalData Dodatkowe informacje
      */
     public function buildTable(ArrayCollection $rows, $objects, $additionalData = null)
     {
         # utworzenie nagłówka tabeli
         $this->buildTableHeader($rows);
 
+        # utworzenie wierszy tabeli
         /** @var Client $object */
-        foreach((array)$objects as $object) {
+        foreach ((array)$objects as $object) {
             $rows->add($this->buildTableRow($object));
         }
     }
@@ -38,7 +37,7 @@ class ClientListTableScheme extends AbstractPaginatedTableScheme
     /**
      * Metoda zajmuje się utworzeniem wiersza w tabeli postronicowanej
      *
-     * @param Client $client
+     * @param Client $client Klient
      *
      * @return PaginatedTableRow
      */
@@ -59,13 +58,14 @@ class ClientListTableScheme extends AbstractPaginatedTableScheme
     /**
      * Metoda zajmuje się budowaniem nagłówka tabeli
      *
-     * @param ArrayCollection $rows
+     * @param ArrayCollection $rows Modyfikowane wiersze tabeli
      */
     public function buildTableHeader(ArrayCollection $rows)
     {
-        # dodanie wiersza nagłówka
+        # utworzenie wiersza nagłówka
         $rows->add($this->tableFactory->getHeaderRowInstance());
 
+        # utworzenie komórek nagłówka
         $rows->current()->getCells()->add($this->buildNameHeaderCell());
         $rows->current()->getCells()->add($this->buildTaxIdHeaderCell());
         $rows->current()->getCells()->add($this->buildEmailHeaderCell());
@@ -82,8 +82,7 @@ class ClientListTableScheme extends AbstractPaginatedTableScheme
         return $this->tableFactory
             ->getHeaderCellInstance()
             ->setValue('nazwa')
-            ->setClass('col-md-6')
-            ;
+            ->setClass('col-md-6');
     }
 
     /**
@@ -96,8 +95,7 @@ class ClientListTableScheme extends AbstractPaginatedTableScheme
         return $this->tableFactory
             ->getHeaderCellInstance()
             ->setValue('nip')
-            ->setClass('col-md-2')
-            ;
+            ->setClass('col-md-2');
     }
 
     /**
@@ -110,8 +108,7 @@ class ClientListTableScheme extends AbstractPaginatedTableScheme
         return $this->tableFactory
             ->getHeaderCellInstance()
             ->setValue('email')
-            ->setClass('col-md-2')
-            ;
+            ->setClass('col-md-2');
     }
 
     /**
@@ -123,15 +120,13 @@ class ClientListTableScheme extends AbstractPaginatedTableScheme
     {
         return $this->tableFactory
             ->getHeaderCellInstance()
-            ->setClass('col-md-2')
-            ;
-        ;
+            ->setClass('col-md-2');;
     }
 
     /**
      * Metoda zwraca przygotowaną komórkę - nazwa
      *
-     * @param Client $client
+     * @param Client $client Klient
      *
      * @return PaginatedTableCell
      */
@@ -139,14 +134,13 @@ class ClientListTableScheme extends AbstractPaginatedTableScheme
     {
         return $this
             ->tableFactory->getCellInstance()
-            ->setValue($client->getName())
-        ;
+            ->setValue($client->getName());
     }
 
     /**
      * Metoda zwraca przygotowaną komórkę - nip
      *
-     * @param Client $client
+     * @param Client $client Klient
      *
      * @return PaginatedTableCell
      */
@@ -154,14 +148,13 @@ class ClientListTableScheme extends AbstractPaginatedTableScheme
     {
         return $this
             ->tableFactory->getCellInstance()
-            ->setValue($client->getTaxId())
-        ;
+            ->setValue($client->getTaxId());
     }
 
     /**
      * Metoda zwraca przygotowaną komórkę - email
      *
-     * @param Client $client
+     * @param Client $client Klient
      *
      * @return PaginatedTableCell
      */
@@ -169,14 +162,13 @@ class ClientListTableScheme extends AbstractPaginatedTableScheme
     {
         return $this
             ->tableFactory->getCellInstance()
-            ->setValue($client->getEmail())
-        ;
+            ->setValue($client->getEmail());
     }
 
     /**
      * Metoda zwraca przygotowaną komórkę - akcje
      *
-     * @param Client $client
+     * @param Client $client Klient
      *
      * @return PaginatedTableCell
      */
@@ -185,7 +177,6 @@ class ClientListTableScheme extends AbstractPaginatedTableScheme
         return $this
             ->tableFactory->getCellInstance()
             ->setTemplate('ClientBundle:Client:client-list-actions-cell.html.twig')
-            ->setValue($client)
-        ;
+            ->setValue($client);
     }
 }

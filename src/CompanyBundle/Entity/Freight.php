@@ -9,15 +9,17 @@ use SebastianBergmann\Money\Currency AS MoneyCurrency;
 use SebastianBergmann\Money\Money;
 
 /**
- * Freight
+ * Klasa reprezentująca zlecenie
  *
  * @ORM\Table()
  * @ORM\Entity
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class Freight
 {
     /**
-     * @var integer
+     * @var integer Identyfikator
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -26,92 +28,104 @@ class Freight
     private $id;
 
     /**
-     * @var string
+     * @var string Numer zlecenia
      *
      * @ORM\Column(name="number", type="string", length=64)
      */
     private $number;
 
     /**
-     * @var \DateTime
+     * @var \DateTime Data rozpoczęcia zlecenia
      *
      * @ORM\Column(name="start", type="datetime")
      */
     private $start;
 
     /**
-     * @var \DateTime
+     * @var \DateTime Data zakończenia zlecenia
      *
      * @ORM\Column(name="end", type="datetime", nullable=true)
      */
     private $end;
 
     /**
+     * Lokalizacja przed rozpoczęciem zlecenia
+     *
      * @ORM\ManyToOne(targetEntity="Point", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="startingPosition", referencedColumnName="id")
      */
     private $startingPosition;
 
     /**
+     * Lokalizacja początkowa zlecenia
+     *
      * @ORM\ManyToOne(targetEntity="Point", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="origin", referencedColumnName="id")
      */
     private $origin;
 
     /**
+     * Lokazlizacja końcowa zlecenia
+     *
      * @ORM\ManyToOne(targetEntity="Point", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="destination", referencedColumnName="id")
      */
     private $destination;
 
     /**
-     * @var integer
+     * @var integer Dystans zlecenia
      *
      * @ORM\Column(name="distance", type="integer", nullable=true)
      */
     private $distance;
 
     /**
-     * @var integer
+     * @var integer Dystans do zlecenia
      *
      * @ORM\Column(name="distanceToOrigin", type="integer", nullable=true)
      */
     private $distanceToOrigin;
 
     /**
-     * @var integer
+     * @var integer Stawka
      *
      * @ORM\Column(name="price", type="integer")
      */
     private $price;
 
     /**
+     * Kierowca
+     *
      * @ORM\ManyToOne(targetEntity="Employee")
      * @ORM\JoinColumn(name="driver", referencedColumnName="id")
      */
     private $driver;
 
     /**
+     * Samochód
+     *
      * @ORM\ManyToOne(targetEntity="\FleetBundle\Entity\Car")
      * @ORM\JoinColumn(name="car", referencedColumnName="id")
      */
     private $car;
 
     /**
+     * Klient
+     *
      * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Client")
      * @ORM\JoinColumn(name="client", referencedColumnName="id")
      */
     private $client;
 
     /**
-     * @var string
+     * @var string Opis
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @var Company
+     * @var Company Firma, której dotyczy zlecenie
      *
      * @ORM\ManyToOne(targetEntity="Company")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
@@ -119,7 +133,7 @@ class Freight
     private $company;
 
     /**
-     * Get id
+     * Metoda zwraca identyfikator
      *
      * @return integer
      */
@@ -129,9 +143,9 @@ class Freight
     }
 
     /**
-     * Set number
+     * Metoda ustawia numer zlecenia
      *
-     * @param string $number
+     * @param string $number Numer zlecenia
      *
      * @return Freight
      */
@@ -143,7 +157,7 @@ class Freight
     }
 
     /**
-     * Get number
+     * Metoda zwraca numer zlecenia
      *
      * @return string
      */
@@ -153,13 +167,13 @@ class Freight
     }
 
     /**
-     * Set start
+     * Metoda ustawia datę rozpoczęcia zlecenia
      *
-     * @param \DateTime $start
+     * @param \DateTime $start Data rozpoczęcia zlecenia
      *
      * @return Freight
      */
-    public function setStart(\DateTime$start)
+    public function setStart(\DateTime $start)
     {
         $this->start = $start;
 
@@ -167,7 +181,7 @@ class Freight
     }
 
     /**
-     * Get start
+     * Metoda zwraca datę rozpoczęcia zlecenia
      *
      * @return \DateTime
      */
@@ -177,9 +191,9 @@ class Freight
     }
 
     /**
-     * Set end
+     * Metoda ustawia datę zakończenia zlecenia
      *
-     * @param \DateTime $end
+     * @param \DateTime $end Data zakończenia zlecenia
      *
      * @return Freight
      */
@@ -191,7 +205,7 @@ class Freight
     }
 
     /**
-     * Get end
+     * Metoda zwraca datę zakończenia zlecenia
      *
      * @return \DateTime
      */
@@ -201,7 +215,7 @@ class Freight
     }
 
     /**
-     * Get destination
+     * Metoda zwraca lokazlizację końcową zlecenia
      *
      * @return Point
      */
@@ -211,9 +225,9 @@ class Freight
     }
 
     /**
-     * Set destination
+     * Metoda ustawia lokazlizację końcową zlecenia
      *
-     * @param Point $destination
+     * @param Point $destination Lokazlizacja końcowa zlecenia
      *
      * @return Freight
      */
@@ -224,7 +238,7 @@ class Freight
     }
 
     /**
-     * Get origin
+     * Metoda zwraca lokazlizację początkową zlecenia
      *
      * @return Point
      */
@@ -234,9 +248,9 @@ class Freight
     }
 
     /**
-     * Set origin
+     * Metoda ustawia lokazlizację początkową zlecenia
      *
-     * @param Point $origin
+     * @param Point $origin Lokalizacja początkowa zlecenia
      *
      * @return Freight
      */
@@ -247,7 +261,7 @@ class Freight
     }
 
     /**
-     * Get startingPosition
+     * Metoda zwraca lokazlizację przed rozpoczęciem zlecenia
      *
      * @return Point
      */
@@ -257,9 +271,9 @@ class Freight
     }
 
     /**
-     * Set startingPosition
+     * Metoda ustawia lokazlizację przed rozpoczęciem zlecenia
      *
-     * @param Point $startingPosition
+     * @param Point $startingPosition Lokalizacja przed rozpoczęciem zlecenia
      *
      * @return Freight
      */
@@ -270,9 +284,9 @@ class Freight
     }
 
     /**
-     * Set distance
+     * Metoda ustawia dystans zlecenia
      *
-     * @param integer $distance
+     * @param integer $distance Dystans zlecenia
      *
      * @return Freight
      */
@@ -284,7 +298,7 @@ class Freight
     }
 
     /**
-     * Get distance
+     * Metoda zwraca dystans zlecenia
      *
      * @return integer
      */
@@ -294,9 +308,9 @@ class Freight
     }
 
     /**
-     * Set distanceToOrigin
+     * Metoda ustawia dystans do zlecenia
      *
-     * @param integer $distanceToOrigin
+     * @param integer $distanceToOrigin Dystans do zlecenia
      *
      * @return Freight
      */
@@ -308,7 +322,7 @@ class Freight
     }
 
     /**
-     * Get distanceToOrigin
+     * Metoda zwraca dystans do zlecenia
      *
      * @return integer
      */
@@ -318,7 +332,7 @@ class Freight
     }
 
     /**
-     * Get price
+     * Metoda zwraca stawkę
      *
      * @return int
      */
@@ -328,9 +342,9 @@ class Freight
     }
 
     /**
-     * Set price
+     * Metoda ustawia stawkę
      *
-     * @param int $price
+     * @param int $price Stawka
      *
      * @return Freight
      */
@@ -341,9 +355,9 @@ class Freight
     }
 
     /**
-     * Set driver
+     * Metoda ustawia kierowcę
      *
-     * @param Employee $driver
+     * @param Employee $driver Kierowca
      *
      * @return Freight
      */
@@ -355,7 +369,7 @@ class Freight
     }
 
     /**
-     * Get driver
+     * Metoda zwraca kierowcę
      *
      * @return Employee
      */
@@ -365,9 +379,9 @@ class Freight
     }
 
     /**
-     * Set car
+     * Metoda ustawia samochód
      *
-     * @param Car $car
+     * @param Car $car Samochód
      *
      * @return Freight
      */
@@ -379,7 +393,7 @@ class Freight
     }
 
     /**
-     * Get car
+     * Metoda zwraca samochód
      *
      * @return Car
      */
@@ -389,9 +403,9 @@ class Freight
     }
 
     /**
-     * Set client
+     * Metoda ustawia klienta
      *
-     * @param Client $client
+     * @param Client $client Klient
      *
      * @return Freight
      */
@@ -403,7 +417,7 @@ class Freight
     }
 
     /**
-     * Get client
+     * Metoda zwraca klienta
      *
      * @return Client
      */
@@ -413,9 +427,9 @@ class Freight
     }
 
     /**
-     * Set description
+     * Metoda ustawia opis
      *
-     * @param string $description
+     * @param string $description Opis
      *
      * @return Freight
      */
@@ -427,7 +441,7 @@ class Freight
     }
 
     /**
-     * Get description
+     * Metoda zwraca opis
      *
      * @return string
      */
@@ -437,7 +451,7 @@ class Freight
     }
 
     /**
-     * Get company
+     * Metoda zwraca firmę, której dotyczy zlecenie
      *
      * @return Company
      */
@@ -447,9 +461,9 @@ class Freight
     }
 
     /**
-     * Set company
+     * Metoda ustawia firmę, której dotyczy zlecenie
      *
-     * @param Company $company
+     * @param Company $company Firma, której dotyczy zlecenie
      *
      * @return CompanyFreight
      */

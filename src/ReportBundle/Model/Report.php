@@ -6,11 +6,11 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Class Report
+ * Nadrzędna klasa reprezentująca raport
  *
  * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
-abstract class Report
+abstract class Report implements ReportInterface
 {
     /**
      * @var EntityManager
@@ -18,18 +18,22 @@ abstract class Report
     protected $em;
 
     /**
+     * Konstruktor
+     *
      * @param EntityManager $em
      */
-    function __construct(EntityManager$em)
+    function __construct(EntityManager $em)
     {
         $this->em = $em;
     }
 
     /**
-     * Returns report results
+     * Metoda zwraca obiekt Entity Manager'a
      *
-     * @return Query
+     * @return EntityManager
      */
-    abstract public function getResults();
-
-} 
+    public function getEntityManager()
+    {
+        return $this->em;
+    }
+}

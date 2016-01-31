@@ -5,7 +5,7 @@ namespace AddressBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Address
+ * Nadrzędna klasa reprezentująca adres
  *
  * @ORM\Entity()
  * @ORM\InheritanceType("SINGLE_TABLE")
@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class Address
 {
     /**
-     * @var integer
+     * @var integer Identyfikator
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -24,28 +24,28 @@ abstract class Address
     protected $id;
 
     /**
-     * @var string
+     * @var string Miasto
      *
      * @ORM\Column(name="city", type="string", length=120, nullable=true)
      */
     protected $city;
 
     /**
-     * @var string
+     * @var string Kod pocztowy
      *
      * @ORM\Column(name="postcode", type="string", length=20, nullable=true)
      */
     protected $postcode;
 
     /**
-     * @var string
+     * @var string Ulica
      *
      * @ORM\Column(name="street", type="string", length=120, nullable=true)
      */
     protected $street;
 
     /**
-     * @var string
+     * @var string Numer domu
      *
      * @ORM\Column(name="number", type="string", length=15, nullable=true)
      */
@@ -53,7 +53,7 @@ abstract class Address
 
 
     /**
-     * Get id
+     * Metoda zwraca identyfikator
      *
      * @return integer
      */
@@ -63,9 +63,9 @@ abstract class Address
     }
 
     /**
-     * Set city
+     * Metoda ustawia
      *
-     * @param string $city
+     * @param string $city Miasto
      *
      * @return Address
      */
@@ -77,7 +77,7 @@ abstract class Address
     }
 
     /**
-     * Get city
+     * Metoda zwraca miasto
      *
      * @return string
      */
@@ -87,9 +87,9 @@ abstract class Address
     }
 
     /**
-     * Set postcode
+     * Metoda ustawia kod pocztowy
      *
-     * @param string $postcode
+     * @param string $postcode Kod pocztowy
      *
      * @return Address
      */
@@ -101,7 +101,7 @@ abstract class Address
     }
 
     /**
-     * Get postcode
+     * Metoda zwraca kod pocztowy
      *
      * @return string
      */
@@ -111,9 +111,9 @@ abstract class Address
     }
 
     /**
-     * Set street
+     * Metoda ustawia ulicę
      *
-     * @param string $street
+     * @param string $street Ulica
      *
      * @return Address
      */
@@ -125,7 +125,7 @@ abstract class Address
     }
 
     /**
-     * Get street
+     * Metoda zwraca ulicę
      *
      * @return string
      */
@@ -135,9 +135,9 @@ abstract class Address
     }
 
     /**
-     * Set number
+     * Metoda ustawia numer domu
      *
-     * @param string $number
+     * @param string $number Numer domu
      *
      * @return Address
      */
@@ -149,15 +149,18 @@ abstract class Address
     }
 
     /**
-     * Get number
+     * Metoda zwraca numer domu
      *
-     * @return string
+     * @return string Numer domu
      */
     public function getNumber()
     {
         return $this->number;
     }
 
+    /**
+     * Metoda zwraca podmiot, którego dotyczy adres
+     */
     abstract public function getSubject();
 }
 

@@ -6,6 +6,8 @@ namespace PaginationBundle\View;
  * Klasa reprezentująca komórkę z nagłówka w postronicowanej tabeli
  *
  * @package PaginationBundle\View
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class PaginatedTableSortableHeaderCell extends PaginatedTableCell
 {
@@ -24,7 +26,6 @@ class PaginatedTableSortableHeaderCell extends PaginatedTableCell
     /**
      * Pobierz pole, po którym będzie sortowanie
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getSort()
@@ -37,7 +38,6 @@ class PaginatedTableSortableHeaderCell extends PaginatedTableCell
      *
      * @param string $sort
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableHeaderCell
      */
     public function setSort($sort)
@@ -50,7 +50,6 @@ class PaginatedTableSortableHeaderCell extends PaginatedTableCell
     /**
      * Pobierz kierunek sortowania
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getDirection()
@@ -63,7 +62,6 @@ class PaginatedTableSortableHeaderCell extends PaginatedTableCell
      *
      * @param string $direction
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableHeaderCell
      */
     public function setDirection($direction)

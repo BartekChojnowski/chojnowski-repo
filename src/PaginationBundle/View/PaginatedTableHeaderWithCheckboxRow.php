@@ -6,6 +6,8 @@ namespace PaginationBundle\View;
  * Klasa reprezentująca wiersz nagłówka w postronicowanej tabeli z dodatkowym checkboxem
  *
  * @package PaginationBundle\View
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class PaginatedTableHeaderWithCheckboxRow extends PaginatedTableHeaderRow
 {

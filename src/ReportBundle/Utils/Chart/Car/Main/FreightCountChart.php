@@ -14,7 +14,8 @@ use ReportBundle\Utils\Chart\Chart;
  *
  * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
-class FreightCountChart extends Chart{
+class FreightCountChart extends Chart
+{
 
     /**
      * Konstruktor
@@ -41,10 +42,7 @@ class FreightCountChart extends Chart{
     public function render(Report $report)
     {
         # przygotowanie wykresu
-        $this->chart
-            ->height(200)
-            ->datatable($this->dataTable($report))
-        ;
+        $this->chart->height(200)->datatable($this->dataTable($report));
 
         return $this->chart->render($this->getName());
     }
@@ -62,10 +60,7 @@ class FreightCountChart extends Chart{
         $table = $this->lava->DataTable();
 
         # ustawienie nagłówków
-        $table
-            ->addStringColumn('Samochód')
-            ->addNumberColumn('Ilość zleceń')
-        ;
+        $table->addStringColumn('Samochód')->addNumberColumn('Ilość zleceń');
 
         # przygotowanie wierszy
         foreach ($report->getResults() as $result) {

@@ -6,6 +6,8 @@ namespace PaginationBundle\View;
  * Klasa reprezentująca komórkę w postronicowanej tabeli
  *
  * @package PaginationBundle\View
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class PaginatedTableCell implements TableElementInterface, TableCellInterface
 {
@@ -52,7 +54,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
     /**
      * Pobierz szablon
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getTemplate()
@@ -65,7 +66,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
      *
      * @param string $template
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableCell
      */
     public function setTemplate($template)
@@ -78,7 +78,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
     /**
      * Pobierz styl elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getStyle()
@@ -91,7 +90,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
      *
      * @param string $style
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableCell
      */
     public function setStyle($style)
@@ -104,7 +102,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
     /**
      * Pobierz wartość elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getValue()
@@ -117,7 +114,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
      *
      * @param string $value
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableCell
      */
     public function setValue($value)
@@ -130,7 +126,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
     /**
      * Pobierz Id elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getId()
@@ -143,7 +138,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
      *
      * @param string $id
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableCell
      */
     public function setId($id)
@@ -156,7 +150,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
     /**
      * Pobierz Class elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getClass()
@@ -169,7 +162,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
      *
      * @param string $class
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableCell
      */
     public function setClass($class)
@@ -182,7 +174,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
     /**
      * Pobierz Data elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return array
      */
     public function getData()
@@ -195,7 +186,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
      *
      * @param array $data
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableCell
      */
     public function setData($data)
@@ -208,7 +198,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
     /**
      * Pobierz Colspan elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getColspan()
@@ -221,7 +210,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
      *
      * @param string $colspan
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableCell
      */
     public function setColspan($colspan)
@@ -234,7 +222,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
     /**
      * Pobierz Rowspan elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getRowspan()
@@ -247,7 +234,6 @@ class PaginatedTableCell implements TableElementInterface, TableCellInterface
      *
      * @param string $rowspan
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableCell
      */
     public function setRowspan($rowspan)

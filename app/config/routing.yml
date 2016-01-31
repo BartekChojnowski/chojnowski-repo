@@ -13,11 +13,6 @@ client:
     type:     annotation
     prefix:   /
 
-address:
-    resource: "@AddressBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 company:
     resource: "@CompanyBundle/Controller/"
     type:     annotation

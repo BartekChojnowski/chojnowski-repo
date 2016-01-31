@@ -5,7 +5,7 @@ namespace FleetBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Car
+ * Klasa reprezentująca zlecenie
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Car
 {
     /**
-     * @var integer
+     * @var integer Identyfikator
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,75 +22,79 @@ class Car
     private $id;
 
     /**
-     * @var string
+     * @var string Marka
      *
      * @ORM\Column(name="make", type="string", length=64)
      */
     private $make;
 
     /**
-     * @var string
+     * @var string Model
      *
      * @ORM\Column(name="model", type="string", length=255)
      */
     private $model;
 
     /**
-     * @var \DateTime
+     * @var \DateTime Rok produkcji
      *
      * @ORM\Column(name="year", type="datetime", nullable=true)
      */
     private $year;
 
     /**
-     * @var string
+     * @var string Numer VIN
      *
      * @ORM\Column(name="vin", type="string", length=20, nullable=true)
      */
     private $vin;
 
     /**
-     * @var string
+     * @var string Rodzaj silnika
      *
      * @ORM\Column(name="engine", type="string", length=255, nullable=true)
      */
     private $engine;
 
     /**
+     * Typ paliwa
+     *
      * @ORM\ManyToOne(targetEntity="FuelType")
      * @ORM\JoinColumn(name="fuel_type", referencedColumnName="id", nullable=true)
      */
     private $fuelType;
 
     /**
+     * Typ skrzyni biegów
+     *
      * @ORM\ManyToOne(targetEntity="TransmissionType")
      * @ORM\JoinColumn(name="transmission_type", referencedColumnName="id", nullable=true)
      */
     private $transmissionType;
 
     /**
-     * @var string
+     * @var string Numer rejestracyjny
      *
      * @ORM\Column(name="registrationNmber", type="string", length=8)
      */
     private $registrationNumber;
 
     /**
-     * @var integer
+     * @var integer Przebieg
      *
      * @ORM\Column(name="mileage", type="integer", nullable=true)
      */
     private $mileage;
 
     /**
-     * @var string
+     * @var string Opis
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @var Company
+     * @var Company Firma, do której samochód jest przypisany
      *
      * @ORM\ManyToOne(targetEntity="CompanyBundle\Entity\Company")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
@@ -98,7 +102,7 @@ class Car
     private $company;
 
     /**
-     * Get id
+     * Metoda zwraca identyfikator
      *
      * @return integer
      */
@@ -108,9 +112,9 @@ class Car
     }
 
     /**
-     * Set make
+     * Metoda ustawia markę
      *
-     * @param string $make
+     * @param string $make Marka
      *
      * @return Car
      */
@@ -122,7 +126,7 @@ class Car
     }
 
     /**
-     * Get make
+     * Metoda zwraca markę
      *
      * @return string
      */
@@ -132,9 +136,9 @@ class Car
     }
 
     /**
-     * Set model
+     * Metoda ustawia model
      *
-     * @param string $model
+     * @param string $model Model
      *
      * @return Car
      */
@@ -146,7 +150,7 @@ class Car
     }
 
     /**
-     * Get model
+     * Metoda zwraca model
      *
      * @return string
      */
@@ -156,9 +160,9 @@ class Car
     }
 
     /**
-     * Set year
+     * Metoda ustawia rok produkcji
      *
-     * @param \DateTime $year
+     * @param \DateTime $year Rok produkcji
      *
      * @return Car
      */
@@ -170,7 +174,7 @@ class Car
     }
 
     /**
-     * Get year
+     * Metoda zwraca rok produkcji
      *
      * @return \DateTime
      */
@@ -180,9 +184,9 @@ class Car
     }
 
     /**
-     * Set vin
+     * Metoda ustawia vin
      *
-     * @param string $vin
+     * @param string $vin Numer VIN
      *
      * @return Car
      */
@@ -194,7 +198,7 @@ class Car
     }
 
     /**
-     * Get vin
+     * Metoda zwraca vin
      *
      * @return string
      */
@@ -204,9 +208,9 @@ class Car
     }
 
     /**
-     * Set engine
+     * Metoda ustawia rodzaj silnika
      *
-     * @param string $engine
+     * @param string $engine Rodzaj silnika
      *
      * @return Car
      */
@@ -218,7 +222,7 @@ class Car
     }
 
     /**
-     * Get engine
+     * Metoda zwraca rodzaj silnika
      *
      * @return string
      */
@@ -228,9 +232,9 @@ class Car
     }
 
     /**
-     * Set fuelType
+     * Metoda ustawia typ paliwa
      *
-     * @param FuelType $fuelType
+     * @param FuelType $fuelType Typ paliwa
      *
      * @return Car
      */
@@ -242,7 +246,7 @@ class Car
     }
 
     /**
-     * Get fuelType
+     * Metoda zwraca typ paliwa
      *
      * @return FuelType
      */
@@ -252,9 +256,9 @@ class Car
     }
 
     /**
-     * Set transmission
+     * Metoda ustawia typ skrzyni biegów
      *
-     * @param TransmissionType $transmissionType
+     * @param TransmissionType $transmissionType Typ skrzyni biegów
      *
      * @return Car
      */
@@ -266,7 +270,7 @@ class Car
     }
 
     /**
-     * Get transmissionType
+     * Metoda zwraca typ skrzyni biegów
      *
      * @return TransmissionType
      */
@@ -276,7 +280,7 @@ class Car
     }
 
     /**
-     * Get registrationNumber
+     * Metoda zwraca numer rejestracyjny
      *
      * @return string
      */
@@ -286,9 +290,9 @@ class Car
     }
 
     /**
-     * Set registrationNumber
+     * Metoda ustawia numer rejestracyjny
      *
-     * @param mixed $registrationNumber
+     * @param mixed $registrationNumber Numer rejestracyjny
      *
      * @return Car
      */
@@ -299,9 +303,9 @@ class Car
     }
 
     /**
-     * Set mileage
+     * Metoda ustawia przebieg
      *
-     * @param integer $mileage
+     * @param integer $mileage Przebieg
      *
      * @return Car
      */
@@ -313,7 +317,7 @@ class Car
     }
 
     /**
-     * Get mileage
+     * Metoda zwraca przebieg
      *
      * @return integer
      */
@@ -323,9 +327,9 @@ class Car
     }
 
     /**
-     * Set description
+     * Metoda ustawia opis
      *
-     * @param string $description
+     * @param string $description Opis
      *
      * @return Car
      */
@@ -337,7 +341,7 @@ class Car
     }
 
     /**
-     * Get description
+     * Metoda zwraca opis
      *
      * @return string
      */
@@ -347,7 +351,7 @@ class Car
     }
 
     /**
-     * Get company
+     * Metoda zwraca firmę, do którek samochód jest przypisany
      *
      * @return Company
      */
@@ -357,9 +361,9 @@ class Car
     }
 
     /**
-     * Set company
+     * Metoda ustawia firmę, do którek samochód jest przypisany
      *
-     * @param Company $company
+     * @param Company $company Firma
      *
      * @return Car
      */

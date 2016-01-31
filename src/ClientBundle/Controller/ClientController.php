@@ -16,15 +16,17 @@ use ClientBundle\Entity\Client;
 use ClientBundle\Form\ClientType;
 
 /**
- * Client controller.
+ * Kontroler odpowiedzialny za akcje związane z klientami
  *
  * @Route("/client")
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class ClientController extends Controller
 {
 
     /**
-     * Lists all Client entities.
+     * Domyślna akcja. Wyświetlenie wszystkich klientów
      *
      * @Route("/", name="client")
      * @Template()
@@ -34,8 +36,10 @@ class ClientController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie wszystkich klientów firmy
         $clients = $em->getRepository('ClientBundle:Client')->findByCompany($this->getUser()->getCompany());
 
+        # przygotowanie stronicowania wyników
         /** @var PaginatedTable $paginatedTable */
         $paginatedTable = $this->get('pagination.paginated_table');
         $paginatedTable
@@ -44,8 +48,7 @@ class ClientController extends Controller
             ->setTarget($clients)
             ->setRequest($request)
             ->setRoute('client')
-            ->setIdentifier('clientListTable')
-        ;
+            ->setIdentifier('clientListTable');
 
         # W zależności od tego czy żądanie było AJAX-owe czy nie zwracam odpowiedni widok
         if ($request->isXmlHttpRequest()) {
@@ -61,8 +64,9 @@ class ClientController extends Controller
             );
         }
     }
+
     /**
-     * Creates a new Client entity.
+     * Zapisanie nowego klienta
      *
      * @Route("/", name="client_create")
      * @Method("POST")
@@ -70,15 +74,19 @@ class ClientController extends Controller
      */
     public function createAction(Request $request)
     {
+        # utworzenie nowego obiektu klienta
         $client = new Client();
         $client->setCompany($this->getUser()->getCompany());
+        # przetworzenie formularza
         $form = $this->createCreateForm($client);
         $form->handleRequest($request);
 
+        # walidacja formularza
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($client);
 
+            # zapisanie wszystkich adresów klienta
             /** @var ClientAddress $address */
             foreach ($client->getAddresses() as $address) {
                 $address->setClient($client);
@@ -87,29 +95,32 @@ class ClientController extends Controller
 
             $em->flush();
 
+            # wyświetlenie danych nowego klienta
             return $this->redirect($this->generateUrl('client_show', array('id' => $client->getId())));
         }
 
         return array(
             'client' => $client,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-     * Creates a form to create a Client entity.
+     * Metoda zwraca formularz nowego klienta
      *
-     * @param Client $client The entity
+     * @param Client $client Klient
      *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Client $client)
     {
+        # utworzenie formularza
         $form = $this->createForm(new ClientType(), $client, array(
             'action' => $this->generateUrl('client_create'),
             'method' => 'POST',
         ));
 
+        # ustawienie przycisku "Zapisz"
         $form->add('submit', 'submit', array(
             'label' => 'Zapisz',
             'attr' => array(
@@ -121,7 +132,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Displays a form to create a new Client entity.
+     * Wyświetlenie formularza nowego klienta
      *
      * @Route("/new", name="client_new")
      * @Method("GET")
@@ -129,18 +140,20 @@ class ClientController extends Controller
      */
     public function newAction()
     {
+        # utworzenie nowego obiektu
         $client = new Client();
         $client->addAddress(new ClientAddress());
-        $form   = $this->createCreateForm($client);
+        #przygotowanie formularza
+        $form = $this->createCreateForm($client);
 
         return array(
             'client' => $client,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-     * Finds and displays a Client entity.
+     * Wyświetlenie informacji konkretnego klienta
      *
      * @Route("/{id}", name="client_show")
      * @Method("GET")
@@ -148,25 +161,26 @@ class ClientController extends Controller
      */
     public function showAction($id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-
+        # pobranie klienta
         $client = $em->getRepository('ClientBundle:Client')
             ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$client) {
-            throw $this->createNotFoundException('Unable to find Client entity.');
+            throw $this->createNotFoundException('Nie znaleziono klienta.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'client'      => $client,
+            'client' => $client,
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-     * Displays a form to edit an existing Client entity.
+     * Wyświetlenie formularza edycji istniejącego klienta
      *
      * @Route("/{id}/edit", name="client_edit")
      * @Method("GET")
@@ -174,39 +188,43 @@ class ClientController extends Controller
      */
     public function editAction($id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-
+        # pobranie klienta
         $client = $em->getRepository('ClientBundle:Client')
             ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$client) {
-            throw $this->createNotFoundException('Unable to find Client entity.');
+            throw $this->createNotFoundException('Nie udało się znaleźć klienta.');
         }
 
+        # przygotowanie formularzy
         $editForm = $this->createEditForm($client);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'client'      => $client,
-            'edit_form'   => $editForm->createView(),
+            'client' => $client,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Client entity.
-    *
-    * @param Client $client The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Metoda zwraca formularz edycji istniejącego klienta
+     *
+     * @param Client $client Klient
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Client $client)
     {
+        # utworzenie formularza
         $form = $this->createForm(new ClientType(), $client, array(
             'action' => $this->generateUrl('client_update', array('id' => $client->getId())),
             'method' => 'PUT',
         ));
 
+        # ustawienie przycisku "Zapisz"
         $form->add('submit', 'submit', array(
             'label' => 'Zapisz',
             'attr' => array(
@@ -216,8 +234,9 @@ class ClientController extends Controller
 
         return $form;
     }
+
     /**
-     * Edits an existing Client entity.
+     * Zapisanie zmian u istniejącego klienta
      *
      * @Route("/{id}", name="client_update")
      * @Method("PUT")
@@ -225,19 +244,23 @@ class ClientController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-
+        # pobranie klienta
         $client = $em->getRepository('ClientBundle:Client')->find($id);
 
         if (!$client) {
-            throw $this->createNotFoundException('Unable to find Client entity.');
+            throw $this->createNotFoundException('Nie udało się znaleźć klienta.');
         }
 
+        # utworzenie formularzy
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($client);
         $editForm->handleRequest($request);
 
+        # walidacja formularza
         if ($editForm->isValid()) {
+            # zapisanie wszystkich adresów klienta
             /** @var ClientAddress $address */
             foreach ($client->getAddresses() as $address) {
                 $address->setClient($client);
@@ -250,13 +273,14 @@ class ClientController extends Controller
         }
 
         return array(
-            'client'      => $client,
-            'edit_form'   => $editForm->createView(),
+            'client' => $client,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
-     * Deletes a Client entity.
+     * Usunięcie klienta
      *
      * @Route("/{id}", name="client_delete")
      * @Method("DELETE")
@@ -271,7 +295,7 @@ class ClientController extends Controller
             $client = $em->getRepository('ClientBundle:Client')->find($id);
 
             if (!$client) {
-                throw $this->createNotFoundException('Unable to find Client entity.');
+                throw $this->createNotFoundException('Nie udało się znaleźć klienta.');
             }
 
             $em->remove($client);
@@ -282,7 +306,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Creates a form to delete a Client entity by id.
+     * Metoda zwraca formularz służacy do usuwania klienta
      *
      * @param mixed $id The client id
      *
@@ -294,7 +318,6 @@ class ClientController extends Controller
             ->setAction($this->generateUrl('client_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

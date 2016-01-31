@@ -3,29 +3,16 @@
 namespace ReportBundle\Model;
 
 use Doctrine\ORM\Query;
-use CompanyBundle\Entity\Company;
-use Doctrine\ORM\EntityManager;
 
 /**
  * Class FreightMonthlyReport
  *
  * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
-class FreightMonthlyReport extends Report
+class FreightMonthlyReport extends CompanyReport
 {
     /**
-     * @var Company
-     */
-    private $company;
-
-    function __construct(Company $company, EntityManager $em)
-    {
-        parent::__construct($em);
-        $this->company = $company;
-    }
-
-    /**
-     * Returns report query
+     * Metoda zwraca zapytanie poberające wyniki do raportu
      *
      * @return string
      */
@@ -47,7 +34,7 @@ class FreightMonthlyReport extends Report
                 freight F
                 JOIN __months M ON M.id = MONTH(F.start)
             WHERE
-                company_id = '.$this->company->getId().'
+                company_id = '.$this->getCompany()->getId().'
             GROUP BY
                 YEAR(F.start), MONTH(F.start)
             ORDER BY
@@ -56,13 +43,13 @@ class FreightMonthlyReport extends Report
     }
 
     /**
-     * Returns report query
+     * Metoda zwraca wyniki raportu
      *
      * @return Query
      */
     public function getResults()
     {
-        $stmt = $this->em->getConnection()->prepare($this->getQuery());
+        $stmt = $this->getEntityManager()->getConnection()->prepare($this->getQuery());
         $stmt->execute();
         $results = array();
 

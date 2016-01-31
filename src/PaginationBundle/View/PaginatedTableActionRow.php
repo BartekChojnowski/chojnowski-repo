@@ -6,6 +6,8 @@ namespace PaginationBundle\View;
  * Klasa reprezentująca wiersz w postronicowanej tabeli zawierający dodatkowe akcje
  *
  * @package PaginationBundle\View
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class PaginatedTableActionRow extends PaginatedTableRow
 {
@@ -22,7 +24,6 @@ class PaginatedTableActionRow extends PaginatedTableRow
     /**
      * Pobierz szablon
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getTemplate()
@@ -35,7 +36,6 @@ class PaginatedTableActionRow extends PaginatedTableRow
      *
      * @param string $template
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableActionRow
      */
     public function setTemplate($template)
@@ -48,7 +48,6 @@ class PaginatedTableActionRow extends PaginatedTableRow
     /**
      * Pobierz akcje
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return array
      */
     public function getGroupActions()
@@ -61,7 +60,6 @@ class PaginatedTableActionRow extends PaginatedTableRow
      *
      * @param mixed $groupActions
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableActionRow
      */
     public function setGroupActions($groupActions)

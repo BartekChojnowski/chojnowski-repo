@@ -6,9 +6,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Formularz lokalizacji
+ *
+ * @package AddressBundle\Form
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
+ */
 class PointType extends AbstractType
 {
     /**
+     * Metoda zajmuje się utwarzeniem formularza
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -22,6 +31,8 @@ class PointType extends AbstractType
     }
 
     /**
+     * Metoda ustawia domyślne opcje formularza
+     *
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -32,6 +43,8 @@ class PointType extends AbstractType
     }
 
     /**
+     * Metoda zwraca nazwę formularza
+     *
      * @return string
      */
     public function getName()

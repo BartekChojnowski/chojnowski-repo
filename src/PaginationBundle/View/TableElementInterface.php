@@ -5,14 +5,13 @@ namespace PaginationBundle\View;
 /**
  * Interfejs dla elementów tablicy stronicowania. Wymusza wymagane metody.
  *
- * @author CB
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 interface TableElementInterface
 {
     /**
      * Pobierz szablon
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getTemplate();
@@ -22,7 +21,6 @@ interface TableElementInterface
      *
      * @param string $template
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return TableElementInterface
      */
     public function setTemplate($template);
@@ -30,7 +28,6 @@ interface TableElementInterface
     /**
      * Pobierz styl elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getStyle();
@@ -40,7 +37,6 @@ interface TableElementInterface
      *
      * @param string $style
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return TableElementInterface
      */
     public function setStyle($style);
@@ -48,7 +44,6 @@ interface TableElementInterface
     /**
      * Pobierz Id elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getId();
@@ -58,7 +53,6 @@ interface TableElementInterface
      *
      * @param string $id
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return TableElementInterface
      */
     public function setId($id);
@@ -66,7 +60,6 @@ interface TableElementInterface
     /**
      * Pobierz Class elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getClass();
@@ -76,7 +69,6 @@ interface TableElementInterface
      *
      * @param string $class
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return TableElementInterface
      */
     public function setClass($class);
@@ -84,7 +76,6 @@ interface TableElementInterface
     /**
      * Pobierz Data elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return array
      */
     public function getData();
@@ -94,7 +85,6 @@ interface TableElementInterface
      *
      * @param array $data
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return TableElementInterface
      */
     public function setData($data);

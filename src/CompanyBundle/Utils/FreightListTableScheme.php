@@ -11,7 +11,7 @@ use PaginationBundle\View\PaginatedTableHeaderCell;
 use PaginationBundle\View\TableFactoryInterface;
 
 /**
- *
+ * Schemat postronicowanej tablicy zleceń
  *
  * @author CB <b.chojnowski@kredyty-chwilowki.pl>
  */
@@ -23,14 +23,13 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
      * @param ArrayCollection $rows
      * @param array $objects
      * @param array $additionalData
-     *
-     * @return mixed
      */
     public function buildTable(ArrayCollection $rows, $objects, $additionalData = null)
     {
         # utworzenie nagłówka tabeli
         $this->buildTableHeader($rows);
 
+        # utworzenie wierszy tabeli
         /** @var Freight $object */
         foreach((array)$objects as $object) {
             $rows->add($this->buildTableRow($object));
@@ -73,6 +72,7 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
         # dodanie wiersza nagłówka
         $rows->add($this->tableFactory->getHeaderRowInstance());
 
+        # utworzenie komórek nagłówka
         $rows->current()->getCells()->add($this->buildNumberHeaderCell());
         $rows->current()->getCells()->add($this->buildStartHeaderCell());
         $rows->current()->getCells()->add($this->buildEndHeaderCell());
@@ -213,7 +213,7 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
     /**
      * Metoda zwraca przygotowaną komórkę - numer
      *
-     * @param Freight $freight
+     * @param Freight $freight Zlecenie
      *
      * @return PaginatedTableCell
      */
@@ -228,7 +228,7 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
     /**
      * Metoda zwraca przygotowaną komórkę - data od
      *
-     * @param Freight $freight
+     * @param Freight $freight Zlecenie
      *
      * @return PaginatedTableCell
      */
@@ -243,7 +243,7 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
     /**
      * Metoda zwraca przygotowaną komórkę - data do
      *
-     * @param Freight $freight
+     * @param Freight $freight Zlecenie
      *
      * @return PaginatedTableCell
      */
@@ -258,7 +258,7 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
     /**
      * Metoda zwraca przygotowaną komórkę - skąd
      *
-     * @param Freight $freight
+     * @param Freight $freight Zlecenie
      *
      * @return PaginatedTableCell
      */
@@ -273,7 +273,7 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
     /**
      * Metoda zwraca przygotowaną komórkę - dokąd
      *
-     * @param Freight $freight
+     * @param Freight $freight Zlecenie
      *
      * @return PaginatedTableCell
      */
@@ -288,7 +288,7 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
     /**
      * Metoda zwraca przygotowaną komórkę - odległość
      *
-     * @param Freight $freight
+     * @param Freight $freight Zlecenie
      *
      * @return PaginatedTableCell
      */
@@ -303,7 +303,7 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
     /**
      * Metoda zwraca przygotowaną komórkę - odległość do zlecenia
      *
-     * @param Freight $freight
+     * @param Freight $freight Zlecenie
      *
      * @return PaginatedTableCell
      */
@@ -318,7 +318,7 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
     /**
      * Metoda zwraca przygotowaną komórkę - stawka
      *
-     * @param Freight $freight
+     * @param Freight $freight Zlecenie
      *
      * @return PaginatedTableCell
      */
@@ -333,7 +333,7 @@ class FreightListTableScheme extends AbstractPaginatedTableScheme
     /**
      * Metoda zwraca przygotowaną komórkę - akcje
      *
-     * @param Freight $freight
+     * @param Freight $freight Zlecenie
      *
      * @return PaginatedTableCell
      */

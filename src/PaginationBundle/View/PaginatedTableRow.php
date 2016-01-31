@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Klasa reprezentująca wiersz w postronicowanej tabeli
  *
  * @package PaginationBundle\View
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class PaginatedTableRow implements TableElementInterface, TableRowInterface
 {
@@ -117,7 +119,6 @@ class PaginatedTableRow implements TableElementInterface, TableRowInterface
      *
      * @param string $style
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableRow
      */
     public function setStyle($style)
@@ -130,7 +131,6 @@ class PaginatedTableRow implements TableElementInterface, TableRowInterface
     /**
      * Pobierz Id elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getId()
@@ -143,7 +143,6 @@ class PaginatedTableRow implements TableElementInterface, TableRowInterface
      *
      * @param string $id
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableRow
      */
     public function setId($id)
@@ -156,7 +155,6 @@ class PaginatedTableRow implements TableElementInterface, TableRowInterface
     /**
      * Pobierz Class elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return string
      */
     public function getClass()
@@ -169,7 +167,6 @@ class PaginatedTableRow implements TableElementInterface, TableRowInterface
      *
      * @param string $class
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableRow
      */
     public function setClass($class)
@@ -182,7 +179,6 @@ class PaginatedTableRow implements TableElementInterface, TableRowInterface
     /**
      * Pobierz Data elementu html
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return array
      */
     public function getData()
@@ -195,7 +191,6 @@ class PaginatedTableRow implements TableElementInterface, TableRowInterface
      *
      * @param array $data
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableRow
      */
     public function setData($data)

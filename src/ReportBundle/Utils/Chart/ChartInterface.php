@@ -8,6 +8,8 @@ use ReportBundle\Model\Report;
  * Interfejs dla klas wykresów
  *
  * @package ReportBundle\Utils\Chart
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 interface ChartInterface {
 

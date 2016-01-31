@@ -5,7 +5,7 @@ namespace PhoneBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Phone
+ * Nadrzędna klasa telefonu
  *
  * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  *

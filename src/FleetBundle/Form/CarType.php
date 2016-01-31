@@ -5,10 +5,18 @@ namespace FleetBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
+/**
+ * Formularz klienta
+ *
+ * @package AddressBundle\Form
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
+ */
 class CarType extends AbstractType
 {
     /**
+     * Metoda zajmuje się utwarzeniem formularza
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -85,8 +93,10 @@ class CarType extends AbstractType
             ->add('description', 'textarea', array('label' => 'opis', 'required' => false,))
         ;
     }
-    
+
     /**
+     * Metoda ustawia domyślne opcje formularza
+     *
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -97,6 +107,8 @@ class CarType extends AbstractType
     }
 
     /**
+     * Metoda zwraca nazwę formularza
+     *
      * @return string
      */
     public function getName()

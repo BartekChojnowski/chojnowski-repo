@@ -11,15 +11,17 @@ use FleetBundle\Entity\Car;
 use FleetBundle\Form\CarType;
 
 /**
- * Car controller.
+ * Kontroler odpowiedzialny za akcje związane z samochodami
  *
  * @Route("/car")
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class CarController extends Controller
 {
 
     /**
-     * Lists all Car entities.
+     * Domyślna akcja. Wyświetlenie wszystkich samochodów
      *
      * @Route("/", name="car")
      * @Method("GET")
@@ -27,8 +29,10 @@ class CarController extends Controller
      */
     public function indexAction()
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie wszystkich samochodów firmy
         $cars = $em->getRepository('FleetBundle:Car')->findByCompany($this->getUser()->getCompany());
 
         return array(
@@ -36,7 +40,7 @@ class CarController extends Controller
         );
     }
     /**
-     * Creates a new Car entity.
+     * Zapisanie nowego samochodu
      *
      * @Route("/", name="car_create")
      * @Method("POST")
@@ -44,17 +48,22 @@ class CarController extends Controller
      */
     public function createAction(Request $request)
     {
+        # utworzenie nowego obiektu samochodu
         $car = new Car();
         $car->setCompany($this->getUser()->getCompany());
 
+        # przetworzenie formularza
         $form = $this->createCreateForm($car);
         $form->handleRequest($request);
 
+        # walidacja formularza
         if ($form->isValid()) {
+            /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             $em->persist($car);
             $em->flush();
 
+            # wyświetlenie danych nowego samochodu
             return $this->redirect($this->generateUrl('car_show', array('id' => $car->getId())));
         }
 
@@ -65,7 +74,7 @@ class CarController extends Controller
     }
 
     /**
-     * Creates a form to create a Car entity.
+     * Metoda zwraca formularz nowego samochodu
      *
      * @param Car $car The entity
      *
@@ -73,11 +82,13 @@ class CarController extends Controller
      */
     private function createCreateForm(Car $car)
     {
+        # utworzenie formularza
         $form = $this->createForm(new CarType(), $car, array(
             'action' => $this->generateUrl('car_create'),
             'method' => 'POST',
         ));
 
+        # ustawienie przycisku "Zapisz"
         $form->add('submit', 'submit', array(
             'label' => 'Dodaj',
             'attr' => array('class' => 'btn btn-success btn-block')
@@ -87,7 +98,7 @@ class CarController extends Controller
     }
 
     /**
-     * Displays a form to create a new Car entity.
+     * Wyświetlenie formularza nowego samochodu
      *
      * @Route("/new", name="car_new")
      * @Method("GET")
@@ -95,7 +106,9 @@ class CarController extends Controller
      */
     public function newAction()
     {
+        # utworzenie nowego obiektu
         $car = new Car();
+        #przygotowanie formularza
         $form   = $this->createCreateForm($car);
 
         return array(
@@ -105,7 +118,7 @@ class CarController extends Controller
     }
 
     /**
-     * Finds and displays a Car entity.
+     * Wyświetlenie informacji konkretnego samochodu
      *
      * @Route("/{id}", name="car_show")
      * @Method("GET")
@@ -113,13 +126,15 @@ class CarController extends Controller
      */
     public function showAction($id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie samochodu
         $car = $em->getRepository('FleetBundle:Car')
             ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$car) {
-            throw $this->createNotFoundException('Unable to find Car entity.');
+            throw $this->createNotFoundException('Nie udało się znaleźć samochodu.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -131,7 +146,7 @@ class CarController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Car entity.
+     * Wyświetlenie formularza edycji istniejącego samochodu
      *
      * @Route("/{id}/edit", name="car_edit")
      * @Method("GET")
@@ -139,15 +154,18 @@ class CarController extends Controller
      */
     public function editAction($id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie samochodu
         $car = $em->getRepository('FleetBundle:Car')
             ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$car) {
-            throw $this->createNotFoundException('Unable to find Car entity.');
+            throw $this->createNotFoundException('Nie udało się znaleźć samochodu.');
         }
 
+        # przygotowanie formularzy
         $editForm = $this->createEditForm($car);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -159,7 +177,7 @@ class CarController extends Controller
     }
 
     /**
-    * Creates a form to edit a Car entity.
+    * Metoda zwraca formularz edycji istniejącego samochodu
     *
     * @param Car $car The entity
     *
@@ -167,11 +185,13 @@ class CarController extends Controller
     */
     private function createEditForm(Car $car)
     {
+        # utworzenie formularza
         $form = $this->createForm(new CarType(), $car, array(
             'action' => $this->generateUrl('car_update', array('id' => $car->getId())),
             'method' => 'PUT',
         ));
 
+        # ustawienie przycisku "Zapisz"
         $form->add('submit', 'submit', array(
             'label' => 'Zapisz',
             'attr' => array(
@@ -181,8 +201,9 @@ class CarController extends Controller
 
         return $form;
     }
+    
     /**
-     * Edits an existing Car entity.
+     * Zapisanie zmian u istniejącego samochodu
      *
      * @Route("/{id}", name="car_update")
      * @Method("PUT")
@@ -190,18 +211,22 @@ class CarController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie samochodu
         $car = $em->getRepository('FleetBundle:Car')->find($id);
 
         if (!$car) {
-            throw $this->createNotFoundException('Unable to find Car entity.');
+            throw $this->createNotFoundException('Nie udało się znaleźć samochodu.');
         }
 
+        # utworzenie formularzy
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($car);
         $editForm->handleRequest($request);
 
+        # walidacja formularza
         if ($editForm->isValid()) {
             $em->flush();
 
@@ -215,7 +240,7 @@ class CarController extends Controller
         );
     }
     /**
-     * Deletes a Car entity.
+     * Usunięcie samochodu
      *
      * @Route("/{id}", name="car_delete")
      * @Method("DELETE")
@@ -230,7 +255,7 @@ class CarController extends Controller
             $car = $em->getRepository('FleetBundle:Car')->find($id);
 
             if (!$car) {
-                throw $this->createNotFoundException('Unable to find Car entity.');
+                throw $this->createNotFoundException('Nie udało się znaleźć samochodu.');
             }
 
             $em->remove($car);
@@ -241,7 +266,7 @@ class CarController extends Controller
     }
 
     /**
-     * Creates a form to delete a Car entity by id.
+     * Metoda zwraca formularz służacy do usuwania samochodu
      *
      * @param mixed $id The entity id
      *

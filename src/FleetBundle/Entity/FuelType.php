@@ -5,15 +5,17 @@ namespace FleetBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Fuel
+ * Klasa reprezentująca typ paliwa
  *
  * @ORM\Table(name="fuel_type")
  * @ORM\Entity
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class FuelType
 {
     /**
-     * @var integer
+     * @var integer Identyfikator
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,14 +24,14 @@ class FuelType
     private $id;
 
     /**
-     * @var string
+     * @var string Nazwa
      *
      * @ORM\Column(name="name", type="string", length=32)
      */
     private $name;
 
     /**
-     * @var string
+     * @var string Nazwa systemowa
      *
      * @ORM\Column(name="systemName", type="string", length=32)
      */
@@ -37,7 +39,7 @@ class FuelType
 
 
     /**
-     * Get id
+     * Metoda zwraca identyfikator
      *
      * @return integer
      */
@@ -47,9 +49,9 @@ class FuelType
     }
 
     /**
-     * Set name
+     * Metoda ustawia nazwę
      *
-     * @param string $name
+     * @param string $name Nazwa
      *
      * @return Fuel
      */
@@ -61,7 +63,7 @@ class FuelType
     }
 
     /**
-     * Get name
+     * Metoda zwraca nazwę
      *
      * @return string
      */
@@ -71,9 +73,9 @@ class FuelType
     }
 
     /**
-     * Set systemName
+     * Metoda ustawia nazwę systemową
      *
-     * @param string $systemName
+     * @param string $systemName Nazwa systemowa
      *
      * @return Fuel
      */
@@ -85,7 +87,7 @@ class FuelType
     }
 
     /**
-     * Get systemName
+     * Metoda zwraca nazwę systemową
      *
      * @return string
      */

@@ -8,7 +8,7 @@ use PaginationBundle\View\TableFactoryInterface;
 /**
  * Abstrakcyjna klasa schematu tabeli postronicowanej
  *
- * @author CB <b.chojnowski@kredyty-chwilowki.pl>
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 abstract class AbstractPaginatedTableScheme implements PaginatedTableSchemeInterface
 {

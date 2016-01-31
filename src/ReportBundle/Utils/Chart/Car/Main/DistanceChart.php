@@ -14,7 +14,8 @@ use ReportBundle\Utils\Chart\Chart;
  *
  * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
-class DistanceChart extends Chart{
+class DistanceChart extends Chart
+{
 
     /**
      * Konstruktor
@@ -41,10 +42,7 @@ class DistanceChart extends Chart{
     public function render(Report $report)
     {
         # przygotowanie wykresu
-        $this->chart
-            ->height(200)
-            ->datatable($this->dataTable($report))
-        ;
+        $this->chart->height(200)->datatable($this->dataTable($report));
 
         return $this->chart->render($this->getName());
     }
@@ -62,10 +60,7 @@ class DistanceChart extends Chart{
         $table = $this->lava->DataTable();
 
         # ustawienie nagłówków
-        $table
-            ->addStringColumn('Samochód')
-            ->addNumberColumn('Przejechanych kilometrów')
-        ;
+        $table->addStringColumn('Samochód')->addNumberColumn('Przejechanych kilometrów');
 
         # przygotowanie wierszy
         foreach ($report->getResults() as $result) {

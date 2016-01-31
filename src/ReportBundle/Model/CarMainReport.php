@@ -3,29 +3,16 @@
 namespace ReportBundle\Model;
 
 use Doctrine\ORM\Query;
-use CompanyBundle\Entity\Company;
-use Doctrine\ORM\EntityManager;
 
 /**
- * Class CarMainReport
+ * Klasa reprezentująca ogólny raport samochodów
  *
  * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
-class CarMainReport extends Report
+class CarMainReport extends CompanyReport
 {
     /**
-     * @var Company
-     */
-    private $company;
-
-    function __construct(Company $company, EntityManager $em)
-    {
-        parent::__construct($em);
-        $this->company = $company;
-    }
-
-    /**
-     * Returns report query
+     * Metoda zwraca zapytanie poberające wyniki do raportu
      *
      * @return string
      */
@@ -45,7 +32,7 @@ class CarMainReport extends Report
                 JOIN freight F ON C.id = F.car
 
             WHERE
-                C.company_id = '.$this->company->getId().'
+                C.company_id = '.$this->getCompany()->getId().'
             GROUP BY
                 C.id
             ORDER BY C.id
@@ -53,20 +40,16 @@ class CarMainReport extends Report
     }
 
     /**
-     * Returns report query
+     * Metoda zwraca wyniki raportu
      *
      * @return Query
      */
     public function getResults()
     {
-        $stmt = $this->em->getConnection()->prepare($this->getQuery());
+        $stmt = $this->getEntityManager()->getConnection()->prepare($this->getQuery());
         $stmt->execute();
-
 
         return $stmt->fetchAll();
     }
 
-
-
-
-} 
+}

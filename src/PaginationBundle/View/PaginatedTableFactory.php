@@ -5,14 +5,13 @@ namespace PaginationBundle\View;
 /**
  * Fabryka tworząca instancje obiektów do tabeli z wynikami stronicowania
  *
- * @author CB <b.chojnowski@kredyty-chwilowki.pl>
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class PaginatedTableFactory implements TableFactoryInterface
 {
     /**
      * Metoda zwraca instancje klasy wiersza w tabeli stronicowania
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableRow
      */
     public function getRowInstance()
@@ -23,7 +22,6 @@ class PaginatedTableFactory implements TableFactoryInterface
     /**
      * Metoda zwraca instancje klasy komórki w tabeli stronicowania
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableCell
      */
     public function getCellInstance()
@@ -34,7 +32,6 @@ class PaginatedTableFactory implements TableFactoryInterface
     /**
      * Metoda zwraca instancje klasy komórki nagłówka w tabeli stronicowania
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableHeaderCell
      */
     public function getHeaderCellInstance()
@@ -45,7 +42,6 @@ class PaginatedTableFactory implements TableFactoryInterface
     /**
      * Metoda zwraca instancje klasy nagłówka w tabeli stronicowania
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableHeaderRow
      */
     public function getHeaderRowInstance()
@@ -57,7 +53,6 @@ class PaginatedTableFactory implements TableFactoryInterface
      * Metoda zwraca instancje klasy nagłówka w tabeli stronicowania z chekboxem umożliwijącym zaznaczanie
      * wszystkich wierszy
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableHeaderWithCheckboxRow
      */
     public function getHeaderRowWithCheckboxInstance()
@@ -68,7 +63,6 @@ class PaginatedTableFactory implements TableFactoryInterface
     /**
      * Metoda zwraca instancje klasy wiersza w tabeli stronicowania z checkboxem umożliwiającym zaznaczenie
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableRowWithCheckbox
      */
     public function getRowWithCheckboxInstance()
@@ -79,7 +73,6 @@ class PaginatedTableFactory implements TableFactoryInterface
     /**
      * Metoda zwraca instancje klasy wiersza w tabeli stronicowania z checkboxem umożliwiającym zaznaczenie
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableActionRow
      */
     public function getActionRowInstance()
@@ -90,7 +83,6 @@ class PaginatedTableFactory implements TableFactoryInterface
     /**
      * Metoda zwraca instancje klasy wiersza w tabeli stronicowania oznaczającego brak wyników
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableActionRow
      */
     public function getNoResultsRowInstance()
@@ -101,7 +93,6 @@ class PaginatedTableFactory implements TableFactoryInterface
     /**
      * Metoda zwraca instancje klasy komórki nagłówka w tabeli stronicowania, po którym można sortować
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return PaginatedTableSortableHeaderCell
      */
     public function getSortableHeaderCellInstance()

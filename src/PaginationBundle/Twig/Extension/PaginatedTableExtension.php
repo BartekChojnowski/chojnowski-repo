@@ -7,7 +7,10 @@ use PaginationBundle\View\PaginatedTable;
 
 /**
  * Class PaginatedTableExtension
+ *
  * @package PaginationBundle\Twig\Extension
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class PaginatedTableExtension extends \Twig_Extension
 {

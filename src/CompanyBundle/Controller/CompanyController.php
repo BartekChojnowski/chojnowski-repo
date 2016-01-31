@@ -13,14 +13,16 @@ use CompanyBundle\Entity\Company;
 use CompanyBundle\Form\CompanyType;
 
 /**
- * Company controller.
+ * Kontroler odpowiedzialny za akcje związane z firmą
  *
  * @Route("/company")
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class CompanyController extends Controller
 {
     /**
-     * Creates a new Company entity.
+     * Utworzenie nowej firmy
      *
      * @Route("/create", name="company_create")
      * @Method("POST")
@@ -28,10 +30,13 @@ class CompanyController extends Controller
      */
     public function createAction(Request $request)
     {
+        # utworzenie nowego obiektu firmy
         $company = new Company();
+        # obsługa formularza
         $form = $this->createCreateForm($company);
         $form->handleRequest($request);
 
+        # walidacja formularza
         if ($form->isValid()) {
             $this->getUser()->setCompany($company);
 
@@ -39,6 +44,7 @@ class CompanyController extends Controller
             $em->persist($this->getUser());
             $em->persist($company);
 
+            # zapisanie wszystkich adresów firmy
             /** @var CompanyAddress $address */
             foreach ($company->getAddresses() as $address) {
                 $address->setCompany($company);
@@ -47,29 +53,32 @@ class CompanyController extends Controller
 
             $em->flush();
 
+            # wyświetlenie strony ze szczegółami
             return $this->redirect($this->generateUrl('company_show', array('id' => $company->getId())));
         }
 
         return array(
             'company' => $company,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-     * Creates a form to create a Company entity.
+     * Metoda zwraca formularz dodawania nowej firmy
      *
-     * @param Company $entity The entity
+     * @param Company $company Firma
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Company $entity)
+    private function createCreateForm(Company $company)
     {
-        $form = $this->createForm(new CompanyType(), $entity, array(
+        # utworzenie formularza
+        $form = $this->createForm(new CompanyType(), $company, array(
             'action' => $this->generateUrl('company_create'),
             'method' => 'POST',
         ));
 
+        # ustawienie przycisku "Zapisz"
         $form->add('submit', 'submit', array(
             'label' => 'Zapisz',
             'attr' => array(
@@ -81,7 +90,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Displays a form to create a new Company entity.
+     * Wyświetlenie formularza dodawania nowej firmy
      *
      * @Route("/new", name="company_new")
      * @Method("GET")
@@ -91,16 +100,16 @@ class CompanyController extends Controller
     {
         $company = new Company();
         $company->addAddress(new CompanyAddress());
-        $form   = $this->createCreateForm($company);
+        $form = $this->createCreateForm($company);
 
         return array(
             'company' => $company,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-     * Finds and displays a Company entity.
+     * Wyświetlenie szczegółów firmy
      *
      * @Route("/show", name="company_show")
      * @Method("GET")
@@ -111,16 +120,16 @@ class CompanyController extends Controller
         $company = $this->getUser()->getCompany();
 
         if (!$company) {
-            throw $this->createNotFoundException('Unable to find Company entity.');
+            throw $this->createNotFoundException('Nie znaleziono firmy.');
         }
 
         return array(
-            'company'      => $company,
+            'company' => $company,
         );
     }
 
     /**
-     * Displays a form to edit an existing Company entity.
+     * Wyświetlenie formularza edycji istniejącej firmy
      *
      * @Route("/{id}/edit", name="company_edit")
      * @Method("GET")
@@ -128,36 +137,41 @@ class CompanyController extends Controller
      */
     public function editAction($id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie firmy
         $company = $em->getRepository('CompanyBundle:Company')->find($id);
 
         if (!$company) {
-            throw $this->createNotFoundException('Unable to find Company entity.');
+            throw $this->createNotFoundException('Nie znaleziono firmy.');
         }
 
+        # utworzenie formularza
         $editForm = $this->createEditForm($company);
 
         return array(
-            'entity'      => $company,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $company,
+            'edit_form' => $editForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Company entity.
-    *
-    * @param Company $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Metoda zwraca formularz edycji istniejącej firmy
+     *
+     * @param Company $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Company $entity)
     {
+        # utworzenie formularza
         $form = $this->createForm(new CompanyType(), $entity, array(
             'action' => $this->generateUrl('company_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
+        # ustawienie przycisku "Zapisz"
         $form->add('submit', 'submit', array(
             'label' => 'Zapisz',
             'attr' => array(
@@ -167,6 +181,7 @@ class CompanyController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Company entity.
      *
@@ -176,17 +191,21 @@ class CompanyController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie firmy
         $company = $em->getRepository('CompanyBundle:Company')->find($id);
 
         if (!$company) {
-            throw $this->createNotFoundException('Unable to find Company entity.');
+            throw $this->createNotFoundException('Nie znaleziono firmy.');
         }
 
+        # utworzenie i obsługa formularza
         $editForm = $this->createEditForm($company);
         $editForm->handleRequest($request);
 
+        # walidacja formularza
         if ($editForm->isValid()) {
             /** @var CompanyAddress $address */
             foreach ($company->getAddresses() as $address) {
@@ -200,8 +219,8 @@ class CompanyController extends Controller
         }
 
         return array(
-            'company'      => $company,
-            'edit_form'   => $editForm->createView(),
+            'company' => $company,
+            'edit_form' => $editForm->createView(),
         );
     }
 }

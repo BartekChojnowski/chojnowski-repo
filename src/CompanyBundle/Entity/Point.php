@@ -5,15 +5,17 @@ namespace CompanyBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Point
+ * Klasa reprezentująca lokalizację
  *
  * @ORM\Table()
  * @ORM\Entity
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class Point
 {
     /**
-     * @var integer
+     * @var integer Identyfikator
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,21 +24,21 @@ class Point
     private $id;
 
     /**
-     * @var string
+     * @var string Szerokość geograficzna
      *
      * @ORM\Column(name="latitude", type="decimal", precision=18, scale=12, nullable=true)
      */
     private $latitude;
 
     /**
-     * @var string
+     * @var string Długość geograficzna
      *
      * @ORM\Column(name="longitude", type="decimal", precision=18, scale=12, nullable=true)
      */
     private $longitude;
 
     /**
-     * @var string
+     * @var string Adres
      *
      * @ORM\Column(name="address", type="string", length=255)
      */
@@ -44,7 +46,7 @@ class Point
 
 
     /**
-     * Get id
+     * Metoda zwraca identyfikator
      *
      * @return integer
      */
@@ -54,9 +56,9 @@ class Point
     }
 
     /**
-     * Set latitude
+     * Metoda ustawia szerokość geograficzną
      *
-     * @param string $latitude
+     * @param string $latitude Szerokość geograficzna
      *
      * @return Point
      */
@@ -68,7 +70,7 @@ class Point
     }
 
     /**
-     * Get latitude
+     * Metoda zwraca szerokość geograficzną
      *
      * @return string
      */
@@ -78,9 +80,9 @@ class Point
     }
 
     /**
-     * Set longitude
+     * Metoda ustawia długość geograficzną
      *
-     * @param string $longitude
+     * @param string $longitude Długość geograficzna
      *
      * @return Point
      */
@@ -92,7 +94,7 @@ class Point
     }
 
     /**
-     * Get longitude
+     * Metoda zwraca długość geograficzną
      *
      * @return string
      */
@@ -102,9 +104,9 @@ class Point
     }
 
     /**
-     * Set address
+     * Metoda ustawia adres
      *
-     * @param string $address
+     * @param string $address Adres
      *
      * @return Point
      */
@@ -116,7 +118,7 @@ class Point
     }
 
     /**
-     * Get address
+     * Metoda zwraca adres
      *
      * @return string
      */

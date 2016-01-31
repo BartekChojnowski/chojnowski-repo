@@ -13,15 +13,17 @@ use CompanyBundle\Entity\Employee;
 use CompanyBundle\Form\EmployeeType;
 
 /**
- * Employee controller.
+ * Kontroler odpowiedzialny za akcje związane z pracownikami
  *
  * @Route("/employee")
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class EmployeeController extends Controller
 {
 
     /**
-     * Lists all Employee entities.
+     * Domyślna akcja. Wyświetlenie wszystkich pracowników
      *
      * @Route("/", name="employee")
      * @Method("GET")
@@ -29,18 +31,20 @@ class EmployeeController extends Controller
      */
     public function indexAction()
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie wszystkich pracowników firmy
         $company = $this->getUser()->getCompany();
-
         $employees = $em->getRepository('CompanyBundle:Employee')->findByCompany($company);
 
         return array(
             'employees' => $employees,
         );
     }
+
     /**
-     * Creates a new Employee entity.
+     * Zapisanie nowego pracownika
      *
      * @Route("/", name="employee_create")
      * @Method("POST")
@@ -48,10 +52,14 @@ class EmployeeController extends Controller
      */
     public function createAction(Request $request)
     {
+        # utworzenie nowego obiektu pracownika
         $employee = new Employee();
+        $employee->setCompany($this->getUser()->getCompany());
+        # przetworzenie formularza
         $form = $this->createCreateForm($employee);
         $form->handleRequest($request);
 
+        # walidacja formularza
         if ($form->isValid()) {
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
@@ -61,22 +69,21 @@ class EmployeeController extends Controller
                 $em->persist($employee->getAddress());
             }
 
-            $employee->setCompany($this->getUser()->getCompany());
-
             $em->persist($employee);
             $em->flush();
 
+            # wyświetlenie danych nowego pracownika
             return $this->redirect($this->generateUrl('employee_show', array('id' => $employee->getId())));
         }
 
         return array(
             'employee' => $employee,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-     * Creates a form to create a Employee entity.
+     * Metoda zwraca formularz nowego pracownika
      *
      * @param Employee $employee The entity
      *
@@ -84,11 +91,13 @@ class EmployeeController extends Controller
      */
     private function createCreateForm(Employee $employee)
     {
+        # utworzenie formularza
         $form = $this->createForm(new EmployeeType(), $employee, array(
             'action' => $this->generateUrl('employee_create'),
             'method' => 'POST',
         ));
 
+        # ustawienie przycisku "Zapisz"
         $form->add('submit', 'submit', array(
             'label' => 'Dodaj',
             'attr' => array('class' => 'btn btn-success btn-block')
@@ -98,7 +107,7 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Displays a form to create a new Employee entity.
+     * Wyświetlenie formularza nowego pracownika
      *
      * @Route("/new", name="employee_new")
      * @Method("GET")
@@ -106,17 +115,19 @@ class EmployeeController extends Controller
      */
     public function newAction()
     {
+        # utworzenie nowego obiektu
         $employee = new Employee();
-        $form   = $this->createCreateForm($employee);
+        #przygotowanie formularza
+        $form = $this->createCreateForm($employee);
 
         return array(
             'employee' => $employee,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-     * Finds and displays a Employee entity.
+     * Wyświetlenie informacji konkretnego pracownika
      *
      * @Route("/{id}", name="employee_show")
      * @Method("GET")
@@ -124,25 +135,27 @@ class EmployeeController extends Controller
      */
     public function showAction($id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie pracownika
         $employee = $em->getRepository('CompanyBundle:Employee')
             ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$employee) {
-            throw $this->createNotFoundException('Unable to find Employee entity.');
+            throw $this->createNotFoundException('Nie udało się znaleźć pracownika.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'employee'      => $employee,
+            'employee' => $employee,
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-     * Displays a form to edit an existing Employee entity.
+     * Wyświetlenie formularza edycji istniejącego pracownika
      *
      * @Route("/{id}/edit", name="employee_edit")
      * @Method("GET")
@@ -150,39 +163,44 @@ class EmployeeController extends Controller
      */
     public function editAction($id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie pracownika
         $employee = $em->getRepository('CompanyBundle:Employee')
             ->findOneBy(array('id' => $id, 'company' => $this->getUser()->getCompany()));
 
         if (!$employee) {
-            throw $this->createNotFoundException('Unable to find Employee entity.');
+            throw $this->createNotFoundException('Nie udało się znaleźć pracownika.');
         }
 
+        # przygotowanie formularzy
         $editForm = $this->createEditForm($employee);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'employee'      => $employee,
-            'edit_form'   => $editForm->createView(),
+            'employee' => $employee,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Employee entity.
-    *
-    * @param Employee $employee The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Metoda zwraca formularz edycji istniejącego pracownika
+     *
+     * @param Employee $employee The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Employee $employee)
     {
+        # utworzenie formularza
         $form = $this->createForm(new EmployeeType(), $employee, array(
             'action' => $this->generateUrl('employee_update', array('id' => $employee->getId())),
             'method' => 'PUT',
         ));
 
+        # ustawienie przycisku "Zapisz"
         $form->add('submit', 'submit', array(
             'label' => 'Zapisz',
             'attr' => array(
@@ -192,8 +210,9 @@ class EmployeeController extends Controller
 
         return $form;
     }
+
     /**
-     * Edits an existing Employee entity.
+     * Zapisanie zmian u istniejącego pracownika
      *
      * @Route("/{id}", name="employee_update")
      * @Method("PUT")
@@ -201,18 +220,22 @@ class EmployeeController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        # pobranie pracownika
         $employee = $em->getRepository('CompanyBundle:Employee')->find($id);
 
         if (!$employee) {
-            throw $this->createNotFoundException('Unable to find Employee entity.');
+            throw $this->createNotFoundException('Nie udało się znaleźć pracownika.');
         }
 
+        # utworzenie formularzy
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($employee);
         $editForm->handleRequest($request);
 
+        # walidacja formularza
         if ($editForm->isValid()) {
             $em->flush();
 
@@ -220,13 +243,14 @@ class EmployeeController extends Controller
         }
 
         return array(
-            'employee'      => $employee,
-            'edit_form'   => $editForm->createView(),
+            'employee' => $employee,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
-     * Deletes a Employee entity.
+     * Usunięcie pracownika
      *
      * @Route("/{id}", name="employee_delete")
      * @Method("DELETE")
@@ -241,7 +265,7 @@ class EmployeeController extends Controller
             $employee = $em->getRepository('CompanyBundle:Employee')->find($id);
 
             if (!$employee) {
-                throw $this->createNotFoundException('Unable to find Employee entity.');
+                throw $this->createNotFoundException('Nie udało się znaleźć pracownika.');
             }
 
             $em->remove($employee);
@@ -252,7 +276,7 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Creates a form to delete a Employee entity by id.
+     * Metoda zwraca formularz służacy do usuwania pracownika
      *
      * @param mixed $id The entity id
      *
@@ -269,7 +293,6 @@ class EmployeeController extends Controller
                     'class' => 'btn-danger btn-block'
                 )
             ))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

@@ -5,14 +5,13 @@ namespace PaginationBundle\View;
 /**
  * Interfejs dla fabryki elementów tablicy stronicowania.  Wymusza wymagane metody.
  *
- * @author CB
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 interface TableFactoryInterface
 {
     /**
      * Metoda zwraca instancje klasy wiersza w tabeli stronicowania
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return TableRowInterface
      */
     public function getRowInstance();
@@ -20,7 +19,6 @@ interface TableFactoryInterface
     /**
      * Metoda zwraca instancje klasy komórki w tabeli stronicowania
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return TableCellInterface
      */
     public function getCellInstance();
@@ -28,7 +26,6 @@ interface TableFactoryInterface
     /**
      * Metoda zwraca instancje klasy komórki nagłówka w tabeli stronicowania
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return TableCellInterface
      */
     public function getHeaderCellInstance();
@@ -36,7 +33,6 @@ interface TableFactoryInterface
     /**
      * Metoda zwraca instancje klasy wiersza w tabeli stronicowania
      *
-     * @author CB <b.chojnowski@kredyty-chwilowki.pl>
      * @return TableRowInterface
      */
     public function getHeaderRowInstance();
