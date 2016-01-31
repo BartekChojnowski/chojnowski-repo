@@ -1,0 +1,49 @@
+{% extends 'ReportBundle:Main:index.html.twig' %}
+
+{% block report %}
+
+        <h2>Ogólne zestawienie pracowników</h2>
+        <div>
+            <div class="col-md-5">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="col-md-2">pracownik</th>
+                    <th class="col-md-1">zleceń</th>
+                    <th class="col-md-1">km przejechne</th>
+                    <th class="col-md-1">km średnio</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td class="col-md-2">{{ result.employee }}</td>
+                        <td class="col-md-1">{{ result.freightCount }}</td>
+                        <td class="col-md-1">{{ result.distanceSum }}</td>
+                        <td class="col-md-1">{{ result.distanceSumAverage |round }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+            <div class="col-md-7">
+                <div class="chart" id="freight-count-pie-chart"></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="chart" id="freight-count-chart"></div>
+            <div class="chart" id="distance-chart"></div>
+            <div class="chart" id="average-distance-chart"></div>
+        </div>
+
+
+        {{ freightCountChartLavaScript | raw}}
+        {{ freightCountChartScript | raw }}
+        {{ distanceChartLavaScript | raw}}
+        {{ distanceChartScript | raw }}
+        {{ averageDistanceChartLavaScript | raw}}
+        {{ averageDistanceChartScript | raw }}
+        {{ freightCountPieChartLavaScript | raw}}
+        {{ freightCountPieChartScript | raw }}
+
+{% endblock %}

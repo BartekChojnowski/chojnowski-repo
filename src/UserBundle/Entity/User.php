@@ -8,12 +8,16 @@ use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Klasa reprezentuje konto użytkownika w systemie
+ *
  * @ORM\Entity
  * @ORM\Table(name="`user`")
  */
 class User extends BaseUser
 {
     /**
+     * Identyfikator
+     *
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -21,19 +25,17 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * Firma, z którą konto jest związane
+     *
      * @ORM\OneToOne(targetEntity="CompanyBundle\Entity\Company")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      **/
     protected $company;
 
-    public function __construct()
-    {
-        parent::__construct();
-        // your own logic
-    }
-
     /**
-     * @return mixed
+     * Metoda zwraca identyfikator
+     *
+     * @return integer
      */
     public function getId()
     {
@@ -41,6 +43,8 @@ class User extends BaseUser
     }
 
     /**
+     * Metoda zwraca firmę, z którą konto jest związane
+     *
      * @return Company
      */
     public function getCompany()
@@ -49,7 +53,9 @@ class User extends BaseUser
     }
 
     /**
-     * @param Company $company
+     * Metoda ustawia firmę, z którą konto jest związane
+     *
+     * @param Company $company Firma
      */
     public function setCompany(Company $company)
     {

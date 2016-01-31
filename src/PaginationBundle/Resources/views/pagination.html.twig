@@ -1,0 +1,30 @@
+<div id="pagination-container">
+    <!-- Lista -->
+    <table id="pagination-table" class="table">
+
+    <caption>{% block title %}Lista wyników{% endblock %}</caption>
+
+    {% block body %}{% endblock %}
+
+    </table>
+    {% block paginationBar %}
+        <!-- Pasek stronicownia -->
+        <div id="pagination-bar">
+            {{ knp_pagination_render(paginatedTable.pagination) }}
+        </div>
+    {% endblock %}
+
+    <div class="pagination-fade"></div>
+    {% image '@PaginationBundle/Resources/images/ajax-loader.gif' %}
+        <img class="pagination-loader" src="{{ asset_url }}" alt="" />
+    {% endimage %}
+</div>
+
+{% javascripts '@PaginationBundle/Resources/js/*.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{% stylesheets '@PaginationBundle/Resources/css/*.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+

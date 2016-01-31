@@ -3,7 +3,7 @@
 {% block content %}
     {% javascripts '@AddressBundle/Resources/js/public/address-form.js' %}
         <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}1
+    {% endjavascripts %}
 
     <h1>Fromularz rejestracji nowej firmy </h1>
 
@@ -11,21 +11,18 @@
         {{ form_errors(form) }}
 
         <div class="form-group">
-            {{ form_label(form.name) }}
+            {{ form_row(form.name) }}
             {{ form_errors(form.name) }}
-            {{ form_widget(form.name) }}
         </div>
 
         <div class="form-group">
-            {{ form_label(form.taxId) }}
+            {{ form_row(form.taxId) }}
             {{ form_errors(form.taxId) }}
-            {{ form_widget(form.taxId) }}
         </div>
 
         <div class="form-group">
-            {{ form_label(form.email) }}
+            {{ form_row(form.email) }}
             {{ form_errors(form.email) }}
-            {{ form_widget(form.email) }}
         </div>
 
         <h3>Adresy</h3>

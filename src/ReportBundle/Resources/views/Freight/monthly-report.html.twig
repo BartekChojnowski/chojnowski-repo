@@ -1,0 +1,52 @@
+{% extends 'ReportBundle:Main:index.html.twig' %}
+
+{% block report %}
+
+    {% for year, yearResults in results %}
+        <h3>{{ year }}</h3>
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="col-md-2">miesiąc</th>
+                    <th class="col-md-1">zleceń</th>
+                    <th class="col-md-1">przejechnych [km]</th>
+                    <th class="col-md-1">średnio [km]</th>
+                    <th class="col-md-1">dojazd do zleceń [km]</th>
+                    <th class="col-md-1">średnio [km]</th>
+                    <th class="col-md-1">suma [zł]</th>
+                    <th class="col-md-1">średnio [zł]</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for result in yearResults %}
+                    <tr>
+                        <td class="col-md-2">{{ result.month }}</td>
+                        <td class="col-md-1">{{ result.freightCount }}</td>
+                        <td class="col-md-1">{{ result.distanceSum }}</td>
+                        <td class="col-md-1">{{ result.distanceAverage |round }}</td>
+                        <td class="col-md-1">{{ result.distanceToOriginSum }}</td>
+                        <td class="col-md-1">{{ result.distanceToOriginAverage |round }}</td>
+                        <td class="col-md-1">{{ result.priceSum }}</td>
+                        <td class="col-md-1">{{ result.priceAverage |round }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12">
+            <div class="chart" id="freight-count-chart-{{ year }}"></div>
+            <div class="chart" id="distance-chart-{{ year }}"></div>
+            <div class="chart" id="price-chart-{{ year }}"></div>
+        </div>
+
+        {{ charts[year].freightCountChartLavaScript | raw}}
+        {{ charts[year].freightCountChartScript | raw }}
+        {{ charts[year].distanceChartLavaScript | raw}}
+        {{ charts[year].distanceChartScript | raw }}
+        {{ charts[year].priceChartLavaScript | raw}}
+        {{ charts[year].priceChartScript | raw }}
+
+    {% endfor %}
+
+{% endblock %}

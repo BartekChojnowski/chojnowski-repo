@@ -1,0 +1,14 @@
+<thead>
+<tr
+    id="{{ row.id }}"
+    class="{{ row.class }}"
+    style="{{ row.style }}"
+    {% for attrKey,attrValue in row.data %} data-{{ attrKey }}="attrValue" {% endfor %}
+>
+    {% block cells %}
+        {% for cell in row.cells %}
+            {% include cell.template with { 'cell' : cell, 'paginatedTable' : paginatedTable } %}
+        {% endfor %}
+    {% endblock %}
+</tr>
+</thead>

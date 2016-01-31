@@ -10,17 +10,17 @@ use PhoneBundle\Entity\UserPhone;
 use UserBundle\Entity\User;
 
 /**
- * Employee
- *
- * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
+ * Klasa reprezentująca pracownika
  *
  * @ORM\Table()
  * @ORM\Entity
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
  */
 class Employee
 {
     /**
-     * @var integer
+     * @var integer Identyfikator
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -29,35 +29,43 @@ class Employee
     private $id;
 
     /**
-     * @var string
+     * @var string Imię
      *
      * @ORM\Column(name="firstName", type="string", length=60)
      */
     private $firstName;
 
     /**
-     * @var string
+     * @var string Nazwisko
      *
      * @ORM\Column(name="lastName", type="string", length=60)
      */
     private $lastName;
 
     /**
-     * @var string
+     * @var string Pesel
      *
      * @ORM\Column(name="personalId", type="string", length=11)
      */
     private $personalId;
 
     /**
-     * @var \DateTime
+     * @var \DateTime Data urodzenia
      *
      * @ORM\Column(name="dateOfBirth", type="datetime")
      */
     private $dateOfBirth;
 
     /**
-     * @var ArrayCollection
+     * @var Company Firma, do której pracownik jest przypisany
+     *
+     * @ORM\ManyToOne(targetEntity="Company")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     */
+    private $company;
+
+    /**
+     * @var ArrayCollection Grupy, do których pracownik jest przypisany
      *
      * @ORM\ManyToMany(targetEntity="Group")
      * @ORM\JoinTable(name="employees_groups"),
@@ -68,47 +76,52 @@ class Employee
     private $groups;
 
     /**
+     * Status pracownika
+     *
      * @ORM\ManyToOne(targetEntity="EmployeeStatus")
      * @ORM\JoinColumn(name="status", referencedColumnName="id")
      */
     private $status;
 
     /**
-     * @var \DateTime
+     * @var \DateTime Data rozpoczęcia pracy
      *
      * @ORM\Column(name="employmentStart", type="datetime")
      */
     private $employmentStart;
 
     /**
-     * @var \DateTime
+     * @var \DateTime Data zakończenia pracy
      *
-     * @ORM\Column(name="employmentEnd", type="datetime")
+     * @ORM\Column(name="employmentEnd", type="datetime", nullable=true)
      */
     private $employmentEnd;
 
     /**
-     * @var EmployeeAddress
+     * @var EmployeeAddress Adres
      *
      * @ORM\OneToOne(targetEntity="AddressBundle\Entity\EmployeeAddress", mappedBy="employee")
      **/
     private $address;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection Numery telefonów
      *
      * @ORM\OneToMany(targetEntity="AddressBundle\Entity\CompanyAddress", mappedBy="company")
      **/
     private $phones;
 
     /**
-     * @var User
+     * @var User Konto pracownika w systemie
      *
      * @ORM\OneToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      **/
     private $user;
 
+    /**
+     * Konstruktor
+     */
     function __construct()
     {
         $this->groups = new ArrayCollection();
@@ -116,7 +129,7 @@ class Employee
 
 
     /**
-     * Get id
+     * Metoda zwraca identyfikator
      *
      * @return integer
      */
@@ -126,9 +139,9 @@ class Employee
     }
 
     /**
-     * Set firstName
+     * Metoda ustawia imię
      *
-     * @param string $firstName
+     * @param string $firstName Imię
      *
      * @return Employee
      */
@@ -140,7 +153,7 @@ class Employee
     }
 
     /**
-     * Get firstName
+     * Metoda zwraca nazwisko
      *
      * @return string
      */
@@ -150,9 +163,9 @@ class Employee
     }
 
     /**
-     * Set lastName
+     * Metoda ustawia nazwisko
      *
-     * @param string $lastName
+     * @param string $lastName Nazwisko
      *
      * @return Employee
      */
@@ -164,7 +177,7 @@ class Employee
     }
 
     /**
-     * Get lastName
+     * Metoda zwraca nazwisko
      *
      * @return string
      */
@@ -174,9 +187,9 @@ class Employee
     }
 
     /**
-     * Set personalId
+     * Metoda ustawia pesel
      *
-     * @param string $personalId
+     * @param string $personalId Pesel
      *
      * @return Employee
      */
@@ -188,7 +201,7 @@ class Employee
     }
 
     /**
-     * Get personalId
+     * Metoda zwraca pesel
      *
      * @return string
      */
@@ -198,7 +211,7 @@ class Employee
     }
 
     /**
-     * Get dateOfBirth
+     * Metoda zwraca datę urodzenia
      *
      * @return string
      */
@@ -208,9 +221,9 @@ class Employee
     }
 
     /**
-     * Set dateOfBirth
+     * Metoda ustawia datę urodzenia
      *
-     * @param string $dateOfBirth
+     * @param string $dateOfBirth Data urodzenia
      *
      * @return Employee
      */
@@ -222,9 +235,9 @@ class Employee
     }
 
     /**
-     * Set status
+     * Metoda ustawia status
      *
-     * @param EmployeeStatus $status
+     * @param EmployeeStatus $status Status
      *
      * @return Employee
      */
@@ -236,7 +249,7 @@ class Employee
     }
 
     /**
-     * Get status
+     * Metoda zwraca status
      *
      * @return EmployeeStatus
      */
@@ -246,9 +259,9 @@ class Employee
     }
 
     /**
-     * Set employmentStart
+     * Metoda ustawia datę rozpoczęcia pracy
      *
-     * @param \DateTime $employmentStart
+     * @param \DateTime $employmentStart Data rozpoczęcia pracy
      *
      * @return employee
      */
@@ -260,7 +273,7 @@ class Employee
     }
 
     /**
-     * Get employmentStart
+     * Metoda zwraca datę rozpoczęcia pracy
      *
      * @return \DateTime
      */
@@ -270,9 +283,9 @@ class Employee
     }
 
     /**
-     * Set employmentEnd
+     * Metoda ustawia datę zakończenia pracy
      *
-     * @param \DateTime $employmentEnd
+     * @param \DateTime $employmentEnd Data zakończenia pracy
      *
      * @return Employee
      */
@@ -284,7 +297,7 @@ class Employee
     }
 
     /**
-     * Get employmentEnd
+     * Metoda zwraca datę zakończenia pracy
      *
      * @return \DateTime
      */
@@ -294,7 +307,8 @@ class Employee
     }
 
     /**
-     * Get address     *
+     * Metoda zwraca adres     *
+     *
      * @return EmployeeAddress
      */
     public function getAddress()
@@ -303,9 +317,9 @@ class Employee
     }
 
     /**
-     * Set address
+     * Metoda ustawia adres
      *
-     * @param EmployeeAddress $address
+     * @param EmployeeAddress $address Adres
      *
      * @return Employee
      */
@@ -316,7 +330,7 @@ class Employee
     }
 
     /**
-     * Get phones
+     * Metoda zwraca kolekcję telefonów
      *
      * @return ArrayCollection
      */
@@ -326,9 +340,9 @@ class Employee
     }
 
     /**
-     * Set phones
+     * Metoda ustawia kolekcję telefonów
      *
-     * @param ArrayCollection $phones
+     * @param ArrayCollection $phones Telefony
      *
      * @return Employee
      */
@@ -339,9 +353,9 @@ class Employee
     }
 
     /**
-     * Add phone
+     * Metoda dodaje telefon do kolekcji
      *
-     * @param UserPhone $phone
+     * @param UserPhone $phone Telefon
      *
      * @return Employee
      */
@@ -353,9 +367,9 @@ class Employee
     }
 
     /**
-     * Remove phone
+     * Metoda usuwa telefon z kolekcji
      *
-     * @param UserPhone $phone
+     * @param UserPhone $phone Telefon
      *
      * @return Employee
      */
@@ -367,9 +381,9 @@ class Employee
     }
 
     /**
-     * Get groups
+     * Metoda zwraca grupy, do których pracownik jest przypisany
      *
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getGroups()
     {
@@ -377,9 +391,9 @@ class Employee
     }
 
     /**
-     * Set groups
+     * Metoda ustawia grupy, do których pracownik jest przypisany
      *
-     * @param mixed $groups
+     * @param ArrayCollection $groups Kolekcja grup
      *
      * @return Employee
      */
@@ -390,9 +404,9 @@ class Employee
     }
 
     /**
-     * Add group
+     * Metoda dodaje grupę do kolekcji
      *
-     * @param Group $group
+     * @param Group $group Grupa
      *
      * @return Company
      */
@@ -404,9 +418,9 @@ class Employee
     }
 
     /**
-     * Remove group
+     * Metoda usuwa grupę z kolekcji
      *
-     * @param Group $group
+     * @param Group $group Grupa
      *
      * @return Company
      */
@@ -418,7 +432,7 @@ class Employee
     }
 
     /**
-     * Get user
+     * Metoda zwraca konto pracownika w systemie
      *
      * @return User
      */
@@ -428,9 +442,9 @@ class Employee
     }
 
     /**
-     * Set user
+     * Metoda ustawia konto pracownika w systemie
      *
-     * @param User $user
+     * @param User $user Konto pracownika
      *
      * @return Employee
      */
@@ -440,6 +454,38 @@ class Employee
         return $this;
     }
 
+    /**
+     * Metoda imię i nazwisko pracownika
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->getLastName().' '.$this->getFirstName();
+    }
+
+    /**
+     * Metoda zwraca firmę, do której pracownik jest przypisany
+     *
+     * @return Company Firma
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Metoda ustawia firmę, do której pracownik jest przypisany
+     *
+     * @param Company $company
+     *
+     * @return CompanyFreight
+     */
+    public function setCompany(Company $company)
+    {
+        $this->company = $company;
+        return $this;
+    }
 
 }
 

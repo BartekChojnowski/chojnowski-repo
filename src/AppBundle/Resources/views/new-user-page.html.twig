@@ -1,36 +1,8 @@
 {% extends '::base.html.twig' %}
 
-{% block header %}
-    <!-- Jumbotron Header -->
-    <header class="jumbotron spacer">
-        <h1>Nazwa strony</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-    </header>
-{% endblock %}
-
 {% block content %}
-    <!-- Title -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h3>Latest Features</h3>
-        </div>
-    </div>
-    <!-- /.row -->
-
     <!-- Page Features -->
     <div class="row text-center">
-
-        <div class="col-md-3 col-sm-6 feature">
-            <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
-                <div class="caption">
-                    <h3>Zarejestruj firmę</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p>
-                        <a href="{{ path('company_new') }}" class="btn btn-primary">Pokaż</a>
-                    </p>
-                </div>
-            </div>
-        </div>
+        {% include '::feature.html.twig' with {'title': 'Zarejestruj firmę', 'image': 'images/company_information_800.jpg', 'info': 'Wypełnij podstawowe dane na temat swojej firmy', 'path': 'company_new'} %}
     </div>
 {% endblock %}

@@ -1,0 +1,9 @@
+<td
+        id="{{ cell.id }}"
+        class="pagination-cell {{ cell.class }}"
+        style="{{ cell.style }}"
+        {% for attrKey,attrValue in cell.data %} data-{{ attrKey }}="attrValue" {% endfor %}
+        colspan="{{ cell.colspan }}"
+>
+{{ cell.value }}
+</td>

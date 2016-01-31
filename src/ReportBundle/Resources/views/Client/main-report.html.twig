@@ -1,0 +1,53 @@
+{% extends 'ReportBundle:Main:index.html.twig' %}
+
+{% block report %}
+
+        <h3>Ogólne zestawienie klientów</h3>
+        <div>
+            <div class="col-md-5">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="col-md-2">klient</th>
+                    <th class="col-md-1">zleceń</th>
+                    <th class="col-md-1">przejechnych [km]</th>
+                    <th class="col-md-1">średnio [km]</th>
+                    <th class="col-md-1">suma [zł]</th>
+                    <th class="col-md-1">średnio [zł]</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td class="col-md-2">{{ result.client }}</td>
+                        <td class="col-md-1">{{ result.freightCount }}</td>
+                        <td class="col-md-1">{{ result.distanceSum }}</td>
+                        <td class="col-md-1">{{ result.distanceSumAverage |round }}</td>
+                        <td class="col-md-1">{{ result.priceSum }}</td>
+                        <td class="col-md-1">{{ result.priceSumAverage |round }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+            <div class="col-md-7">
+                <div class="chart" id="freight-count-pie-chart"></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="chart" id="freight-count-chart"></div>
+            <div class="chart" id="distance-chart"></div>
+            <div class="chart" id="average-distance-chart"></div>
+        </div>
+
+
+        {{ freightCountChartLavaScript | raw}}
+        {{ freightCountChartScript | raw }}
+        {{ distanceChartLavaScript | raw}}
+        {{ distanceChartScript | raw }}
+        {{ averageDistanceChartLavaScript | raw}}
+        {{ averageDistanceChartScript | raw }}
+        {{ freightCountPieChartLavaScript | raw}}
+        {{ freightCountPieChartScript | raw }}
+
+{% endblock %}

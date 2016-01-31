@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block content -%}
+    <h1>Klienci</h1>
+
+    {% include 'ClientBundle:Client:client-list.html.twig' with {'paginatedTable' : paginatedTable} %}
+
+    <a href="{{ path('client_new') }}" class="btn btn-primary btn-block">
+        Dodaj nowego klienta
+    </a>
+{% endblock %}

@@ -3,43 +3,53 @@
 {% block content %}
     <a href="{{ path('employee') }}" class="btn-primary btn">Powrót do listy</a>
 
-    <h1>Pracownik</h1>
+    <h1>{{ employee.lastName }} {{ employee.firstName }}</h1>
     <div class="table-responsive">
         <table class="record_properties table table-striped">
             <tbody>
                 <tr>
-                    <th>Imię</th>
-                    <td>{{ entity.firstName }}</td>
+                    <th class="col-md-3">status</th>
+                    <td class="col-md-9">{{ employee.status.name |default("") }}</td>
                 </tr>
                 <tr>
-                    <th>Nazwisko</th>
-                    <td>{{ entity.lastName }}</td>
+                    <th class="col-md-3">pesel</th>
+                    <td class="col-md-9">{{ employee.personalId }}</td>
                 </tr>
                 <tr>
-                    <th>Pesel</th>
-                    <td>{{ entity.personalId }}</td>
+                    <th class="col-md-3">data urodzenia</th>
+                    <td class="col-md-9">{{ employee.dateOfBirth|date('Y-m-d') }}</td>
                 </tr>
                 <tr>
-                    <th>Data urodzenia</th>
-                    <td>{{ entity.dateOfBirth|date('Y-m-d H:i:s') }}</td>
+                    <th class="col-md-3">data zatrudnienia</th>
+                    <td class="col-md-9">{{ employee.employmentStart|date('Y-m-d') }}</td>
                 </tr>
                 <tr>
-                    <th>Data zatrudnienia</th>
-                    <td>{{ entity.employmentStart|date('Y-m-d H:i:s') }}</td>
+                    <th class="col-md-3">data zakończenia pracy</th>
+                    <td class="col-md-9">{{ employee.employmentEnd|date('Y-m-d') }}</td>
                 </tr>
                 <tr>
-                    <th>Data zakończenia pracy</th>
-                    <td>{{ entity.employmentEnd|date('Y-m-d H:i:s') }}</td>
+                    <th class="col-md-3">adres</th>
+                    <td class="col-md-9">{{ employee.address.postCode }} {{ employee.address.city }}, {{ employee.address.street }} {{ employee.address.number }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-3">grupa</th>
+                    <td class="col-md-9">
+                        {% for group in employee.groups %}
+                            {{ group.name }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="col-sm-2"></div>
-    <div class="col-sm-10">
-        <a href="{{ path('employee_edit', { 'id': entity.id }) }}" class="btn btn-primary btn-block">
+
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+        <a href="{{ path('employee_edit', { 'id': employee.id }) }}" class="btn btn-primary btn-block">
             Edytuj
         </a>
     </div>
-    {{ form(delete_form) }}
-</ul>
+    {#<div class="col-sm-12 top-buffer">#}
+        {#{{ form(delete_form) }}#}
+    {#</div>#}
 {% endblock %}

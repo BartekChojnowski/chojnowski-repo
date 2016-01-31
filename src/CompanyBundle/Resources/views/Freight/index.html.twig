@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block content -%}
+    <h1>Zlecenia</h1>
+
+    {% include 'CompanyBundle:Freight:freight-list.html.twig' with {'paginatedTable' : paginatedTable} %}
+
+    <a href="{{ path('freight_new') }}" class="btn btn-primary btn-block">
+        Dodaj nowe zlecenie
+    </a>
+    {% endblock %}

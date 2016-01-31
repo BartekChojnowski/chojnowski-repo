@@ -1,0 +1,57 @@
+{# widok przycisków przjścia między stronami #}
+
+<style>
+    .pagination-arrow {
+        vertical-align: middle;
+    }
+</style>
+
+
+{% if pageCount > 1 %}
+<div class="pagination">
+
+    {#Przycisk do pierwszej strony nie jest obecnie wykorzystywany#}
+    {#{% if first is defined and current != first %}#}
+        {#<span class="first">#}
+            {#<button class="sss_przycisk ok" onclick="location.href='{{ path(route, query|merge({(pageParameterName): first})) }}'">&lt;&lt;</button>#}
+            {#&#123;&#35;<a href="{{ path(route, query|merge({(pageParameterName): first})) }}">&lt;&lt;</a>&#35;&#125;#}
+        {#</span>#}
+    {#{% endif %}#}
+
+    {% if previous is defined %}
+        <span class="previous">
+            <input type="image" src="graf/poprzedni_16x16.png" class="pagination-arrow" onclick="location.href='{{ path(route, query|merge({(pageParameterName): previous})) }}'" />
+            {#<a href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>#}
+        </span>
+    {% endif %}
+
+    {% for page in pagesInRange %}
+        {% if page != current %}
+            <span class="page">
+                <button class="sss_przycisk ok" onclick="location.href='{{ path(route, query|merge({(pageParameterName): page})) }}'">{{ page }}</button>
+                {#<a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>#}
+            </span>
+        {% else %}
+            <span class="current">
+                <button class="sss_przycisk ok" disabled="disabled">{{ page }}</button>
+            </span>
+        {% endif %}
+    {% endfor %}
+
+    {% if next is defined %}
+        <span class="next">
+            <input type="image" src="graf/nastepny_16x16.png" class="pagination-arrow" onclick="location.href='{{ path(route, query|merge({(pageParameterName): next})) }}'" />
+            {#<a href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>#}
+        </span>
+    {% endif %}
+
+    {#Ostatnia strona nie  jest obecnie wykorzystywana#}
+
+    {#{% if last is defined and current != last %}#}
+        {#<span class="last">#}
+            {#<a href="{{ path(route, query|merge({(pageParameterName): last})) }}">&gt;&gt;</a>#}
+        {#</span>#}
+    {#{% endif %}#}
+</div>
+{% endif %}
+

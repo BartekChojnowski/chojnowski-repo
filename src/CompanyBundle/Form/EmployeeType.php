@@ -7,70 +7,115 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Formularz pracownika
+ *
+ * @package AddressBundle\Form
+ *
+ * @author Bartłomiej Chojnowski <bachojnowski@gmail.com>
+ */
 class EmployeeType extends AbstractType
 {
     /**
+     * Metoda zajmuje się utwarzeniem formularza
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', 'text', array('label' => 'imię'))
-            ->add('lastName', 'text', array('label' => 'nazwisko'))
-            ->add('personalId', 'text', array('label' => 'pesel'))
+            # imię
+            ->add('firstName', 'text', array(
+                'label' => 'imię',
+                'attr' => array(
+                    'maxlength' => 60
+                )
+            ))
+            # nazwisko
+            ->add('lastName', 'text', array(
+                'label' => 'nazwisko',
+                'attr' => array(
+                    'maxlength' => 60
+                )
+            ))
+            # pesel
+            ->add('personalId', 'text', array(
+                'label' => 'pesel',
+                'required' => false,
+                'attr' => array(
+                    'maxlength' => 11
+                )
+            ))
+            # data urodzenia
             ->add('dateOfBirth', 'datetime', array(
                 'label' => 'data urodzenia',
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
-                'attr' => array(
-                    'language' => 'pl',
-                    'class' => 'form-control input-inline datepicker',
-                    'data-provide' => 'datepicker',
-                    'data-date-format' => 'dd-mm-yyyy'
-                )
-            ))
-            ->add('employmentStart', 'date', array(
-                'label' => 'data rozpoczęcia pracy',
-                'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
-                'attr' => array(
-                    'language' => 'pl',
-                    'class' => 'form-control input-inline datepicker',
-                    'data-provide' => 'datepicker',
-                    'data-date-format' => 'dd-mm-yyyy'
-                )
-            ))
-            ->add('employmentEnd', 'date', array(
-                'label' => 'data zakończenia pracy',
-                'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
+                'format' => 'yyyy-MM-dd',
                 'required' => false,
                 'attr' => array(
                     'language' => 'pl',
                     'class' => 'form-control input-inline datepicker',
                     'data-provide' => 'datepicker',
-                    'data-date-format' => 'dd-mm-yyyy'
+                    'data-date-format' => 'yyyy-mm-dd',
+                    'data-date-autoclose' => true,
+                    'maxlength' => 9
                 )
             ))
-            ->add('groups', 'entity', array(
-                'multiple' => true,   // Multiple selection allowed
-                'expanded' => true,   // Render as checkboxes
-                'property' => 'name', // Assuming that the entity has a "name" property
-                'class'    => 'CompanyBundle\Entity\Group',
+            # data rozpoczęcia pracy
+            ->add('employmentStart', 'date', array(
+                'label' => 'data rozpoczęcia pracy',
+                'required' => false,
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'attr' => array(
+                    'language' => 'pl',
+                    'class' => 'form-control input-inline datepicker',
+                    'data-provide' => 'datepicker',
+                    'data-date-format' => 'yyyy-mm-dd',
+                    'data-date-autoclose' => true,
+                    'maxlength' => 9
+                )
             ))
+            # data zakończenia pracy
+            ->add('employmentEnd', 'date', array(
+                'label' => 'data zakończenia pracy',
+                'required' => false,
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'attr' => array(
+                    'language' => 'pl',
+                    'class' => 'form-control input-inline datepicker',
+                    'data-provide' => 'datepicker',
+                    'data-date-format' => 'yyyy-MM-dd',
+                    'maxlength' => 9
+                )
+            ))
+            # grupy, go których należy pracownik
+            ->add('groups', 'entity', array(
+                'multiple' => true,
+                'expanded' => true,
+                'property' => 'name',
+                'class'    => 'CompanyBundle\Entity\Group',
+                'label' => 'grupa'
+            ))
+            # status
             ->add('status','entity', array(
                 'class' => 'CompanyBundle:EmployeeStatus',
                 'choice_label' => 'name',
                 'label' => 'status'
+
             ))
+            # adres
             ->add('address', new EmployeeAddressType(), array(
                 'label' => 'adres'
             ));
         ;
     }
-    
+
     /**
+     * Metoda ustawia domyślne opcje formularza
+     *
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -81,6 +126,8 @@ class EmployeeType extends AbstractType
     }
 
     /**
+     * Metoda zwraca nazwę formularza
+     *
      * @return string
      */
     public function getName()

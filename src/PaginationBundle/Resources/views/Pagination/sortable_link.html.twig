@@ -1,0 +1,5 @@
+{{ title }}
+<span style="white-space: nowrap;">
+    <img class="pagination-sort-icon" src="graf/arrow_up.gif" style="opacity: {% if (postData.sort | default("") == key) and (postData.direction == "DESC") %} 1 {% else %} 0.3 {% endif %}" data-sort="{{ key }}" data-direction="DESC" />
+    <img class="pagination-sort-icon" src="graf/arrow_down.gif" style="opacity: {% if (postData.sort | default("") == key) and (postData.direction == "ASC") %} 1 {% else %} 0.3 {% endif %}"  data-sort="{{ key }}" data-direction="ASC" />
+</span>

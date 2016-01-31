@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <h1>Zestawienia</h1>
+    <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group with nested dropdown">
+        <div class="btn-group" role="group">
+            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Pracownicy <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('employee_main_report') }}">Ogólne</a></li>
+                {#<li role="separator" class="divider"></li>#}
+            </ul>
+        </div>
+        <div class="btn-group" role="group">
+            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Flota <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('car_main_report') }}">Ogólne</a></li>
+            </ul>
+        </div>
+        <div class="btn-group" role="group">
+            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Zlecenia <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('freight_montly_report') }}">Miesięczne</a></li>
+            </ul>
+        </div>
+        <div class="btn-group" role="group">
+            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Klienci <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('client_main_report') }}">Ogólne</a></li>
+            </ul>
+        </div>
+    </div>
+
+    {% block report %}
+    {% endblock %}
+{% endblock %}

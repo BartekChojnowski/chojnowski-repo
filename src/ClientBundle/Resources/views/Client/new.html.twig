@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    {% javascripts '@AddressBundle/Resources/js/public/address-form.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <a href="{{ path('employee') }}" class="btn-primary btn">Powrót do listy</a>
+
+    <h1>Rejestracja nowego klienta </h1>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="form-group">
+        {{ form_row(form.name) }}
+        {{ form_errors(form.name) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_row(form.taxId) }}
+        {{ form_errors(form.taxId) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_row(form.email) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    <h3>Adresy</h3>
+    <ul class="addresses" data-prototype="{{ form_widget(form.addresses.vars.prototype)|e }}">
+        {% for address in form.addresses %}
+            <li>{{ form_row(address.city) }}</li>
+            <li>{{ form_row(address.postcode) }}</li>
+            <li>{{ form_row(address.street) }}</li>
+            <li>{{ form_row(address.number) }}</li>
+        {% endfor %}
+    </ul>
+
+    {{ form_end(form) }}
+
+    <ul class="record_actions">
+
+    </ul>
+{% endblock %}
